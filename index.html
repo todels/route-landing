@@ -157,131 +157,134 @@
   /* coins */
   .coin{border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-weight:700;font-size:10px;flex:none;width:26px;height:26px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.25)}
 
-  /* ---------- 02 how it works ---------- */
-  .how{display:grid;grid-template-columns:1.55fr 1fr;gap:24px;align-items:stretch}
-  .diag-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-  .diag-top span{font-size:13px;color:var(--muted-foreground)}
-  .diagram{border:1px solid var(--line);border-radius:22px;background-color:var(--surface);background-image:radial-gradient(var(--grid) 1px,transparent 1.2px);background-size:22px 22px;padding:16px 20px;position:relative}
-  .diagram svg{display:block;width:100%;height:auto;overflow:visible}
-  .diagram text{font-family:var(--font)}
-  .p-path{fill:none;stroke:var(--wire);stroke-width:2}
-  .p-flow{fill:none;stroke:var(--accent);stroke-dasharray:6 9;opacity:0;transition:opacity .4s,stroke-width .5s}
-  .parts{opacity:0;transition:opacity .4s}
-  .parts circle{fill:var(--accent);stroke:#fff;stroke-width:1.5}
-  [data-step="2"] .p-flow.use,[data-step="3"] .p-flow.use,[data-step="4"] .p-flow.use{opacity:.9;animation:dash 1s linear infinite}
-  [data-step="2"] .parts,[data-step="3"] .parts,[data-step="4"] .parts{opacity:1}
-  @keyframes dash{to{stroke-dashoffset:-30}}
-  .scanbar{fill:var(--accent);opacity:0}
-  [data-step="1"] .scanbar{opacity:.55;animation:scan 1.5s ease-in-out infinite}
-  @keyframes scan{0%,100%{transform:translateY(0)}50%{transform:translateY(306px)}}
-  .pool rect{fill:var(--background);stroke:var(--line);transition:all .35s}
-  .pool text{font-size:12.5px;fill:var(--foreground)}
-  .pool .pct{font-size:11.5px;fill:var(--signal);font-weight:600;opacity:0;transition:opacity .4s}
-  .pool .tag2{font-size:11px;fill:var(--faint);opacity:0;transition:opacity .4s}
-  .pool{transition:opacity .4s}
-  .pool.lit rect{fill:var(--selected);stroke:var(--accent)}
-  [data-step="2"] .pool.used rect,[data-step="3"] .pool.used rect,[data-step="4"] .pool.used rect{fill:var(--selected);stroke:var(--selected-line)}
-  [data-step="2"] .pool.used .pct,[data-step="3"] .pool.used .pct,[data-step="4"] .pool.used .pct{opacity:1}
-  [data-step="2"] .pool:not(.used),[data-step="3"] .pool:not(.used),[data-step="4"] .pool:not(.used){opacity:.42}
-  [data-step="2"] .pool:not(.used) .tag2,[data-step="3"] .pool:not(.used) .tag2,[data-step="4"] .pool:not(.used) .tag2{opacity:1}
-  .ck{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
-  [data-step="3"] .pool.used .ck,[data-step="4"] .pool.used .ck{opacity:1;transform:none}
-  .hop{transition:opacity .4s}
-  .check-badge,.one-tx{opacity:0;transform:translateY(6px);transition:all .4s}
-  [data-step="3"] .check-badge,[data-step="4"] .check-badge,[data-step="4"] .one-tx{opacity:1;transform:none}
-  .dst{transform-box:fill-box;transform-origin:center}
-  [data-step="4"] .dst{animation:pop 1.3s ease-in-out infinite}
-  @keyframes pop{50%{transform:scale(1.1)}}
-  #outLbl{transition:fill .3s}
-  [data-step="4"] #outLbl{fill:var(--signal);font-weight:600}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-  .step{border:1px solid var(--line);border-radius:16px;padding:12px 14px;background:var(--surface);transition:all .3s;position:relative;overflow:hidden;text-align:left}
-  .step:hover{border-color:var(--wire)}
-  .step b{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
-  .step b i{width:20px;height:20px;border-radius:6px;background:var(--muted);display:grid;place-items:center;font:600 11px var(--font);font-style:normal;color:var(--muted-foreground);transition:all .3s}
-  .step p{font-size:12.5px;color:var(--muted-foreground);margin-top:6px;line-height:1.4}
-  .step.on{background:var(--background);border-color:var(--selected-line);box-shadow:0 0 0 3px rgba(86,123,81,.08)}
-  .step.on b i{background:var(--accent);color:#fff}
-  .step .prog{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--accent)}
-  .step.on .prog{animation:prog var(--dur,3.4s) linear forwards}
-  .steps.paused .step.on .prog{animation:none;width:100%}
-  @keyframes prog{to{width:100%}}
-  .proof{border:1px solid var(--line);border-radius:22px;background:var(--surface);padding:24px;display:flex;flex-direction:column;gap:18px}
-  .proof h3{font-size:20px;font-weight:500;letter-spacing:-.02em}
-  .proof .sub{font-size:13px;color:var(--muted-foreground);margin-top:4px}
-  .vs{display:flex;flex-direction:column;gap:16px}
-  .vs-row{display:grid;grid-template-columns:86px 1fr auto;gap:12px;align-items:center;font-size:13.5px}
-  .vs-row .track{height:10px;border-radius:999px;background:var(--muted);overflow:hidden}
-  .vs-row .track i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
-  .vs-row .r{text-align:right;font-size:12.5px;color:var(--muted-foreground);min-width:96px}
-  .vs-row .r b{color:var(--foreground);font-weight:600}
-  .big-edge{display:flex;align-items:baseline;gap:10px;padding:16px;border-radius:16px;background:var(--selected);border:1px solid var(--selected-line)}
-  .big-edge b{font-size:34px;font-weight:500;letter-spacing:-.03em;color:var(--signal)}
-  .big-edge span{font-size:13px;color:var(--signal)}
+  /* ---------- 02 how it works: route map ---------- */
+  .navmap{position:relative;height:620px;border:1px solid var(--line);border-radius:24px;background-color:#f2f2ec;background-image:radial-gradient(var(--grid) 1px,transparent 1.2px);background-size:22px 22px;overflow:hidden}
+  .navmap svg{position:absolute;inset:0;width:100%;height:100%}
+  .navmap text{font-family:var(--font)}
+  .road{stroke:#e3e4dc;stroke-width:9;stroke-linecap:round}
+  .scanl{stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;opacity:0;transition:opacity .35s}
+  .scanl.on{opacity:.6}
+  .navmap.found .scanl.on{opacity:.14}
+  .radar{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center}
+  .navmap.scanning .radar{animation:radar 1.4s ease-out infinite}
+  .navmap.scanning .radar.r2{animation-delay:.7s}
+  @keyframes radar{0%{transform:scale(.04);opacity:.55}100%{transform:scale(1);opacity:0}}
+  .node{cursor:pointer}
+  .node rect{fill:var(--background);stroke:var(--line);stroke-width:1.2;transition:stroke .3s,fill .3s}
+  .node:hover rect{stroke:var(--wire)}
+  .node text{font-size:12px;font-weight:600;fill:var(--foreground)}
+  .node .cl{font-size:8px;font-weight:700;fill:#fff}
+  .node.hit rect{stroke:var(--selected-line)}
+  .node.on-route rect{stroke:var(--accent);stroke-width:2}
+  .node.dest rect{fill:var(--selected)}
+  .route-o,.route-c,.route-d,.alt{fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .route-o{stroke:#354f32;stroke-width:12;stroke-dasharray:1;stroke-dashoffset:1}
+  .route-c{stroke:#9cc489;stroke-width:6;stroke-dasharray:1;stroke-dashoffset:1}
+  .navmap.found .route-o,.navmap.found .route-c{stroke-dashoffset:0;transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)}
+  .route-d{stroke:#fff;stroke-width:2;stroke-dasharray:.012 .022;opacity:0}
+  .navmap.found .route-d{opacity:.9;animation:rd 1.4s linear infinite;transition:opacity .3s 1s}
+  @keyframes rd{to{stroke-dashoffset:-.068}}
+  .alt{stroke:#b9bdb2;stroke-width:5;stroke-dasharray:.008 .016;opacity:0}
+  .navmap.found .alt{opacity:1;transition:opacity .5s .9s}
+  .tagl{opacity:0;transition:opacity .4s 1s}
+  .navmap.found .tagl{opacity:1}
+  .pin{opacity:0}
+  .navmap.found .pin{opacity:1;animation:bob 1.2s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-5px)}}
+  .runner{opacity:0}
+  .navmap.found .runner{opacity:1;transition:opacity .3s 1s}
+  .navside{position:absolute;left:16px;top:16px;bottom:16px;width:300px;display:flex;flex-direction:column;gap:12px;z-index:2;pointer-events:none}
+  .navside > *{pointer-events:auto}
+  .navcard{background:var(--background);border-radius:18px;box-shadow:0 12px 30px -14px rgba(0,0,0,.22),0 0 0 1px rgba(202,204,197,.7);padding:14px}
+  .ft{display:grid;grid-template-columns:18px 1fr;gap:4px 10px;align-items:center}
+  .ft .mk{width:12px;height:12px;border-radius:50%;border:3px solid var(--foreground);justify-self:center}
+  .ft .mk.to{border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);border:0;width:13px;height:13px}
+  .ft .vl{width:2px;height:12px;justify-self:center;background:repeating-linear-gradient(var(--wire) 0 2px,transparent 2px 4px)}
+  .ft .fld{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:11px;background:var(--surface);border:1px solid var(--line);font-size:13.5px;font-weight:500;min-height:38px}
+  .ft .fld .coin{width:20px;height:20px;font-size:8px}
+  .ft .fld small{margin-left:auto;font-size:11.5px;color:var(--muted-foreground);font-weight:400}
+  .caret{display:inline-block;width:1.5px;height:15px;background:var(--accent);animation:blink 1s step-end infinite;margin-left:-4px}
+  .dexh{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--muted-foreground);margin:2px 2px 8px}
+  .dexh b{font-size:13px;color:var(--foreground);font-weight:600}
+  .dex{display:grid;grid-template-columns:16px 1fr auto;gap:10px;align-items:center;padding:4px 4px;font-size:13px;border-top:1px solid rgba(37,38,32,.06)}
+  .dex .st{width:14px;height:14px;border-radius:50%;border:2px solid var(--line)}
+  .dex.run .st{border-top-color:var(--accent);animation:spin .7s linear infinite}
+  .dex.ok .st{border:0;background:var(--accent);position:relative}
+  .dex.ok .st::after{content:"";position:absolute;left:4px;top:2px;width:3px;height:6px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .dex span:last-child{font-size:12px;color:var(--faint)}
+  .dex.ok span:last-child{color:var(--muted-foreground)}
+  .rcard{opacity:0;transform:translateY(10px);transition:all .45s ease}
+  .navmap.found .rcard{opacity:1;transform:none;transition-delay:.9s}
+  .rcard .top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted-foreground)}
+  .rcard .top b{color:var(--signal);font-weight:600;font-size:12.5px}
+  .rcard .outv{font-size:24px;font-weight:500;letter-spacing:-.02em;margin:6px 0 2px}
+  .rcard .outv small{font-size:13px;color:var(--muted-foreground);font-weight:400;letter-spacing:0}
+  .hops{display:flex;flex-direction:column;gap:5px;margin:10px 0;font-size:12.5px}
+  .hops div{display:flex;justify-content:space-between;gap:8px}
+  .hops span:last-child{color:var(--muted-foreground)}
+  .rcard .foot2{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .better{color:var(--signal)!important;background:var(--selected);border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:500}
+  .mini-btn{font-size:12.5px;font-weight:500;padding:7px 12px;border-radius:11px;background:var(--cta);color:#f7f7f2}
+  .proofrow{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;margin-top:16px}
+  .proofrow > div{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:18px}
+  .proofrow h3{font-size:19px;font-weight:500;letter-spacing:-.02em}
+  .proofrow .sub{font-size:13px;color:var(--muted-foreground);margin:4px 0 10px}
+  .pc b{display:block;font-size:13px;font-weight:600;margin-bottom:10px}
+  .pc .big{font-size:28px;font-weight:500;letter-spacing:-.03em;color:var(--signal)}
+  .pc .big small{font-size:13px;color:var(--muted-foreground);font-weight:400;letter-spacing:0}
+  .pc .track{height:8px;border-radius:999px;background:var(--muted);overflow:hidden;margin:12px 0 6px}
+  .pc .track i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
+  .pc span{font-size:12px;color:var(--muted-foreground)}
   .lnk{font-size:13.5px;color:var(--accent);display:inline-flex;align-items:center;gap:6px;font-weight:500}
   .lnk svg{width:12px;height:12px;transition:transform .2s}
   .lnk:hover svg{transform:translate(2px,-2px)}
-
-  /* ---------- 03 markets ---------- */
-  .cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-  .cat{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 7px;border-radius:16px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:500;transition:all .2s}
-  .cat:hover{border-color:var(--wire)}
-  .cat .ico{width:30px;height:30px;border-radius:10px;background:linear-gradient(145deg,#e7e8e0,#c9cbc1);box-shadow:inset 0 -2px 0 rgba(0,0,0,.08);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
-  .cat:hover .ico{transform:rotate(-8deg) scale(1.08)}
-  .cat.on{background:var(--cta);color:#f7f7f2;border-color:var(--cta-border)}
-  .cat.on .ico{background:var(--g,linear-gradient(145deg,#ef5b5b,#a81f2b))}
-  .cat small{font-size:11.5px;color:var(--faint);font-weight:500}
-  .markets{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
-  .lead{border:1px solid var(--line);border-radius:24px;background:var(--surface);padding:24px;display:flex;flex-direction:column;gap:18px;position:relative}
-  .lead-head{display:flex;align-items:center;gap:14px}
-  .lead-head .coin{width:48px;height:48px;font-size:13px}
-  .lead-head b{font-size:20px;font-weight:600;display:block;letter-spacing:-.01em}
-  .lead-head small{font-size:13px;color:var(--muted-foreground)}
-  .lead-head .px{margin-left:auto;text-align:right}
-  .lead-head .px b{font-size:28px;font-weight:500;letter-spacing:-.02em;padding:0 4px;border-radius:6px}
   .swapin{animation:swapIn .4s ease}
   @keyframes swapIn{from{opacity:0;transform:translateY(6px)}}
-  .chart{height:210px;border-radius:16px;background:var(--background);border:1px solid var(--line);position:relative;overflow:hidden;cursor:crosshair}
-  .chart svg{position:absolute;inset:0;width:100%;height:100%}
-  .chart .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1s ease}
-  .chart.drawn .ln{stroke-dashoffset:0}
-  .chart .ar{opacity:0;transition:opacity .8s .3s}
-  .chart.drawn .ar{opacity:1}
-  .range{display:flex;gap:4px;position:absolute;right:12px;top:12px;z-index:2}
-  .range button{font-size:11.5px;padding:3px 8px;border-radius:7px;color:var(--muted-foreground)}
-  .range button.on{background:var(--muted);color:var(--foreground)}
-  .xh{position:absolute;top:0;bottom:0;width:1px;background:var(--wire);opacity:0;pointer-events:none}
-  .xdot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid #fff;transform:translate(-50%,-50%);opacity:0;pointer-events:none;box-shadow:0 0 0 1px var(--accent)}
-  .xtip{position:absolute;top:10px;transform:translateX(-50%);font-size:11.5px;padding:4px 8px;border-radius:8px;background:var(--cta);color:#f7f7f2;white-space:nowrap;opacity:0;pointer-events:none}
-  .chart:hover .xh,.chart:hover .xdot,.chart:hover .xtip{opacity:1}
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  .kpis div{font-size:12px;color:var(--muted-foreground)}
-  .kpis b{display:block;font-size:17px;color:var(--foreground);font-weight:500;margin-top:2px}
-  .lead-cta{display:flex;gap:10px}
-  .usp{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted-foreground)}
+
+  /* ---------- 03 markets: asset wall + head-to-head ---------- */
+  .wall{display:flex;flex-direction:column;gap:10px;margin:0 0 28px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .wrow{display:flex;gap:10px;width:max-content;animation:mq var(--t,60s) linear infinite}
+  .wrow.rev{animation-direction:reverse}
+  .wall:hover .wrow{animation-play-state:paused}
+  .chip{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:16px;border:1px solid var(--line);background:var(--surface);white-space:nowrap;transition:border-color .2s,background .2s,transform .2s}
+  .chip:hover{border-color:var(--wire);transform:translateY(-2px)}
+  .chip.sel{border-color:var(--selected-line);background:var(--selected)}
+  .chip .coin{width:32px;height:32px;font-size:10px}
+  .chip b{font-size:14px;font-weight:600;display:block;line-height:1.15;text-align:left}
+  .chip small{font-size:12px;color:var(--muted-foreground)}
+  .chip .px{font-size:13px;font-weight:500;margin-left:6px;border-radius:5px;padding:0 3px}
+  .wlab{display:inline-flex;align-items:center;padding:0 14px;border-radius:16px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-foreground);border:1px dashed var(--wire);white-space:nowrap}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  .compare{display:grid;grid-template-columns:1fr 1.3fr;gap:32px;border:1px solid var(--line);border-radius:24px;background:var(--surface);padding:28px;align-items:center}
+  .cmp-l h3{font-size:30px;font-weight:500;letter-spacing:-.03em;line-height:1.1}
+  .cmp-l p{font-size:14.5px;color:var(--muted-foreground);margin:10px 0 20px;max-width:380px}
+  .cmp-ctl{display:flex;flex-direction:column;gap:12px}
+  .asset{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:16px;background:var(--background);border:1px solid var(--line)}
+  .asset .coin{width:36px;height:36px;font-size:11px}
+  .asset b{font-size:15px;display:block}
+  .asset small{font-size:12.5px;color:var(--muted-foreground)}
+  .asset .px{margin-left:auto;font-size:15px;font-weight:500;border-radius:5px;padding:0 3px}
+  .hint{font-size:12px;color:var(--faint)}
+  .board{position:relative;height:272px}
+  .lrow{position:absolute;left:0;right:0;height:60px;display:grid;grid-template-columns:118px 1fr 128px;gap:14px;align-items:center;padding:0 14px;border-radius:16px;border:1px solid transparent;transition:top .8s cubic-bezier(.2,.7,.3,1),background .3s,border-color .3s}
+  .lrow .nm{display:flex;align-items:center;gap:9px;font-weight:600;font-size:14px}
+  .lrow .nm i{width:24px;height:24px;border-radius:8px;background:var(--muted);display:grid;place-items:center;font:700 10px var(--font);font-style:normal;color:var(--muted-foreground)}
+  .lrow .bar{height:10px;border-radius:999px;background:var(--muted);overflow:hidden}
+  .lrow .bar i{display:block;height:100%;width:0;border-radius:999px;background:var(--wire);transition:width 1s cubic-bezier(.2,.7,.3,1)}
+  .lrow .v{text-align:right;font-size:14px;font-weight:500;line-height:1.2}
+  .lrow .v small{display:block;font-size:11.5px;color:var(--loss);font-weight:500}
+  .lrow.me{background:var(--selected);border-color:var(--selected-line)}
+  .lrow.me .nm i{background:var(--cta);color:#f7f7f2}
+  .lrow.me .bar i{background:var(--accent)}
+  .lrow.me .v small{color:var(--signal)}
+  .callout{margin-top:14px;padding:14px 16px;border-radius:16px;background:var(--cta);color:#f7f7f2;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
+  .callout b{font-size:24px;font-weight:500;color:var(--lime);letter-spacing:-.02em}
+  .axis{font-size:11px;color:var(--faint);text-align:right;margin-top:6px}
+  .usp{display:flex;gap:22px;flex-wrap:wrap;font-size:13.5px;color:var(--muted-foreground);margin-top:22px;justify-content:center}
   .usp span{display:inline-flex;align-items:center;gap:7px}
   .usp svg{color:var(--accent)}
-  .tickers{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
-  .tickers.fill{align-content:stretch}
-  .tk{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:13px 14px;border-radius:18px;border:1px solid var(--line);background:var(--surface);text-align:left;transition:border-color .2s,transform .2s,box-shadow .2s;animation:swapIn .35s ease backwards}
-  .tk:hover{border-color:var(--wire);transform:translateY(-1px);box-shadow:0 6px 16px -10px rgba(0,0,0,.25)}
-  .tk.on{border-color:var(--selected-line);background:var(--selected)}
-  .tk .nm{font-weight:600;font-size:14px;line-height:1.2}
-  .tk .nm small{display:block;font-weight:400;font-size:12px;color:var(--muted-foreground)}
-  .tk .r{text-align:right;font-size:14px;font-weight:500}
-  .tk .r span{border-radius:5px;padding:0 3px}
-  .tk .r small{display:block;font-size:12px;font-weight:500}
   .up{color:var(--signal)}
   .dn{color:var(--loss)}
-  .tk.more{grid-column:1/-1;display:flex;justify-content:space-between;color:var(--muted-foreground);font-size:13.5px}
-  .marquee{margin-top:34px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:12px 0}
-  .marquee > div{display:inline-flex;gap:36px;animation:mq 50s linear infinite;font-size:13.5px;color:var(--muted-foreground)}
-  .marquee:hover > div{animation-play-state:paused}
-  .marquee button{display:inline-flex;gap:6px;align-items:baseline;color:var(--muted-foreground)}
-  .marquee button:hover b{text-decoration:underline}
-  .marquee b{color:var(--foreground);font-weight:600}
-  .marquee span{border-radius:5px;padding:0 3px}
-  @keyframes mq{to{transform:translateX(-50%)}}
 
   /* ---------- 04 builders (dark) ---------- */
   .dark{background:var(--ink);color:#f1f1ea;border-bottom-color:var(--ink-line)}
@@ -347,7 +350,7 @@
 
   /* ---------- 05 coverage ---------- */
   .cov{display:grid;grid-template-columns:1fr 1.5fr;gap:20px;align-items:start}
-  .cov > *,.how > *,.markets > *,.build > *{min-width:0}
+  .cov > *,.compare > *,.build > *{min-width:0}
   .chain-hero{border:1px solid var(--selected-line);border-radius:24px;background:var(--selected);padding:24px;display:flex;flex-direction:column;gap:16px;transition:background .3s,border-color .3s}
   .chain-hero.data{background:var(--surface);border-color:var(--line)}
   .chain-hero .head{display:flex;align-items:center;gap:12px}
@@ -406,7 +409,10 @@
 
   /* ---------- responsive ---------- */
   @media (max-width:1000px){
-    .how,.markets,.build,.cov{grid-template-columns:1fr}
+    .compare,.build,.cov,.proofrow{grid-template-columns:1fr}
+    .navmap{height:auto}
+    .navmap svg{position:relative;height:auto;display:block}
+    .navside{position:static;width:auto;padding:0 12px 12px;flex-direction:column}
     .links{display:none}
   }
   @media (max-width:640px){
@@ -421,9 +427,7 @@
     .amt .v,.amt input{font-size:32px}
     .stats{position:relative;bottom:auto;gap:22px;flex-wrap:wrap;margin-top:32px}
     .stat b{font-size:20px}
-    .steps{grid-template-columns:1fr 1fr}
-    .tickers,.feats,.ch-kpi,.calc{grid-template-columns:1fr}
-    .kpis{grid-template-columns:1fr 1fr}
+    .feats,.ch-kpi,.calc{grid-template-columns:1fr}
     .matrix{overflow-x:auto}
     table{min-width:520px}
     .end .big{font-size:80px}
@@ -476,16 +480,6 @@
         <path id="rR2" d="M950 540H1160A50 50 0 0 1 1210 590V940"/>
         <path id="rR3" d="M1260 -40V290A50 50 0 0 1 1210 340H950"/>
       </g>
-      <g font-family="Geist,Arial" font-weight="700" font-size="10" fill="#fff" text-anchor="middle">
-        <g><circle r="13" fill="#627eea"/><text y="3.5">E</text><animateMotion dur="7s" repeatCount="indefinite"><mpath href="#rL1"/></animateMotion></g>
-        <g><circle r="13" fill="#2b4c9b"/><text y="3.5">S</text><animateMotion dur="7s" begin="-3.5s" repeatCount="indefinite"><mpath href="#rL1"/></animateMotion></g>
-        <g><circle r="13" fill="#2f9e5a"/><text y="3.5">G</text><animateMotion dur="8s" begin="-2s" repeatCount="indefinite"><mpath href="#rL2"/></animateMotion></g>
-        <g><circle r="13" fill="#d0873a"/><text y="3.5">P</text><animateMotion dur="8s" begin="-6s" repeatCount="indefinite"><mpath href="#rL2"/></animateMotion></g>
-        <g><circle r="13" fill="#76b900"/><text y="3.5">N</text><animateMotion dur="7s" begin="-1s" repeatCount="indefinite"><mpath href="#rR1"/></animateMotion></g>
-        <g><circle r="13" fill="#252620"/><text y="3.5">r</text><animateMotion dur="7s" begin="-4.5s" repeatCount="indefinite"><mpath href="#rR1"/></animateMotion></g>
-        <g><circle r="13" fill="#cc2936"/><text y="3.5">T</text><animateMotion dur="9s" begin="-3s" repeatCount="indefinite"><mpath href="#rR2"/></animateMotion></g>
-        <g><circle r="13" fill="#c9a227"/><text y="3.5">Au</text><animateMotion dur="9s" begin="-5s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#rR3"/></animateMotion></g>
-      </g>
     </svg>
 
     <div class="hero-copy wrap">
@@ -530,65 +524,55 @@
 <!-- ================= 02 HOW IT WORKS ================= -->
 <section id="how">
   <div class="wrap">
-    <div class="note"><b>02 How it works</b><span>Plays on loop while on screen: Scan sweeps the pools, Split sends tokens flowing down each route (line weight = share), Check pops a tick per route, Sign pulses the output. Trade size changes the split: $10 uses one pool, $25,000 splits three ways through a USDG hop. Hover pauses. Pool names are placeholders.</span></div>
+    <div class="note"><b>02 How it works</b><span>Navigation-style. From / To up top, then every DEX gets scanned: rows tick off and roads light up outward from ETH like a radar. The best route draws in like a maps route, the runner-up shows dashed, and a dot drives the path. Loops through NVDA, GLD, TSLA, HOOKR, ROUTE; click any asset on the map to route there. DEX names past Uniswap v4 and Fables are placeholders.</span></div>
     <div class="sec-head rv">
       <div>
         <span class="eyebrow"><span class="dot"></span>How Route works</span>
-        <h2 class="h2">One swap.<br>Every pool checked.</h2>
-        <p class="lede">You pick the pair. Route does the searching, splitting and checking, so you get more out of every trade.</p>
+        <h2 class="h2">Every pool scanned.<br>The best route, found.</h2>
+        <p class="lede">Route reads every pool on every DEX, maps the paths between assets and picks the one that gets you the most out, like navigation for your trade.</p>
       </div>
     </div>
-    <div class="how">
-      <div class="rv d1" id="howMain">
-        <div class="diag-top"><span>Trade size</span><div class="seg" id="sizeSeg"><button type="button" data-usd="10">$10</button><button type="button" data-usd="1000">$1,000</button><button type="button" data-usd="25000" class="on">$25,000</button></div></div>
-        <div class="diagram">
-          <svg id="diag" data-step="1" viewBox="0 0 860 380" role="img" aria-label="ETH is split across pools, sometimes via a USDG hop, and arrives as NVDA in one transaction.">
-            <defs>
-              <path id="rt1" d="M112 190C220 190 230 70 340 70H490C620 70 640 190 748 190"/>
-              <path id="rt2" d="M112 190C220 190 230 160 340 160H620C680 160 690 190 748 190"/>
-              <path id="rt3" d="M112 190C220 190 230 250 340 250H490C620 250 640 190 748 190"/>
-              <path id="rt4" d="M112 190C220 190 230 335 340 335H420"/>
-            </defs>
-            <g><use class="p-path" href="#rt1"/><use class="p-path" href="#rt2"/><use class="p-path" href="#rt3"/><use class="p-path" href="#rt4"/></g>
-            <g><use class="p-flow" data-r="1" href="#rt1"/><use class="p-flow" data-r="2" href="#rt2"/><use class="p-flow" data-r="3" href="#rt3"/></g>
-            <g class="parts" id="parts"></g>
-            <rect class="scanbar" x="330" y="40" width="170" height="3" rx="1.5"/>
-            <text id="scanTxt" x="0" y="22" font-size="12" fill="#72736b">Checking pools… 0</text>
-            <!-- pools -->
-            <g class="pool" data-r="1"><rect x="340" y="48" width="150" height="44" rx="12"/><text x="356" y="75">Uniswap v4</text><text class="pct" x="474" y="75" text-anchor="end"></text><text class="tag2" x="474" y="75" text-anchor="end">not needed</text><g class="ck"><circle cx="490" cy="70" r="9" fill="#567b51"/><path d="M486 70l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
-            <g class="pool" data-r="2"><rect x="340" y="138" width="150" height="44" rx="12"/><text x="356" y="165">Pool B</text><text class="pct" x="474" y="165" text-anchor="end"></text><text class="tag2" x="474" y="165" text-anchor="end">not needed</text><g class="ck"><circle cx="490" cy="160" r="9" fill="#567b51"/><path d="M486 160l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
-            <g class="pool" data-r="3"><rect x="340" y="228" width="150" height="44" rx="12"/><text x="356" y="255">Pool C</text><text class="pct" x="474" y="255" text-anchor="end"></text><text class="tag2" x="474" y="255" text-anchor="end">not needed</text><g class="ck"><circle cx="490" cy="250" r="9" fill="#567b51"/><path d="M486 250l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
-            <g class="pool" data-r="4"><rect x="340" y="313" width="150" height="44" rx="12"/><text x="356" y="340">Pool D</text><text class="tag2" x="474" y="340" text-anchor="end">worse price</text></g>
-            <!-- hop -->
-            <g class="hop" id="hop"><circle cx="590" cy="160" r="22" fill="#2f9e5a"/><text x="590" y="164" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">G</text><text x="590" y="200" text-anchor="middle" font-size="11" fill="#72736b">USDG hop</text></g>
-            <!-- endpoints -->
-            <g><circle cx="80" cy="190" r="32" fill="#627eea"/><text x="80" y="195" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">ETH</text><text id="payLbl" x="80" y="245" text-anchor="middle" font-size="12.5" fill="#72736b"></text></g>
-            <g><circle class="dst" cx="780" cy="190" r="32" fill="#76b900"/><text x="780" y="195" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">NVDA</text><text id="outLbl" x="780" y="245" text-anchor="middle" font-size="12.5" fill="#72736b"></text></g>
-            <g class="check-badge"><rect x="640" y="20" width="200" height="34" rx="17" fill="#eff4ec" stroke="#b8cfae"/><text x="740" y="42" text-anchor="middle" font-size="12" fill="#354f32" font-weight="500">✓ simulated before you see it</text></g>
-            <g class="one-tx"><rect x="690" y="270" width="180" height="40" rx="14" fill="#272b21"/><text x="780" y="295" text-anchor="middle" font-size="13" fill="#f7f7f2" font-weight="500">1 signature</text></g>
-          </svg>
+    <div class="navmap rv d1" id="navmap">
+      <svg id="map" viewBox="0 0 1160 560" preserveAspectRatio="xMidYMid meet" aria-label="Map of assets connected by DEX pools. Route scans them and highlights the best path.">
+        <g id="roads"></g>
+        <g id="scans"></g>
+        <circle class="radar" id="radar1" r="640"/>
+        <circle class="radar r2" id="radar2" r="640"/>
+        <path class="alt" id="altP" pathLength="1"/>
+        <path class="route-o" id="routeO" pathLength="1"/>
+        <path class="route-c" id="routeC" pathLength="1"/>
+        <path class="route-d" id="routeD" pathLength="1"/>
+        <g id="nodes"></g>
+        <g class="tagl" id="altTag"><rect rx="11" height="22" fill="#fcfcf9" stroke="#dededa"/><text font-size="11" fill="#72736b" y="15"></text></g>
+        <g class="tagl" id="bestTag"><rect rx="11" height="22" fill="#272b21"/><text font-size="11" fill="#f7f7f2" font-weight="500" y="15"></text></g>
+        <g id="runnerG"></g>
+        <g id="pinPos"><g class="pin"><path d="M0 -26c-7 0-12 5-12 11 0 8 12 19 12 19s12-11 12-19c0-6-5-11-12-11Z" fill="#567b51" stroke="#fff" stroke-width="2"/><circle cy="-15" r="4" fill="#fff"/></g></g>
+      </svg>
+      <div class="navside">
+        <div class="navcard">
+          <div class="ft">
+            <span class="mk"></span><div class="fld"><span class="coin" style="background:#627eea">E</span>ETH<small>$10,000</small></div>
+            <span class="vl"></span><span></span>
+            <span class="mk to"></span><div class="fld" id="toFld"></div>
+          </div>
         </div>
-        <div class="steps" id="steps">
-          <button type="button" class="step" data-s="1"><b><i>1</i>Scan</b><p>Reads every pool on the chain, live. Onchain liquidity only.</p><span class="prog"></span></button>
-          <button type="button" class="step" data-s="2"><b><i>2</i>Split</b><p>Splits the trade across pools and hops for the most out, after gas.</p><span class="prog"></span></button>
-          <button type="button" class="step" data-s="3"><b><i>3</i>Check</b><p>Simulates the route through the executor before quoting.</p><span class="prog"></span></button>
-          <button type="button" class="step" data-s="4"><b><i>4</i>Sign</b><p>One transaction. Approve and swap batched where supported.</p><span class="prog"></span></button>
+        <div class="navcard">
+          <div class="dexh"><span>Scanning DEXs</span><b class="num" id="poolCt">0 pools</b></div>
+          <div id="dexList"></div>
         </div>
+        <div class="navcard rcard" id="rcard"></div>
       </div>
-      <div class="proof rv d2" id="proof">
-        <div>
-          <h3>Better routes, measured.</h3>
-          <p class="sub">Route v2 vs other aggregators. 102 trades, same block, after gas.</p>
-        </div>
-        <div class="big-edge"><b class="num" data-count="5.6" data-pre="+" data-dec="1">+5.6</b><span>bps median edge over Kyber</span></div>
-        <div class="vs num">
-          <div class="vs-row"><span>Kyber</span><span class="track"><i data-w="88"></i></span><span class="r"><b>81 of 92</b> · +5.6 bps</span></div>
-          <div class="vs-row"><span>0x</span><span class="track"><i data-w="77"></i></span><span class="r"><b>58 of 75</b> · +2.5 bps</span></div>
-          <div class="vs-row"><span>Nordstern</span><span class="track"><i data-w="57"></i></span><span class="r"><b>51 of 89</b> · +0.4 bps</span></div>
-        </div>
-        <p class="sub" style="margin:0">Trades won, median edge. $10, $1,000 and $25,000 sizes across 34 pairs.</p>
+      <span class="ph-tag" style="right:14px;bottom:12px">click any asset to route there</span>
+    </div>
+    <div class="proofrow rv d2" id="proof">
+      <div>
+        <h3>Better routes, measured.</h3>
+        <p class="sub">Route v2 vs other aggregators. 102 trades, same block, after gas.</p>
         <a class="lnk" href="#">Read the case study<svg class="i"><use href="#out"/></svg></a>
       </div>
+      <div class="pc"><b>vs Kyber</b><div class="big num">+5.6 <small>bps median</small></div><div class="track"><i data-w="88"></i></div><span>Won 81 of 92 trades</span></div>
+      <div class="pc"><b>vs 0x</b><div class="big num">+2.5 <small>bps median</small></div><div class="track"><i data-w="77"></i></div><span>Won 58 of 75 trades</span></div>
+      <div class="pc"><b>vs Nordstern</b><div class="big num">+0.4 <small>bps median</small></div><div class="track"><i data-w="57"></i></div><span>Won 51 of 89 trades</span></div>
     </div>
   </div>
 </section>
@@ -596,41 +580,36 @@
 <!-- ================= 03 MARKETS ================= -->
 <section id="markets">
   <div class="wrap">
-    <div class="note"><b>03 Onchain markets</b><span>Stocks lead. Pills switch the list, any row (or ticker in the strip) becomes the lead card. Prices tick live and flash. Chart draws in, range tabs redraw it, hover shows a crosshair. "Buy" jumps up to the hero with that token loaded. Prices are samples from route.fun/yield.</span></div>
+    <div class="note"><b>03 Onchain markets</b><span>No charts. A moving wall of what you can trade (stocks, ETFs and gold, crypto), then a head-to-head: the same order through Route and other aggregators, rows race into place. Click any chip in the wall to compare that asset, change the order size on the left. Gaps use the case-study medians for illustration; per-asset numbers should come from Route.</span></div>
     <div class="sec-head rv">
       <div>
         <span class="eyebrow"><span class="dot"></span>Onchain markets</span>
-        <h2 class="h2">Stocks, onchain.<br>Open 24/7.</h2>
-        <p class="lede">Tokenized stocks, ETFs and gold trade on Robinhood Chain. Route gets you the best price on every one of them, in your own wallet.</p>
+        <h2 class="h2">Stocks, onchain.<br>Best price, 24/7.</h2>
+        <p class="lede">Tokenized stocks, ETFs and gold trade on Robinhood Chain around the clock. Route gets you more of every one of them than anywhere else onchain.</p>
       </div>
       <a class="btn sec" href="#">Open screener<svg class="i"><use href="#out"/></svg></a>
     </div>
-    <div class="cats rv d1" id="cats">
-      <button type="button" class="cat on" data-c="stocks" style="--g:linear-gradient(145deg,#ef5b5b,#a81f2b)"><span class="ico"></span>Stocks <small>8</small></button>
-      <button type="button" class="cat" data-c="etfs" style="--g:linear-gradient(145deg,#6e8ce0,#2b4c9b)"><span class="ico"></span>ETFs &amp; gold <small>3</small></button>
-      <button type="button" class="cat" data-c="majors" style="--g:linear-gradient(145deg,#f7b25c,#d5761a)"><span class="ico"></span>Majors <small>4</small></button>
-      <button type="button" class="cat" data-c="launch" style="--g:linear-gradient(145deg,#d6f56b,#86b31c)"><span class="ico"></span>Launchpads <small>8</small></button>
-    </div>
-    <div class="markets rv d2">
-      <div class="lead" id="lead">
-        <div class="lead-head" id="leadHead"></div>
-        <div class="chart" id="chart">
-          <div class="range" id="range"><button type="button">1H</button><button type="button" class="on">1D</button><button type="button">1W</button><button type="button">1M</button></div>
-          <svg viewBox="0 0 600 210" preserveAspectRatio="none" aria-hidden="true">
-            <defs><linearGradient id="fillg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#567b51" stop-opacity=".18"/><stop offset="1" stop-color="#567b51" stop-opacity="0"/></linearGradient>
-            <linearGradient id="fillr" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#a2483f" stop-opacity=".14"/><stop offset="1" stop-color="#a2483f" stop-opacity="0"/></linearGradient></defs>
-            <path class="ar" id="chArea"/>
-            <path class="ln" id="chLine" pathLength="1"/>
-          </svg>
-          <div class="xh" id="xh"></div><div class="xdot" id="xdot"></div><div class="xtip num" id="xtip"></div>
+  </div>
+  <div class="wall rv d1" id="wall"></div>
+  <div class="wrap">
+    <div class="compare rv d2" id="compare">
+      <div class="cmp-l">
+        <h3>Same order.<br>More <span id="cmpSym">NVDA</span>.</h3>
+        <p>We send the same trade through Route and the other aggregators at the same block. Route comes out on top.</p>
+        <div class="cmp-ctl">
+          <div class="asset" id="cmpAsset"></div>
+          <div class="seg" id="amtSeg" style="align-self:flex-start"><button type="button" data-a="1000">$1,000</button><button type="button" data-a="10000" class="on">$10,000</button><button type="button" data-a="100000">$100,000</button></div>
+          <span class="hint">Pick any asset from the wall above.</span>
+          <button class="btn pri" type="button" id="cmpBuy" style="align-self:flex-start">Buy NVDA on Route</button>
         </div>
-        <div class="kpis num" id="kpis"></div>
-        <div class="lead-cta"><button class="btn pri" type="button" id="buyBtn">Buy</button><button class="btn sec" type="button" id="limitBtn">Set a limit</button></div>
-        <div class="usp"><span><svg class="i"><use href="#clock"/></svg>Trades on weekends</span><span><svg class="i"><use href="#check"/></svg>Settles in seconds</span><span><svg class="i"><use href="#key"/></svg>Self-custody</span></div>
       </div>
-      <div class="tickers num" id="tickers"></div>
+      <div>
+        <div class="board" id="board"></div>
+        <div class="axis">bars zoomed in to show the gap</div>
+        <div class="callout"><span id="callTxt">More NVDA than on Kyber</span><b class="num" id="callV">+$5.60</b></div>
+      </div>
     </div>
-    <div class="marquee" id="marquee"><div class="num" id="mqIn"></div></div>
+    <div class="usp"><span><svg class="i"><use href="#clock"/></svg>Trades nights and weekends</span><span><svg class="i"><use href="#check"/></svg>Settles in seconds</span><span><svg class="i"><use href="#key"/></svg>Stays in your wallet</span></div>
   </div>
 </section>
 
@@ -824,110 +803,126 @@
     hero.scrollIntoView({behavior:'smooth'});setTimeout(quote,450);
   };
 
-  /* ================= 02 how it works ================= */
-  var diag=$('#diag'), steps=$$('.step'), stepsBox=$('#steps'), cur=1, timer, inView=false, hover=false, DUR=3400;
-  var SIZES={10:{1:100},1000:{1:70,3:30},25000:{1:55,2:30,3:15}};
+  /* ================= 02 how it works: route map ================= */
   var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
-  function applySize(usdv){
-    var sh=SIZES[usdv];
-    $$('.p-flow',diag).forEach(function(u){var r=u.dataset.r,s=sh[r]||0;u.classList.toggle('use',s>0);u.style.strokeWidth=s?2+s/9:2});
-    $$('.pool',diag).forEach(function(g){var r=g.dataset.r,s=sh[r]||0;g.classList.toggle('used',s>0);var p=$('.pct',g);if(p)p.textContent=s?s+'%':''});
-    $('#hop').style.opacity=sh[2]?1:.3;
-    var eth=usdv/TK.ETH.p, out=usdv/217.81*(1-.0006-usdv/8e6);
-    $('#payLbl').textContent='you pay '+fa(eth)+' ETH';
-    $('#outLbl').textContent='you get '+fa(out)+' NVDA';
-    var parts=$('#parts');parts.innerHTML='';
-    Object.keys(sh).forEach(function(r){
-      var n=Math.max(2,Math.round(sh[r]/9));
-      for(var i=0;i<n;i++){
-        var c=document.createElementNS(SVGNS,'circle');c.setAttribute('r',sh[r]>40?5:4);
-        var a=document.createElementNS(SVGNS,'animateMotion');a.setAttribute('dur','2.6s');a.setAttribute('repeatCount','indefinite');a.setAttribute('begin',(-(i/n)*2.6).toFixed(2)+'s');
-        var m=document.createElementNS(SVGNS,'mpath');m.setAttribute('href','#rt'+r);m.setAttributeNS(XL,'xlink:href','#rt'+r);
-        a.appendChild(m);c.appendChild(a);parts.appendChild(c);
-      }
-    });
-  }
-  var scanT=[];
-  function runScan(){
-    scanT.forEach(clearTimeout);scanT=[];
-    $$('.pool',diag).forEach(function(g){g.classList.remove('lit')});
-    $$('.pool',diag).forEach(function(g,i){scanT.push(setTimeout(function(){g.classList.add('lit')},250+i*330))});
-    var total=23,t0=performance.now(),txt=$('#scanTxt');
-    (function st(t){var k=Math.min(1,(t-t0)/1500);txt.textContent=k<1?'Checking pools… '+Math.round(total*k):total+' pools checked';if(k<1&&cur===1)requestAnimationFrame(st)})(t0);
-  }
-  function go(n,manual){
-    cur=n;diag.setAttribute('data-step',n);
-    if(n===1)runScan();else{$$('.pool',diag).forEach(function(g){g.classList.remove('lit')});$('#scanTxt').textContent='23 pools checked'}
-    steps.forEach(function(s){s.classList.remove('on');if(+s.dataset.s===n){void s.offsetWidth;s.classList.add('on')}});
-    schedule();
-  }
-  function schedule(){clearTimeout(timer);var run=inView&&!hover;stepsBox.classList.toggle('paused',!run);if(run)timer=setTimeout(function(){go(cur%4+1)},DUR)}
-  steps.forEach(function(s){s.addEventListener('click',function(){go(+s.dataset.s,true)})});
-  $$('#sizeSeg button').forEach(function(b){b.addEventListener('click',function(){$$('#sizeSeg button').forEach(function(x){x.classList.toggle('on',x===b)});applySize(+b.dataset.usd);go(2,true)})});
-  var howMain=$('#howMain');
-  howMain.addEventListener('mouseenter',function(){hover=true;schedule()});
-  howMain.addEventListener('mouseleave',function(){hover=false;go(cur)});
-  onView(howMain,function(v){var was=inView;inView=v;if(v&&!was)go(cur);else schedule()});
-  applySize(25000);go(1);
-  // proof bars
-  onView($('#proof'),function(v){if(v)$$('.vs-row .track i').forEach(function(i,k){setTimeout(function(){i.style.width=i.dataset.w+'%'},k*150)})});
-
-  /* ================= 03 markets ================= */
-  var CATS={stocks:['NVDA','TSLA','AAPL','GOOGL','META','CRCL','MSTR','MU'],etfs:['SPY','QQQ','GLD'],majors:['ETH','cbBTC','VIRTUAL','ROUTE'],launch:['PONS','CASHCAT','HOOKR','VRAX','IGNITION','RAM','BUN','ORBIO']};
-  var M={cat:'stocks',sym:'NVDA',range:'1D',pts:[]};
-  function rng(seed){var h=1779033703^seed.length;for(var i=0;i<seed.length;i++){h=Math.imul(h^seed.charCodeAt(i),3432918353);h=h<<13|h>>>19}return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return ((h^=h>>>16)>>>0)/4294967296}}
-  function series(sym,range){
-    var R=rng(sym+range),n=56,vol={'1H':.0018,'1D':.006,'1W':.014,'1M':.028}[range],p=TK[sym].p,arr=[p];
-    var drift=(TK[sym].c/100)/n*({'1H':.2,'1D':1,'1W':2,'1M':3}[range]);
-    for(var i=1;i<n;i++){p=p/(1+drift+(R()-.5)*vol*2);arr.unshift(p)}
-    return arr;
-  }
-  function drawChart(){
-    var ch=$('#chart'),pts=M.pts=series(M.sym,M.range),mn=Math.min.apply(0,pts),mx=Math.max.apply(0,pts),W=600,H=210;
-    var xy=pts.map(function(v,i){return [i/(pts.length-1)*W,48+(1-(v-mn)/((mx-mn)||1))*140]});
-    var d='M'+xy.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join('L');
-    var up=pts[pts.length-1]>=pts[0];
-    $('#chLine').setAttribute('d',d);$('#chLine').style.stroke=up?'#567b51':'#a2483f';
-    $('#chArea').setAttribute('d',d+'V'+H+'H0Z');$('#chArea').setAttribute('fill',up?'url(#fillg)':'url(#fillr)');
-    M.xy=xy;ch.classList.remove('drawn');void ch.offsetWidth;requestAnimationFrame(function(){ch.classList.add('drawn')});
-  }
-  function renderLead(sym){
-    M.sym=sym;var t=TK[sym];
-    var head=$('#leadHead');head.classList.remove('swapin');void head.offsetWidth;head.classList.add('swapin');
-    head.innerHTML=coin(sym)+'<div><b>'+t.n+'</b><small>'+sym+(t.stable?'':' / USDG')+' · Robinhood Chain · '+t.pools+' pools</small></div><div class="px num"><b data-px="'+sym+'">'+fp(t.p)+'</b><small><span data-chg="'+sym+'" data-suf=" 24h" class="'+(t.c>=0?'up':'dn')+'">'+fc(t.c)+' 24h</span></small></div>';
-    $('#kpis').innerHTML='<div>24h volume<b>'+t.vol+'</b></div><div>Market cap<b>'+t.mc+'</b></div><div>Pools<b>'+t.pools+'</b></div><div>Trading<b>24/7</b></div>';
-    $('#buyBtn').textContent='Buy '+sym;
-    $$('.tk[data-s]').forEach(function(b){b.classList.toggle('on',b.dataset.s===sym)});
-    drawChart();
-  }
-  function renderCat(c){
-    M.cat=c;var list=CATS[c],box=$('#tickers');
-    box.classList.toggle('fill',list.length>=8);
-    box.innerHTML=list.map(function(s,i){var t=TK[s];return '<button type="button" class="tk" data-s="'+s+'" style="animation-delay:'+(i*35)+'ms">'+coin(s)+'<span class="nm">'+s+'<small>'+t.n+'</small></span><span class="r"><span data-px="'+s+'">'+fp(t.p)+'</span><small data-chg="'+s+'" class="'+(t.c>=0?'up':'dn')+'">'+fc(t.c)+'</small></span></button>'}).join('')+'<a class="tk more" href="#"><span>All '+{stocks:'stocks and RWAs',etfs:'ETFs and commodities',majors:'majors',launch:'launchpad tokens'}[c]+'</span><svg class="i"><use href="#out"/></svg></a>';
-    $$('#cats .cat').forEach(function(b){b.classList.toggle('on',b.dataset.c===c)});
-    renderLead(list[0]);
-  }
-  $('#cats').addEventListener('click',function(e){var b=e.target.closest('.cat');if(b)renderCat(b.dataset.c)});
-  $('#tickers').addEventListener('click',function(e){var b=e.target.closest('.tk[data-s]');if(b)renderLead(b.dataset.s)});
-  $$('#range button').forEach(function(b){b.addEventListener('click',function(){$$('#range button').forEach(function(x){x.classList.toggle('on',x===b)});M.range=b.textContent;drawChart()})});
-  var chart=$('#chart');
-  chart.addEventListener('mousemove',function(e){
-    if(!M.xy)return;var r=chart.getBoundingClientRect(),k=(e.clientX-r.left)/r.width,i=Math.max(0,Math.min(M.pts.length-1,Math.round(k*(M.pts.length-1))));
-    var px=M.xy[i][0]/600*r.width,py=M.xy[i][1]/210*r.height;
-    $('#xh').style.left=px+'px';$('#xdot').style.left=px+'px';$('#xdot').style.top=py+'px';
-    var tip=$('#xtip');tip.style.left=Math.max(50,Math.min(r.width-50,px))+'px';
-    var span={'1H':60,'1D':24,'1W':7,'1M':30}[M.range],unit={'1H':'min','1D':'h','1W':'d','1M':'d'}[M.range],ago=Math.round((1-i/(M.pts.length-1))*span);
-    tip.textContent=fp(M.pts[i])+' · '+(ago?ago+unit+' ago':'now');
+  function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+  var NODES={ETH:[420,280],WETH:[560,130],USDG:[600,330],cbBTC:[560,470],VIRTUAL:[720,195],ROUTE:[770,70],PONS:[770,450],SPY:[910,150],TSLA:[910,350],NVDA:[1070,260],GLD:[1070,80],HOOKR:[1060,470]};
+  TK.WETH=TK.WETH||{n:'Wrapped Ether',p:TK.ETH.p,c:TK.ETH.c,bg:'#7d8fd8',l:'W',stable:1};
+  var DEXS=[['Uniswap v4',9],['Fables',4],['DEX C',3],['DEX D',3],['DEX E',2],['DEX F',2]];
+  var EDGES=[['ETH','WETH',0],['ETH','USDG',0],['ETH','cbBTC',2],['WETH','ROUTE',1],['WETH','VIRTUAL',3],['WETH','SPY',4],['USDG','VIRTUAL',2],['USDG','SPY',0],['USDG','TSLA',4],['USDG','NVDA',1],['USDG','PONS',3],['cbBTC','PONS',5],['VIRTUAL','SPY',4],['ROUTE','GLD',1],['ROUTE','SPY',5],['SPY','GLD',0],['SPY','NVDA',0],['TSLA','NVDA',2],['TSLA','HOOKR',5],['PONS','HOOKR',4],['PONS','TSLA',3]];
+  var ORIGIN='ETH', CYCLE=['NVDA','GLD','TSLA','HOOKR','ROUTE'];
+  var nav=$('#navmap'), map=$('#map'), NM={idx:0,t:[],inView:false,auto:true,cur:null};
+  function dist(a,b){var p=NODES[a],q=NODES[b];return Math.hypot(p[0]-q[0],p[1]-q[1])}
+  // draw roads, scan lines and asset pills
+  EDGES.forEach(function(e,i){var a=NODES[e[0]],b=NODES[e[1]];
+    el('line',{class:'road',x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#roads'));
+    el('line',{class:'scanl','data-i':i,x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#scans'))});
+  Object.keys(NODES).forEach(function(s){
+    var p=NODES[s],w=Math.round(46+s.length*7.6),g=el('g',{class:'node','data-s':s},$('#nodes')),x=p[0]-w/2;
+    el('rect',{x:x,y:p[1]-15,width:w,height:30,rx:15},g);
+    el('circle',{cx:x+15,cy:p[1],r:9.5,fill:TK[s].bg},g);
+    var l=el('text',{class:'cl',x:x+15,y:p[1]+3,'text-anchor':'middle'},g);l.textContent=TK[s].l;
+    var t=el('text',{x:x+30,y:p[1]+4.5},g);t.textContent=s;
   });
-  $('#buyBtn').addEventListener('click',function(){loadHero(M.sym)});
-  $('#limitBtn').addEventListener('click',function(){toast('Limit order for '+M.sym+' opens in the app')});
-  // marquee
-  var mq=['SPY','NVDA','TSLA','QQQ','GLD','META','MU','AAPL','CRCL','GOOGL','MSTR','PONS','ETH'];
-  var mqHtml=mq.map(function(s){return '<button type="button" data-s="'+s+'"><b>'+s+'</b><span data-px="'+s+'">'+fp(TK[s].p)+'</span></button>'}).join('');
-  $('#mqIn').innerHTML=mqHtml+mqHtml;
-  $('#mqIn').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var s=b.dataset.s;
-    var c=Object.keys(CATS).filter(function(k){return CATS[k].indexOf(s)>-1})[0];if(c&&c!==M.cat)renderCat(c);renderLead(s);$('#lead').scrollIntoView({behavior:'smooth',block:'center'})});
-  renderCat('stocks');
+  $('#dexList').innerHTML=DEXS.map(function(d){return '<div class="dex"><span class="st"></span><span>'+d[0]+'</span><span class="num">'+d[1]+' pools</span></div>'}).join('');
+  function shortest(src,dst,skip){
+    var D={},P={},Q=Object.keys(NODES);Q.forEach(function(n){D[n]=Infinity});D[src]=0;
+    while(Q.length){Q.sort(function(a,b){return D[a]-D[b]});var u=Q.shift();if(u===dst||D[u]===Infinity)break;
+      EDGES.forEach(function(e,i){if(i===skip)return;var v=e[0]===u?e[1]:e[1]===u?e[0]:null;if(!v||Q.indexOf(v)<0)return;var nd=D[u]+dist(u,v);if(nd<D[v]){D[v]=nd;P[v]=u}})}
+    if(D[dst]===Infinity)return null;var path=[dst];while(path[0]!==src)path.unshift(P[path[0]]);return path;
+  }
+  function edgeOf(a,b){for(var i=0;i<EDGES.length;i++){var e=EDGES[i];if((e[0]===a&&e[1]===b)||(e[0]===b&&e[1]===a))return i}return -1}
+  function dOf(path){return 'M'+path.map(function(s){return NODES[s].join(' ')}).join('L')}
+  function levels(){var L={},q=[ORIGIN];L[ORIGIN]=0;while(q.length){var u=q.shift();EDGES.forEach(function(e){var v=e[0]===u?e[1]:e[1]===u?e[0]:null;if(v&&L[v]===undefined){L[v]=L[u]+1;q.push(v)}})}return L}
+  var LV=levels();
+  function tag(g,path,text){
+    var k=Math.floor((path.length-1)/2),a=NODES[path[k]],b=NODES[path[k+1]],mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,w=text.length*6.1+20;
+    $('text',g).textContent=text;$('text',g).setAttribute('x',mx-w/2+10);$('rect',g).setAttribute('width',w);
+    g.setAttribute('transform','translate(0,'+(my-30)+')');$('rect',g).setAttribute('x',mx-w/2);
+  }
+  function later(fn,ms){NM.t.push(setTimeout(fn,ms))}
+  function route(target){
+    NM.t.forEach(clearTimeout);NM.t=[];NM.cur=target;
+    nav.classList.remove('found');nav.classList.add('scanning');
+    var best=shortest(ORIGIN,target),alt=best&&best.length>1?shortest(ORIGIN,target,edgeOf(best[best.length-2],target)):null;
+    $$('.scanl',map).forEach(function(l){l.classList.remove('on')});
+    $$('.node',map).forEach(function(n){n.classList.remove('hit','on-route','dest')});
+    $$('.dex').forEach(function(d){d.classList.remove('ok','run')});
+    $('#runnerG').innerHTML='';
+    ['routeO','routeC','routeD'].forEach(function(id){$('#'+id).setAttribute('d',dOf(best))});
+    $('#altP').setAttribute('d',alt?dOf(alt):'');
+    var o=NODES[ORIGIN];['radar1','radar2'].forEach(function(id){$('#'+id).setAttribute('cx',o[0]);$('#'+id).setAttribute('cy',o[1])});
+    // type the destination like a maps search box
+    var fld=$('#toFld'),i=0;fld.innerHTML='<span class="caret"></span>';
+    (function typ(){if(NM.cur!==target)return;i++;fld.innerHTML=(i>=target.length?coin(target):'')+'<span>'+target.slice(0,i)+'</span><span class="caret"></span>';
+      if(i<target.length)later(typ,70);else later(function(){fld.innerHTML=coin(target)+target+'<small>'+TK[target].n+'</small>'},400)})();
+    // scan outward level by level
+    EDGES.forEach(function(e,k){var lv=Math.min(LV[e[0]],LV[e[1]]);later(function(){$('.scanl[data-i="'+k+'"]',map).classList.add('on');
+      [e[0],e[1]].forEach(function(s){$('.node[data-s="'+s+'"]',map).classList.add('hit')})},350+lv*430+Math.random()*180)});
+    $$('.dex').forEach(function(d,k){later(function(){d.classList.add('run')},200+k*240);later(function(){d.classList.remove('run');d.classList.add('ok')},520+k*270)});
+    var total=DEXS.reduce(function(s,d){return s+d[1]},0),t0=performance.now();
+    (function ct(t){var k=Math.min(1,(t-t0)/2000);$('#poolCt').textContent=Math.round(total*k)+' pools';if(k<1&&NM.cur===target)requestAnimationFrame(ct)})(t0);
+    // route found
+    later(function(){
+      nav.classList.remove('scanning');void map.getBoundingClientRect();nav.classList.add('found');
+      best.forEach(function(s){$('.node[data-s="'+s+'"]',map).classList.add('on-route')});
+      $('.node[data-s="'+target+'"]',map).classList.add('dest');
+      var hops=best.length-1;tag($('#bestTag'),best,'Best route · '+hops+' hop'+(hops>1?'s':''));
+      var worse=(.2+Math.random()*.5).toFixed(1);if(alt)tag($('#altTag'),alt,'-'+worse+'% · '+(alt.length-1)+' hops');
+      var p=NODES[target];$('#pinPos').setAttribute('transform','translate('+p[0]+','+(p[1]-18)+')');
+      var len=$('#routeC').getTotalLength(),c=el('circle',{class:'runner',r:6.5,fill:'#fff',stroke:'#354f32','stroke-width':3},$('#runnerG'));
+      var am=el('animateMotion',{dur:(len/240).toFixed(2)+'s',repeatCount:'indefinite'},c),mp=el('mpath',{href:'#routeC'},am);mp.setAttributeNS(XL,'xlink:href','#routeC');
+      var out=10000/TK[target].p*(1-.0006),edge=(2+Math.random()*6).toFixed(1),secs=(.6+Math.random()*.5).toFixed(1);
+      $('#rcard').innerHTML='<div class="top"><b>Best route</b><span>found in '+secs+'s</span></div>'+
+        '<div class="outv num">'+fa(out)+' <small>'+target+'</small></div>'+
+        '<div class="hops">'+best.slice(1).map(function(s,k){return '<div><span>'+best[k]+' → '+s+'</span><span>'+DEXS[EDGES[edgeOf(best[k],s)][2]][0]+'</span></div>'}).join('')+'</div>'+
+        '<div class="foot2"><span class="better">+'+edge+' bps vs Kyber</span><button type="button" class="mini-btn" id="rcBuy">Swap this</button></div>';
+      $('#rcBuy').addEventListener('click',function(){loadHero(target)});
+    },2500);
+    if(NM.auto)later(next,8200);
+  }
+  function next(){if(!NM.inView){NM.pending=true;return}NM.idx=(NM.idx+1)%CYCLE.length;route(CYCLE[NM.idx])}
+  $('#nodes').addEventListener('click',function(e){var n=e.target.closest('.node');if(!n||n.dataset.s===ORIGIN)return;NM.auto=false;route(n.dataset.s)});
+  onView(nav,function(v){NM.inView=v;if(v&&(NM.pending||!NM.cur)){NM.pending=false;route(NM.cur&&!NM.auto?NM.cur:CYCLE[NM.idx])}},{threshold:.35});
+  function fitMap(){map.setAttribute('viewBox',innerWidth<=1000?'340 30 820 470':'0 0 1160 560')}
+  addEventListener('resize',fitMap);fitMap();
+  onView($('#proof'),function(v){if(v)$$('#proof .track i').forEach(function(i,k){setTimeout(function(){i.style.width=i.dataset.w+'%'},k*150)})});
+
+  /* ================= 03 markets: asset wall + head-to-head ================= */
+  var WALL=[['Stocks',['NVDA','TSLA','AAPL','GOOGL','META','CRCL','MSTR','MU'],'70s',''],['ETFs & gold',['SPY','QQQ','GLD'],'40s',' rev'],['Crypto',['ETH','cbBTC','VIRTUAL','ROUTE','PONS','CASHCAT','HOOKR','VRAX','IGNITION','RAM'],'80s','']];
+  var CMP={sym:'NVDA',amt:10000,shown:false};
+  function chip(s){var t=TK[s];return '<button type="button" class="chip'+(s===CMP.sym?' sel':'')+'" data-s="'+s+'">'+coin(s)+'<span><b>'+s+'</b><small>'+t.n+'</small></span><span class="px num" data-px="'+s+'">'+fp(t.p)+'</span></button>'}
+  $('#wall').innerHTML=WALL.map(function(r){
+    var unit='<span class="wlab">'+r[0]+'</span>'+r[1].map(chip).join(''),set=unit;
+    while((set.match(/class="chip/g)||[]).length<10)set+=unit;
+    return '<div class="wrow'+r[3]+'" style="--t:'+r[2]+'">'+set+set+'</div>'}).join('');
+  var COMP=[['Route','r',0],['Nordstern','N',.4],['0x','0x',2.5],['Kyber','K',5.6]],ROWH=68;
+  $('#board').innerHTML=COMP.map(function(c,k){return '<div class="lrow'+(k?'':' me')+'" data-k="'+k+'"><span class="nm"><i>'+c[1]+'</i>'+c[0]+'</span><span class="bar"><i></i></span><span class="v num"><span class="o">…</span><small></small></span></div>'}).join('');
+  function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function runCompare(){
+    var s=CMP.sym,t=TK[s],A=CMP.amt,rows=$$('.lrow');
+    $('#cmpSym').textContent=s;$('#cmpBuy').textContent='Buy '+s+' on Route';
+    $('#cmpAsset').innerHTML=coin(s)+'<div><b>'+t.n+'</b><small>'+s+(s==='USDG'?'':' / USDG')+' · Robinhood Chain</small></div><span class="px num" data-px="'+s+'">'+fp(t.p)+'</span>';
+    $$('.chip').forEach(function(c){c.classList.toggle('sel',c.dataset.s===s)});
+    // start shuffled with Route at the bottom, then race into order
+    var start=[1,2,3,0].sort(function(){return Math.random()-.5});start.splice(start.indexOf(0),1);start.push(0);
+    start.forEach(function(k,pos){var r=rows[k];r.style.top=(pos*ROWH)+'px';$('.bar i',r).style.width='0';$('.o',r).textContent='…';$('small',r).textContent=''});
+    setTimeout(function(){
+      var routeOut=A/t.p*(1-.0006);
+      COMP.forEach(function(c,k){var r=rows[k],out=routeOut*(1-c[2]/1e4),t0=performance.now(),o=$('.o',r);
+        r.style.top=(k*ROWH)+'px';$('.bar i',r).style.width=(100-c[2]*7)+'%';
+        (function st(tt){var q=Math.min(1,(tt-t0)/900);o.textContent=fa(out*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(st)})(t0);
+        $('small',r).textContent=k?'-'+money(A*c[2]/1e4):'Best price';
+      });
+      $('#callTxt').textContent='More '+s+' than on Kyber, on a '+money(A).replace('.00','')+' order';
+      var t1=performance.now(),cv=$('#callV'),gain=A*5.6/1e4;
+      (function st(tt){var q=Math.min(1,(tt-t1)/900);cv.textContent='+'+money(gain*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(st)})(t1);
+    },380);
+  }
+  $('#wall').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;CMP.sym=c.dataset.s;runCompare();$('#compare').scrollIntoView({behavior:'smooth',block:'nearest'})});
+  $$('#amtSeg button').forEach(function(b){b.addEventListener('click',function(){$$('#amtSeg button').forEach(function(x){x.classList.toggle('on',x===b)});CMP.amt=+b.dataset.a;runCompare()})});
+  $('#cmpBuy').addEventListener('click',function(){loadHero(CMP.sym)});
+  onView($('#compare'),function(v){if(v&&!CMP.shown){CMP.shown=true;runCompare()}},{threshold:.3});
 
   /* ================= 04 builders ================= */
   function L(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
