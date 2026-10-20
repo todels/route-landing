@@ -107,7 +107,6 @@
   /* ---------- 01 hero ---------- */
   .hero{padding:0;overflow:hidden;border-bottom:1px solid var(--line)}
   .hero-in{position:relative;height:940px}
-  .rails{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
   .hero-copy{position:relative;z-index:2;text-align:center;padding-top:64px}
   .hero h1{font-size:62px;font-weight:500;letter-spacing:-.045em;line-height:1;margin:18px 0 14px}
   .hero .sub{font-size:17px;color:var(--muted-foreground);max-width:520px;margin:0 auto}
@@ -157,74 +156,43 @@
   /* coins */
   .coin{border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-weight:700;font-size:10px;flex:none;width:26px;height:26px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.25)}
 
-  /* ---------- 02 how it works: route map ---------- */
-  .navmap{position:relative;height:620px;border:1px solid var(--line);border-radius:24px;background-color:#f2f2ec;background-image:radial-gradient(var(--grid) 1px,transparent 1.2px);background-size:22px 22px;overflow:hidden}
-  .navmap svg{position:absolute;inset:0;width:100%;height:100%}
-  .navmap text{font-family:var(--font)}
-  .road{stroke:#e3e4dc;stroke-width:9;stroke-linecap:round}
-  .scanl{stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;opacity:0;transition:opacity .35s}
-  .scanl.on{opacity:.6}
-  .navmap.found .scanl.on{opacity:.14}
-  .radar{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center}
-  .navmap.scanning .radar{animation:radar 1.4s ease-out infinite}
-  .navmap.scanning .radar.r2{animation-delay:.7s}
-  @keyframes radar{0%{transform:scale(.04);opacity:.55}100%{transform:scale(1);opacity:0}}
-  .node{cursor:pointer}
-  .node rect{fill:var(--background);stroke:var(--line);stroke-width:1.2;transition:stroke .3s,fill .3s}
-  .node:hover rect{stroke:var(--wire)}
-  .node text{font-size:12px;font-weight:600;fill:var(--foreground)}
-  .node .cl{font-size:8px;font-weight:700;fill:#fff}
-  .node.hit rect{stroke:var(--selected-line)}
-  .node.on-route rect{stroke:var(--accent);stroke-width:2}
-  .node.dest rect{fill:var(--selected)}
-  .route-o,.route-c,.route-d,.alt{fill:none;stroke-linecap:round;stroke-linejoin:round}
-  .route-o{stroke:#354f32;stroke-width:12;stroke-dasharray:1;stroke-dashoffset:1}
-  .route-c{stroke:#9cc489;stroke-width:6;stroke-dasharray:1;stroke-dashoffset:1}
-  .navmap.found .route-o,.navmap.found .route-c{stroke-dashoffset:0;transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)}
-  .route-d{stroke:#fff;stroke-width:2;stroke-dasharray:.012 .022;opacity:0}
-  .navmap.found .route-d{opacity:.9;animation:rd 1.4s linear infinite;transition:opacity .3s 1s}
-  @keyframes rd{to{stroke-dashoffset:-.068}}
-  .alt{stroke:#b9bdb2;stroke-width:5;stroke-dasharray:.008 .016;opacity:0}
-  .navmap.found .alt{opacity:1;transition:opacity .5s .9s}
-  .tagl{opacity:0;transition:opacity .4s 1s}
-  .navmap.found .tagl{opacity:1}
-  .pin{opacity:0}
-  .navmap.found .pin{opacity:1;animation:bob 1.2s ease-in-out infinite}
-  @keyframes bob{50%{transform:translateY(-5px)}}
-  .runner{opacity:0}
-  .navmap.found .runner{opacity:1;transition:opacity .3s 1s}
-  .navside{position:absolute;left:16px;top:16px;bottom:16px;width:300px;display:flex;flex-direction:column;gap:12px;z-index:2;pointer-events:none}
-  .navside > *{pointer-events:auto}
-  .navcard{background:var(--background);border-radius:18px;box-shadow:0 12px 30px -14px rgba(0,0,0,.22),0 0 0 1px rgba(202,204,197,.7);padding:14px}
-  .ft{display:grid;grid-template-columns:18px 1fr;gap:4px 10px;align-items:center}
-  .ft .mk{width:12px;height:12px;border-radius:50%;border:3px solid var(--foreground);justify-self:center}
-  .ft .mk.to{border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);border:0;width:13px;height:13px}
-  .ft .vl{width:2px;height:12px;justify-self:center;background:repeating-linear-gradient(var(--wire) 0 2px,transparent 2px 4px)}
-  .ft .fld{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:11px;background:var(--surface);border:1px solid var(--line);font-size:13.5px;font-weight:500;min-height:38px}
-  .ft .fld .coin{width:20px;height:20px;font-size:8px}
-  .ft .fld small{margin-left:auto;font-size:11.5px;color:var(--muted-foreground);font-weight:400}
-  .caret{display:inline-block;width:1.5px;height:15px;background:var(--accent);animation:blink 1s step-end infinite;margin-left:-4px}
-  .dexh{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--muted-foreground);margin:2px 2px 8px}
-  .dexh b{font-size:13px;color:var(--foreground);font-weight:600}
-  .dex{display:grid;grid-template-columns:16px 1fr auto;gap:10px;align-items:center;padding:4px 4px;font-size:13px;border-top:1px solid rgba(37,38,32,.06)}
-  .dex .st{width:14px;height:14px;border-radius:50%;border:2px solid var(--line)}
-  .dex.run .st{border-top-color:var(--accent);animation:spin .7s linear infinite}
-  .dex.ok .st{border:0;background:var(--accent);position:relative}
-  .dex.ok .st::after{content:"";position:absolute;left:4px;top:2px;width:3px;height:6px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
-  .dex span:last-child{font-size:12px;color:var(--faint)}
-  .dex.ok span:last-child{color:var(--muted-foreground)}
-  .rcard{opacity:0;transform:translateY(10px);transition:all .45s ease}
-  .navmap.found .rcard{opacity:1;transform:none;transition-delay:.9s}
-  .rcard .top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted-foreground)}
-  .rcard .top b{color:var(--signal);font-weight:600;font-size:12.5px}
-  .rcard .outv{font-size:24px;font-weight:500;letter-spacing:-.02em;margin:6px 0 2px}
-  .rcard .outv small{font-size:13px;color:var(--muted-foreground);font-weight:400;letter-spacing:0}
-  .hops{display:flex;flex-direction:column;gap:5px;margin:10px 0;font-size:12.5px}
-  .hops div{display:flex;justify-content:space-between;gap:8px}
-  .hops span:last-child{color:var(--muted-foreground)}
-  .rcard .foot2{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  /* ---------- 02 how it works: isometric pipeline ---------- */
+  .iso-frame{position:relative;height:540px;border-radius:24px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+  .iso-frame svg{position:absolute;inset:0;width:100%;height:100%}
+  .iso-frame text{font-family:var(--font)}
+  .brk{position:absolute;width:18px;height:18px;border:0 solid var(--accent);z-index:2}
+  .brk.tl{left:18px;top:18px;border-left-width:1.5px;border-top-width:1.5px}
+  .brk.tr{right:18px;top:18px;border-right-width:1.5px;border-top-width:1.5px}
+  .brk.bl{left:18px;bottom:18px;border-left-width:1.5px;border-bottom-width:1.5px}
+  .brk.br{right:18px;bottom:18px;border-right-width:1.5px;border-bottom-width:1.5px}
+  .belt{fill:none;stroke:var(--selected-line);stroke-width:1.5}
+  .beltfill{fill:rgba(239,244,236,.55)}
+  .scanfield{fill:url(#scanG);animation:scanPulse 1.8s ease-in-out infinite}
+  @keyframes scanPulse{50%{opacity:.45}}
+  .tile .t{fill:#fcfcf9;stroke:#8fa87c;stroke-width:1}
+  .tile .r{fill:#c5d6b5;stroke:#8fa87c;stroke-width:1}
+  .tile .l{fill:#dbe6d0;stroke:#8fa87c;stroke-width:1}
+  .tile .g{fill:#567b51}
+  .tile{transition:filter .3s}
+  .tile.lit .t{fill:#eff4ec;stroke:#354f32;stroke-width:1.4}
+  .tile.lit .g{fill:#354f32}
+  .box .t{fill:#f7f7f2;stroke:#354f32;stroke-width:1.5}
+  .box .r{fill:#8fb87e;stroke:#354f32;stroke-width:1.5}
+  .box .l{fill:#b5d0a4;stroke:#354f32;stroke-width:1.5}
+  .glow{fill:#9cc489;filter:blur(18px);animation:glow 1.6s ease-in-out infinite}
+  @keyframes glow{50%{opacity:.35}}
+  .coin3 .s{fill:#c5d6b5;stroke:#8fa87c;stroke-width:1}
+  .coin3 .t{fill:#fcfcf9;stroke:#8fa87c;stroke-width:1}
+  .hud{font-size:12px;fill:var(--muted-foreground)}
+  .hud b,.hud .k{font-weight:600;fill:var(--foreground)}
+  .hudl{stroke:var(--wire);stroke-width:1;stroke-dasharray:3 3;fill:none}
+  .hudd{fill:var(--accent)}
+  .isosteps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+  .isosteps div{position:relative;padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+  .isosteps i{display:block;font:500 26px var(--font);font-style:normal;color:var(--accent);letter-spacing:-.02em;margin-bottom:22px}
+  .isosteps b{display:block;font-size:15px;font-weight:600;margin-bottom:4px}
+  .isosteps span{font-size:13px;color:var(--muted-foreground);line-height:1.45}
   .better{color:var(--signal)!important;background:var(--selected);border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:500}
-  .mini-btn{font-size:12.5px;font-weight:500;padding:7px 12px;border-radius:11px;background:var(--cta);color:#f7f7f2}
   .proofrow{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;margin-top:16px}
   .proofrow > div{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:18px}
   .proofrow h3{font-size:19px;font-weight:500;letter-spacing:-.02em}
@@ -410,9 +378,6 @@
   /* ---------- responsive ---------- */
   @media (max-width:1000px){
     .compare,.build,.cov,.proofrow{grid-template-columns:1fr}
-    .navmap{height:auto}
-    .navmap svg{position:relative;height:auto;display:block}
-    .navside{position:static;width:auto;padding:0 12px 12px;flex-direction:column}
     .links{display:none}
   }
   @media (max-width:640px){
@@ -422,7 +387,6 @@
     .hero-in{height:auto;padding-bottom:40px}
     .hero h1{font-size:40px}
     .hero-copy{padding-top:40px}
-    .rails{display:none}
     .swap{position:relative;left:auto;top:auto;transform:none;width:auto;margin:32px 0 0}
     .amt .v,.amt input{font-size:32px}
     .stats{position:relative;bottom:auto;gap:22px;flex-wrap:wrap;margin-top:32px}
@@ -472,15 +436,6 @@
 <section class="hero" id="hero">
   <div class="hero-note"><div class="note"><b>01 Hero</b><span>Rest state is three things: an amount, two tokens, one button. Type an amount and the dollar values, a short "checking pools" beat, then rate, route and the Kyber edge slide in. Limit, multi-swap and slippage sit behind the gear. Default pair is a stock (ETH → NVDA) to tee up section 03.</span></div></div>
   <div class="hero-in">
-    <svg class="rails" id="rails" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
-      <g fill="none" stroke="var(--rail)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-        <path id="rL1" d="M-40 500H490"/>
-        <path id="rL2" d="M210 -40V330A50 50 0 0 0 260 380H490"/>
-        <path id="rR1" d="M950 440H1480"/>
-        <path id="rR2" d="M950 540H1160A50 50 0 0 1 1210 590V940"/>
-        <path id="rR3" d="M1260 -40V290A50 50 0 0 1 1210 340H950"/>
-      </g>
-    </svg>
 
     <div class="hero-copy wrap">
       <span class="eyebrow"><span class="dot"></span>Live on Robinhood Chain and Arc</span>
@@ -524,45 +479,33 @@
 <!-- ================= 02 HOW IT WORKS ================= -->
 <section id="how">
   <div class="wrap">
-    <div class="note"><b>02 How it works</b><span>Navigation-style. From / To up top, then every DEX gets scanned: rows tick off and roads light up outward from ETH like a radar. The best route draws in like a maps route, the runner-up shows dashed, and a dot drives the path. Loops through NVDA, GLD, TSLA, HOOKR, ROUTE; click any asset on the map to route there. DEX names past Uniswap v4 and Fables are placeholders.</span></div>
+    <div class="note"><b>02 How it works</b><span>Isometric illustration as the explainer, Ordo-style. Motion idea only: DEX pool tiles ride the belt into the Route engine, light up as they get scanned, and the best trade rolls out the other side as a single coin (NVDA, SPY, gold, TSLA to tie into section 03). Final illustration to be designed and animated; HUD labels say what each part is.</span></div>
     <div class="sec-head rv">
       <div>
         <span class="eyebrow"><span class="dot"></span>How Route works</span>
         <h2 class="h2">Every pool scanned.<br>The best route, found.</h2>
-        <p class="lede">Route reads every pool on every DEX, maps the paths between assets and picks the one that gets you the most out, like navigation for your trade.</p>
+        <p class="lede">Route reads every pool on every DEX, splits your trade across the ones that pay the most and hands you a single transaction.</p>
       </div>
     </div>
-    <div class="navmap rv d1" id="navmap">
-      <svg id="map" viewBox="0 0 1160 560" preserveAspectRatio="xMidYMid meet" aria-label="Map of assets connected by DEX pools. Route scans them and highlights the best path.">
-        <g id="roads"></g>
-        <g id="scans"></g>
-        <circle class="radar" id="radar1" r="640"/>
-        <circle class="radar r2" id="radar2" r="640"/>
-        <path class="alt" id="altP" pathLength="1"/>
-        <path class="route-o" id="routeO" pathLength="1"/>
-        <path class="route-c" id="routeC" pathLength="1"/>
-        <path class="route-d" id="routeD" pathLength="1"/>
-        <g id="nodes"></g>
-        <g class="tagl" id="altTag"><rect rx="11" height="22" fill="#fcfcf9" stroke="#dededa"/><text font-size="11" fill="#72736b" y="15"></text></g>
-        <g class="tagl" id="bestTag"><rect rx="11" height="22" fill="#272b21"/><text font-size="11" fill="#f7f7f2" font-weight="500" y="15"></text></g>
-        <g id="runnerG"></g>
-        <g id="pinPos"><g class="pin"><path d="M0 -26c-7 0-12 5-12 11 0 8 12 19 12 19s12-11 12-19c0-6-5-11-12-11Z" fill="#567b51" stroke="#fff" stroke-width="2"/><circle cy="-15" r="4" fill="#fff"/></g></g>
+    <div class="iso-frame rv d1" id="iso">
+      <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
+      <svg id="isoSvg" viewBox="0 0 1160 540" preserveAspectRatio="xMidYMid slice" aria-label="Isometric illustration: DEX pool tiles travel along a belt into the Route engine, and the best trade comes out as a single coin.">
+        <defs>
+          <linearGradient id="scanG" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#9cc489" stop-opacity="0"/><stop offset="1" stop-color="#9cc489" stop-opacity=".45"/></linearGradient>
+        </defs>
+        <g id="isoBelt"></g>
+        <g id="isoUp"></g>
+        <g id="isoBox"></g>
+        <g id="isoDown"></g>
+        <g id="isoHud"></g>
       </svg>
-      <div class="navside">
-        <div class="navcard">
-          <div class="ft">
-            <span class="mk"></span><div class="fld"><span class="coin" style="background:#627eea">E</span>ETH<small>$10,000</small></div>
-            <span class="vl"></span><span></span>
-            <span class="mk to"></span><div class="fld" id="toFld"></div>
-          </div>
-        </div>
-        <div class="navcard">
-          <div class="dexh"><span>Scanning DEXs</span><b class="num" id="poolCt">0 pools</b></div>
-          <div id="dexList"></div>
-        </div>
-        <div class="navcard rcard" id="rcard"></div>
-      </div>
-      <span class="ph-tag" style="right:14px;bottom:12px">click any asset to route there</span>
+      <span class="ph-tag" style="left:24px;bottom:44px">isometric illustration: to be designed + animated. this is the motion idea</span>
+    </div>
+    <div class="isosteps rv d2">
+      <div><i>01</i><b>Scan</b><span>Every pool on every DEX, read live from the chain.</span></div>
+      <div><i>02</i><b>Split</b><span>Your trade spread across the pools that pay the most, after gas.</span></div>
+      <div><i>03</i><b>Check</b><span>The full route simulated before you ever see a quote.</span></div>
+      <div><i>04</i><b>Sign</b><span>One transaction out. Approve and swap batched where supported.</span></div>
     </div>
     <div class="proofrow rv d2" id="proof">
       <div>
@@ -803,89 +746,89 @@
     hero.scrollIntoView({behavior:'smooth'});setTimeout(quote,450);
   };
 
-  /* ================= 02 how it works: route map ================= */
-  var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
+  /* ================= 02 how it works: isometric pipeline (motion idea) ================= */
+  var SVGNS='http://www.w3.org/2000/svg';
   function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
-  var NODES={ETH:[420,280],WETH:[560,130],USDG:[600,330],cbBTC:[560,470],VIRTUAL:[720,195],ROUTE:[770,70],PONS:[770,450],SPY:[910,150],TSLA:[910,350],NVDA:[1070,260],GLD:[1070,80],HOOKR:[1060,470]};
-  TK.WETH=TK.WETH||{n:'Wrapped Ether',p:TK.ETH.p,c:TK.ETH.c,bg:'#7d8fd8',l:'W',stable:1};
-  var DEXS=[['Uniswap v4',9],['Fables',4],['DEX C',3],['DEX D',3],['DEX E',2],['DEX F',2]];
-  var EDGES=[['ETH','WETH',0],['ETH','USDG',0],['ETH','cbBTC',2],['WETH','ROUTE',1],['WETH','VIRTUAL',3],['WETH','SPY',4],['USDG','VIRTUAL',2],['USDG','SPY',0],['USDG','TSLA',4],['USDG','NVDA',1],['USDG','PONS',3],['cbBTC','PONS',5],['VIRTUAL','SPY',4],['ROUTE','GLD',1],['ROUTE','SPY',5],['SPY','GLD',0],['SPY','NVDA',0],['TSLA','NVDA',2],['TSLA','HOOKR',5],['PONS','HOOKR',4],['PONS','TSLA',3]];
-  var ORIGIN='ETH', CYCLE=['NVDA','GLD','TSLA','HOOKR','ROUTE'];
-  var nav=$('#navmap'), map=$('#map'), NM={idx:0,t:[],inView:false,auto:true,cur:null};
-  function dist(a,b){var p=NODES[a],q=NODES[b];return Math.hypot(p[0]-q[0],p[1]-q[1])}
-  // draw roads, scan lines and asset pills
-  EDGES.forEach(function(e,i){var a=NODES[e[0]],b=NODES[e[1]];
-    el('line',{class:'road',x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#roads'));
-    el('line',{class:'scanl','data-i':i,x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#scans'))});
-  Object.keys(NODES).forEach(function(s){
-    var p=NODES[s],w=Math.round(46+s.length*7.6),g=el('g',{class:'node','data-s':s},$('#nodes')),x=p[0]-w/2;
-    el('rect',{x:x,y:p[1]-15,width:w,height:30,rx:15},g);
-    el('circle',{cx:x+15,cy:p[1],r:9.5,fill:TK[s].bg},g);
-    var l=el('text',{class:'cl',x:x+15,y:p[1]+3,'text-anchor':'middle'},g);l.textContent=TK[s].l;
-    var t=el('text',{x:x+30,y:p[1]+4.5},g);t.textContent=s;
-  });
-  $('#dexList').innerHTML=DEXS.map(function(d){return '<div class="dex"><span class="st"></span><span>'+d[0]+'</span><span class="num">'+d[1]+' pools</span></div>'}).join('');
-  function shortest(src,dst,skip){
-    var D={},P={},Q=Object.keys(NODES);Q.forEach(function(n){D[n]=Infinity});D[src]=0;
-    while(Q.length){Q.sort(function(a,b){return D[a]-D[b]});var u=Q.shift();if(u===dst||D[u]===Infinity)break;
-      EDGES.forEach(function(e,i){if(i===skip)return;var v=e[0]===u?e[1]:e[1]===u?e[0]:null;if(!v||Q.indexOf(v)<0)return;var nd=D[u]+dist(u,v);if(nd<D[v]){D[v]=nd;P[v]=u}})}
-    if(D[dst]===Infinity)return null;var path=[dst];while(path[0]!==src)path.unshift(P[path[0]]);return path;
+  var CX=600,CY=240;
+  function P(x,y,z){return [CX+(x-y)*.866,CY+(x+y)*.5-(z||0)]}
+  function pts(a){return a.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' ')}
+  function prism(g,x0,y0,w,d,h){
+    el('polygon',{class:'l',points:pts([P(x0,y0+d,0),P(x0+w,y0+d,0),P(x0+w,y0+d,h),P(x0,y0+d,h)])},g);
+    el('polygon',{class:'r',points:pts([P(x0+w,y0,0),P(x0+w,y0+d,0),P(x0+w,y0+d,h),P(x0+w,y0,h)])},g);
+    el('polygon',{class:'t',points:pts([P(x0,y0,h),P(x0+w,y0,h),P(x0+w,y0+d,h),P(x0,y0+d,h)])},g);
   }
-  function edgeOf(a,b){for(var i=0;i<EDGES.length;i++){var e=EDGES[i];if((e[0]===a&&e[1]===b)||(e[0]===b&&e[1]===a))return i}return -1}
-  function dOf(path){return 'M'+path.map(function(s){return NODES[s].join(' ')}).join('L')}
-  function levels(){var L={},q=[ORIGIN];L[ORIGIN]=0;while(q.length){var u=q.shift();EDGES.forEach(function(e){var v=e[0]===u?e[1]:e[1]===u?e[0]:null;if(v&&L[v]===undefined){L[v]=L[u]+1;q.push(v)}})}return L}
-  var LV=levels();
-  function tag(g,path,text){
-    var k=Math.floor((path.length-1)/2),a=NODES[path[k]],b=NODES[path[k+1]],mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,w=text.length*6.1+20;
-    $('text',g).textContent=text;$('text',g).setAttribute('x',mx-w/2+10);$('rect',g).setAttribute('width',w);
-    g.setAttribute('transform','translate(0,'+(my-30)+')');$('rect',g).setAttribute('x',mx-w/2);
+  // flat drawing on a horizontal plane at (x,y,z)
+  function plane(g,x,y,z){var p=P(x,y,z);return el('g',{transform:'matrix(.866,.5,-.866,.5,'+p[0].toFixed(1)+','+p[1].toFixed(1)+')'},g)}
+  // belt + scan field
+  var belt=$('#isoBelt');
+  el('polygon',{class:'beltfill',points:pts([P(-900,-95),P(900,-95),P(900,95),P(-900,95)])},belt);
+  el('polygon',{class:'scanfield',points:pts([P(-340,-95),P(-80,-95),P(-80,95),P(-340,95)])},belt);
+  el('line',{class:'belt',x1:P(-900,-95)[0],y1:P(-900,-95)[1],x2:P(900,-95)[0],y2:P(900,-95)[1]},belt);
+  el('line',{class:'belt',x1:P(-900,95)[0],y1:P(-900,95)[1],x2:P(900,95)[0],y2:P(900,95)[1]},belt);
+  // the Route engine
+  var box=$('#isoBox');
+  var gp=P(0,0,0);el('ellipse',{class:'glow',cx:gp[0],cy:gp[1]+10,rx:170,ry:90},box);
+  var bg=el('g',{class:'box'},box);prism(bg,-80,-80,160,160,74);
+  var top=plane(bg,0,0,74);
+  el('path',{d:'M8 19V11a5 5 0 0 1 5-5h3',transform:'rotate(-45) translate(-48,-50) scale(4)',fill:'none',stroke:'#272b21','stroke-width':3.2,'stroke-linecap':'round'},top);
+  [[-62,-62],[62,-62],[-62,62],[62,62]].forEach(function(c){el('circle',{cx:c[0],cy:c[1],r:7,fill:'#b5d0a4',stroke:'#354f32','stroke-width':1.2},top)});
+  // DEX tile clusters (each tile = a pool), built at X=0 then slid along the belt
+  var GLYPHS=[
+    function(g){el('circle',{r:8,class:'g'},g)},
+    function(g){el('path',{d:'M0 -9 9 7 -9 7Z',class:'g'},g)},
+    function(g){[[-5,-5],[5,-5],[-5,5],[5,5]].forEach(function(c){el('circle',{cx:c[0],cy:c[1],r:2.6,class:'g'},g)})},
+    function(g){el('path',{d:'M0 -9 8 -4.5 8 4.5 0 9 -8 4.5 -8 -4.5Z',class:'g'},g)},
+    function(g){el('path',{d:'M0 -10C1 -2 2 -1 10 0 2 1 1 2 0 10 -1 2 -2 1 -10 0 -2 -1 -1 -2 0 -10Z',class:'g'},g)}
+  ];
+  var up=$('#isoUp'),clusters=[],SP=170,NC=5;
+  for(var k=0;k<NC;k++){
+    var cg=el('g',{},null),tiles=[];
+    [[-40,-40],[4,-40],[-40,4],[4,4]].forEach(function(o,j){var tg=el('g',{class:'tile'},cg);prism(tg,o[0],o[1],36,36,10);GLYPHS[(k+j)%GLYPHS.length](plane(tg,o[0]+18,o[1]+18,10));tiles.push(tg)});
+    clusters.push({g:cg,x:-120-k*SP,tiles:tiles});
   }
-  function later(fn,ms){NM.t.push(setTimeout(fn,ms))}
-  function route(target){
-    NM.t.forEach(clearTimeout);NM.t=[];NM.cur=target;
-    nav.classList.remove('found');nav.classList.add('scanning');
-    var best=shortest(ORIGIN,target),alt=best&&best.length>1?shortest(ORIGIN,target,edgeOf(best[best.length-2],target)):null;
-    $$('.scanl',map).forEach(function(l){l.classList.remove('on')});
-    $$('.node',map).forEach(function(n){n.classList.remove('hit','on-route','dest')});
-    $$('.dex').forEach(function(d){d.classList.remove('ok','run')});
-    $('#runnerG').innerHTML='';
-    ['routeO','routeC','routeD'].forEach(function(id){$('#'+id).setAttribute('d',dOf(best))});
-    $('#altP').setAttribute('d',alt?dOf(alt):'');
-    var o=NODES[ORIGIN];['radar1','radar2'].forEach(function(id){$('#'+id).setAttribute('cx',o[0]);$('#'+id).setAttribute('cy',o[1])});
-    // type the destination like a maps search box
-    var fld=$('#toFld'),i=0;fld.innerHTML='<span class="caret"></span>';
-    (function typ(){if(NM.cur!==target)return;i++;fld.innerHTML=(i>=target.length?coin(target):'')+'<span>'+target.slice(0,i)+'</span><span class="caret"></span>';
-      if(i<target.length)later(typ,70);else later(function(){fld.innerHTML=coin(target)+target+'<small>'+TK[target].n+'</small>'},400)})();
-    // scan outward level by level
-    EDGES.forEach(function(e,k){var lv=Math.min(LV[e[0]],LV[e[1]]);later(function(){$('.scanl[data-i="'+k+'"]',map).classList.add('on');
-      [e[0],e[1]].forEach(function(s){$('.node[data-s="'+s+'"]',map).classList.add('hit')})},350+lv*430+Math.random()*180)});
-    $$('.dex').forEach(function(d,k){later(function(){d.classList.add('run')},200+k*240);later(function(){d.classList.remove('run');d.classList.add('ok')},520+k*270)});
-    var total=DEXS.reduce(function(s,d){return s+d[1]},0),t0=performance.now();
-    (function ct(t){var k=Math.min(1,(t-t0)/2000);$('#poolCt').textContent=Math.round(total*k)+' pools';if(k<1&&NM.cur===target)requestAnimationFrame(ct)})(t0);
-    // route found
-    later(function(){
-      nav.classList.remove('scanning');void map.getBoundingClientRect();nav.classList.add('found');
-      best.forEach(function(s){$('.node[data-s="'+s+'"]',map).classList.add('on-route')});
-      $('.node[data-s="'+target+'"]',map).classList.add('dest');
-      var hops=best.length-1;tag($('#bestTag'),best,'Best route · '+hops+' hop'+(hops>1?'s':''));
-      var worse=(.2+Math.random()*.5).toFixed(1);if(alt)tag($('#altTag'),alt,'-'+worse+'% · '+(alt.length-1)+' hops');
-      var p=NODES[target];$('#pinPos').setAttribute('transform','translate('+p[0]+','+(p[1]-18)+')');
-      var len=$('#routeC').getTotalLength(),c=el('circle',{class:'runner',r:6.5,fill:'#fff',stroke:'#354f32','stroke-width':3},$('#runnerG'));
-      var am=el('animateMotion',{dur:(len/240).toFixed(2)+'s',repeatCount:'indefinite'},c),mp=el('mpath',{href:'#routeC'},am);mp.setAttributeNS(XL,'xlink:href','#routeC');
-      var out=10000/TK[target].p*(1-.0006),edge=(2+Math.random()*6).toFixed(1),secs=(.6+Math.random()*.5).toFixed(1);
-      $('#rcard').innerHTML='<div class="top"><b>Best route</b><span>found in '+secs+'s</span></div>'+
-        '<div class="outv num">'+fa(out)+' <small>'+target+'</small></div>'+
-        '<div class="hops">'+best.slice(1).map(function(s,k){return '<div><span>'+best[k]+' → '+s+'</span><span>'+DEXS[EDGES[edgeOf(best[k],s)][2]][0]+'</span></div>'}).join('')+'</div>'+
-        '<div class="foot2"><span class="better">+'+edge+' bps vs Kyber</span><button type="button" class="mini-btn" id="rcBuy">Swap this</button></div>';
-      $('#rcBuy').addEventListener('click',function(){loadHero(target)});
-    },2500);
-    if(NM.auto)later(next,8200);
+  clusters.slice().reverse().forEach(function(c){up.appendChild(c.g)});
+  // output coins: the best trade, one per swap
+  var down=$('#isoDown'),coins=[],CS=180,NO=4,TOKS=[['N','#76b900'],['S','#2b4c9b'],['Au','#c9a227'],['T','#cc2936']];
+  for(var m=0;m<NO;m++){
+    var og=el('g',{class:'coin3'},null),c0=P(0,0,0),rx=44,ry=25.4,h=18;
+    el('path',{class:'s',d:'M'+(c0[0]-rx)+' '+(c0[1]-h)+'V'+c0[1]+'A'+rx+' '+ry+' 0 0 0 '+(c0[0]+rx)+' '+c0[1]+'V'+(c0[1]-h)+'Z'},og);
+    el('ellipse',{class:'t',cx:c0[0],cy:c0[1]-h,rx:rx,ry:ry},og);
+    var tp=plane(og,0,0,h);el('circle',{r:19,fill:TOKS[m][1]},tp);
+    var tx=el('text',{y:4.5,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#fff',transform:'rotate(-45)'},tp);tx.textContent=TOKS[m][0];
+    coins.push({g:og,x:120+m*CS});
   }
-  function next(){if(!NM.inView){NM.pending=true;return}NM.idx=(NM.idx+1)%CYCLE.length;route(CYCLE[NM.idx])}
-  $('#nodes').addEventListener('click',function(e){var n=e.target.closest('.node');if(!n||n.dataset.s===ORIGIN)return;NM.auto=false;route(n.dataset.s)});
-  onView(nav,function(v){NM.inView=v;if(v&&(NM.pending||!NM.cur)){NM.pending=false;route(NM.cur&&!NM.auto?NM.cur:CYCLE[NM.idx])}},{threshold:.35});
-  function fitMap(){map.setAttribute('viewBox',innerWidth<=1000?'340 30 820 470':'0 0 1160 560')}
-  addEventListener('resize',fitMap);fitMap();
+  coins.forEach(function(c){down.appendChild(c.g)});
+  // HUD callouts
+  function hud(ax,ay,lx,ly,title,sub,anchorEnd){
+    var g=$('#isoHud');el('polyline',{class:'hudl',points:ax+','+ay+' '+lx+','+ay+' '+lx+','+ly},g);el('circle',{class:'hudd',cx:ax,cy:ay,r:3.5},g);
+    var tx0=anchorEnd?lx-8:lx+8,t=el('text',{class:'hud',x:tx0,y:ly-22,'text-anchor':anchorEnd?'end':'start'},g);
+    var a=document.createElementNS(SVGNS,'tspan');a.setAttribute('class','k');a.textContent=title;t.appendChild(a);
+    var b=document.createElementNS(SVGNS,'tspan');b.setAttribute('x',tx0);b.setAttribute('dy','16');b.textContent=sub;t.appendChild(b);
+  }
+  var a1=P(-300,95,10),a2=P(80,-80,74),a3=P(470,0,18);
+  hud(a1[0],a1[1],130,a1[1]+120,'6 DEXs · 23 pools','every pool streams in, live',false);
+  hud(a2[0],a2[1],870,a2[1]-50,'Route engine','scan · split · simulate',false);
+  hud(a3[0],a3[1],1090,a3[1]-80,'Best price out','one swap, one signature',true);
+  // motion
+  var last=0,running=false,SPEED=40;
+  function step(dt){
+    clusters.forEach(function(c){
+      c.x+=SPEED*dt;
+      if(c.x>-10){c.x-=NC*SP;up.insertBefore(c.g,up.firstChild)}
+      var o=c.x>-70?Math.max(0,1-(c.x+70)/55):1;c.g.setAttribute('opacity',o.toFixed(2));
+      c.g.setAttribute('transform','translate('+(c.x*.866).toFixed(1)+','+(c.x*.5).toFixed(1)+')');
+      var lit=c.x>-340&&c.x<-70;c.tiles.forEach(function(tg){tg.classList.toggle('lit',lit)});
+    });
+    coins.forEach(function(c){
+      c.x+=SPEED*dt;
+      if(c.x>840){c.x-=NO*CS;down.insertBefore(c.g,down.firstChild)}
+      c.g.setAttribute('opacity',Math.max(0,Math.min(1,(c.x-100)/45)).toFixed(2));
+      c.g.setAttribute('transform','translate('+(c.x*.866).toFixed(1)+','+(c.x*.5).toFixed(1)+')');
+    });
+  }
+  function frame(t){if(!running)return;var dt=Math.min(.05,(t-(last||t))/1000);last=t;step(dt);requestAnimationFrame(frame)}
+  step(0);
+  onView($('#iso'),function(v){if(v&&!running){running=true;last=0;requestAnimationFrame(frame)}else if(!v)running=false},{threshold:.1});
   onView($('#proof'),function(v){if(v)$$('#proof .track i').forEach(function(i,k){setTimeout(function(){i.style.width=i.dataset.w+'%'},k*150)})});
 
   /* ================= 03 markets: asset wall + head-to-head ================= */

@@ -10,8 +10,8 @@ The button at the bottom right toggles the wireframe notes on and off. Animation
 
 | # | Section | What's in it |
 |---|---------|--------------|
-| 01 | Hero | Swap card as hero, stripped to amount + two tokens + one button at rest. Typing an amount reveals dollar values, a short "checking pools" beat, then rate, route and the Kyber edge. Static brand rails, no moving coins. |
-| 02 | How Route works | Navigation-style route map: From / To, DEXs get scanned and roads light up outward, then the best route draws in like a maps route with the runner-up dashed. Loops through assets; click any asset to route there. Case-study proof row below. |
+| 01 | Hero | Swap card as hero, stripped to amount + two tokens + one button at rest. Typing an amount reveals dollar values, a short "checking pools" beat, then rate, route and the Kyber edge. No background graphic. |
+| 02 | How Route works | Ordo-style isometric illustration as a motion idea: DEX pool tiles ride a belt into the Route engine, light up as they are scanned, and the best trade rolls out as a coin. Four numbered steps and the case-study proof row below. |
 | 03 | Onchain markets | No charts. Moving wall of tradeable stocks, ETFs and gold, crypto. Head-to-head: the same order through Route vs Nordstern, 0x and Kyber, rows race into place. Click any chip to compare that asset. |
 | 04 | Builders | Feature cards drive the code panel: quote, live streaming log, zap legs, partner fee calculator wired into the code. Moving logo strip. |
 | 05 | Coverage by chain | Chain card that follows whatever you click in the matrix, product filters on the matrix. |
