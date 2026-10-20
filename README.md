@@ -4,17 +4,17 @@ Wireframe for the new [route.fun](https://www.route.fun) landing page. Single st
 
 **Local:** `python3 -m http.server 5204 -d .` then open http://localhost:5204
 
-The button at the bottom right toggles the wireframe notes on and off.
+The button at the bottom right toggles the wireframe notes on and off. Animations are rough motion ideas, not final.
 
 ## Sections (from the client brief)
 
 | # | Section | What's in it |
 |---|---------|--------------|
 | 01 | Hero | Swap card as hero, stripped to amount + two tokens + one button at rest. Typing an amount reveals dollar values, a short "checking pools" beat, then rate, route and the Kyber edge. Brand rails carry tokens in and out. |
-| 02 | How Route works | Animated split-routing diagram that auto-plays Scan → Split → Check → Sign, plus the Route v2 vs Kyber / 0x / Nordstern proof card. |
-| 03 | Onchain markets | Stocks lead (NVDA card with chart and Buy), category pills (Stocks, ETFs, Commodities, Majors, Launchpads), ticker grid, marquee. |
-| 04 | Builders | Dark block: Partner API call, streaming quote line, quote+build, streaming quotes, zaps, partner fees, logo wall. |
-| 05 | Coverage by chain | Robinhood Chain card + chain-by-product matrix (swap, limit, API, earn, screener). |
+| 02 | How Route works | Diagram loops Scan → Split → Check → Sign while on screen, with tokens flowing down each route. Trade size ($10 / $1,000 / $25,000) changes the split. Proof bars fill on scroll. |
+| 03 | Onchain markets | Category pills switch the list, any row becomes the lead card, prices tick live, chart redraws per range with hover crosshair, Buy loads the token into the hero. |
+| 04 | Builders | Feature cards drive the code panel: quote, live streaming log, zap legs, partner fee calculator wired into the code. Moving logo strip. |
+| 05 | Coverage by chain | Orbiting chain graphic, chain card that follows whatever you click, product filters on the chain matrix. |
 | 06 | Close | Big wordmark, tagline, Launch app, footer. Not in the brief. |
 
 ## Sources
