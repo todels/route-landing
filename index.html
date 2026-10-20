@@ -156,56 +156,86 @@
   /* coins */
   .coin{border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-weight:700;font-size:10px;flex:none;width:26px;height:26px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.25)}
 
-  /* ---------- 02 how it works: isometric pipeline ---------- */
-  .iso-frame{position:relative;height:540px;border-radius:24px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
-  .iso-frame svg{position:absolute;inset:0;width:100%;height:100%}
-  .iso-frame text{font-family:var(--font)}
-  .brk{position:absolute;width:18px;height:18px;border:0 solid var(--accent);z-index:2}
-  .brk.tl{left:18px;top:18px;border-left-width:1.5px;border-top-width:1.5px}
-  .brk.tr{right:18px;top:18px;border-right-width:1.5px;border-top-width:1.5px}
-  .brk.bl{left:18px;bottom:18px;border-left-width:1.5px;border-bottom-width:1.5px}
-  .brk.br{right:18px;bottom:18px;border-right-width:1.5px;border-bottom-width:1.5px}
-  .belt{fill:none;stroke:var(--selected-line);stroke-width:1.5}
-  .beltfill{fill:rgba(239,244,236,.55)}
-  .scanfield{fill:url(#scanG);animation:scanPulse 1.8s ease-in-out infinite}
-  @keyframes scanPulse{50%{opacity:.45}}
-  .tile .t{fill:#fcfcf9;stroke:#8fa87c;stroke-width:1}
-  .tile .r{fill:#c5d6b5;stroke:#8fa87c;stroke-width:1}
-  .tile .l{fill:#dbe6d0;stroke:#8fa87c;stroke-width:1}
-  .tile .g{fill:#567b51}
-  .tile{transition:filter .3s}
-  .tile.lit .t{fill:#eff4ec;stroke:#354f32;stroke-width:1.4}
-  .tile.lit .g{fill:#354f32}
-  .box .t{fill:#f7f7f2;stroke:#354f32;stroke-width:1.5}
-  .box .r{fill:#8fb87e;stroke:#354f32;stroke-width:1.5}
-  .box .l{fill:#b5d0a4;stroke:#354f32;stroke-width:1.5}
-  .glow{fill:#9cc489;filter:blur(18px);animation:glow 1.6s ease-in-out infinite}
-  @keyframes glow{50%{opacity:.35}}
-  .coin3 .s{fill:#c5d6b5;stroke:#8fa87c;stroke-width:1}
-  .coin3 .t{fill:#fcfcf9;stroke:#8fa87c;stroke-width:1}
-  .hud{font-size:12px;fill:var(--muted-foreground)}
-  .hud b,.hud .k{font-weight:600;fill:var(--foreground)}
-  .hudl{stroke:var(--wire);stroke-width:1;stroke-dasharray:3 3;fill:none}
-  .hudd{fill:var(--accent)}
-  .isosteps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
-  .isosteps div{position:relative;padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
-  .isosteps i{display:block;font:500 26px var(--font);font-style:normal;color:var(--accent);letter-spacing:-.02em;margin-bottom:22px}
-  .isosteps b{display:block;font-size:15px;font-weight:600;margin-bottom:4px}
-  .isosteps span{font-size:13px;color:var(--muted-foreground);line-height:1.45}
-  .better{color:var(--signal)!important;background:var(--selected);border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:500}
-  .proofrow{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;margin-top:16px}
-  .proofrow > div{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:18px}
-  .proofrow h3{font-size:19px;font-weight:500;letter-spacing:-.02em}
-  .proofrow .sub{font-size:13px;color:var(--muted-foreground);margin:4px 0 10px}
-  .pc b{display:block;font-size:13px;font-weight:600;margin-bottom:10px}
-  .pc .big{font-size:28px;font-weight:500;letter-spacing:-.03em;color:var(--signal)}
-  .pc .big small{font-size:13px;color:var(--muted-foreground);font-weight:400;letter-spacing:0}
-  .pc .track{height:8px;border-radius:999px;background:var(--muted);overflow:hidden;margin:12px 0 6px}
-  .pc .track i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
-  .pc span{font-size:12px;color:var(--muted-foreground)}
+  /* ---------- 02 how it works: steps + isometric scene ---------- */
+  .how3{display:grid;grid-template-columns:340px 1fr;gap:28px;align-items:stretch}
+  .hsteps{display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .hstep{position:relative;text-align:left;padding:16px 18px 16px 52px;border-radius:16px;transition:background .3s}
+  .hstep:hover{background:var(--muted)}
+  .hstep i{position:absolute;left:16px;top:16px;width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font:600 12px var(--font);font-style:normal;background:var(--muted);color:var(--muted-foreground);transition:all .3s}
+  .hstep b{display:block;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--muted-foreground);transition:color .3s}
+  .hstep span{display:block;font-size:13.5px;color:var(--muted-foreground);line-height:1.45;margin-top:4px;max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s}
+  .hstep .bar{position:absolute;left:52px;right:18px;bottom:8px;height:2px;border-radius:2px;background:var(--line);opacity:0;overflow:hidden}
+  .hstep .bar::after{content:"";display:block;height:100%;width:0;background:var(--accent)}
+  .hstep.on{background:var(--surface);box-shadow:0 0 0 1px var(--line)}
+  .hstep.on i{background:var(--accent);color:#fff}
+  .hstep.on b{color:var(--foreground)}
+  .hstep.on span{max-height:60px;opacity:1}
+  .hstep.on .bar{opacity:1}
+  .hsteps.run .hstep.on .bar::after{animation:prog var(--dur,3.8s) linear forwards}
+  @keyframes prog{to{width:100%}}
+  .hproof{margin:14px 18px 0;font-size:13px;color:var(--muted-foreground);line-height:1.5}
+  .hproof b{color:var(--foreground);font-weight:600}
+  .stage{position:relative;height:540px;border-radius:24px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+  .stage svg{position:absolute;inset:0;width:100%;height:100%}
+  .stage text{font-family:var(--font)}
+  /* scene parts */
+  .plat .t{fill:#f4f6ef;stroke:#b8cfae;stroke-width:1.2}
+  .plat .r{fill:#c5d6b5;stroke:#8fa87c;stroke-width:1}
+  .plat .l{fill:#dbe6d0;stroke:#8fa87c;stroke-width:1}
+  .gridl{stroke:#dfe6d6;stroke-width:1}
+  .pool .side{fill:#e6eedf;stroke:#8fa87c;stroke-width:1}
+  .pool .liq{fill:#b5d0a4}
+  .pool .rim{fill:#fcfcf9;stroke:#8fa87c;stroke-width:1}
+  .pool .surf{fill:#9cc489;opacity:.75}
+  .pool .lbl{font-size:9.5px;font-weight:600;fill:#567b51}
+  .pool{transition:opacity .4s}
+  .ptag{opacity:0}
+  .ptag rect{fill:#272b21}
+  .ptag text{font-size:10px;fill:#f7f7f2;font-weight:500}
+  .stack .s{stroke:rgba(0,0,0,.18);stroke-width:1}
+  .stack .t{stroke:rgba(0,0,0,.18);stroke-width:1}
+  .stack text{font-size:12px;font-weight:700;fill:#fff}
+  .slab{font-size:12px;fill:var(--muted-foreground)}
+  .slab.k{font-weight:600;fill:var(--foreground)}
+  .beam{opacity:0}
+  .arc{fill:none;stroke:var(--accent);stroke-linecap:round;opacity:0;transition:opacity .4s}
+  .arc.out{stroke-dasharray:5 7}
+  .parts circle{fill:var(--accent);stroke:#fff;stroke-width:1.5}
+  .parts{opacity:0;transition:opacity .3s}
+  .pct{opacity:0;transition:opacity .4s}
+  .pct rect{fill:#fcfcf9;stroke:#b8cfae}
+  .pct text{font-size:11px;font-weight:600;fill:#354f32}
+  .ck{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
+  .sandbox{fill:none;stroke:var(--accent);stroke-width:1.2;stroke-dasharray:4 5;opacity:0;transition:opacity .4s}
+  .sbl{opacity:0;transition:opacity .4s}
+  .sig{opacity:0;transform:translateY(8px);transition:all .4s}
+  .outs{transform-box:fill-box;transform-origin:center bottom}
+  /* step 1: scan */
+  [data-s="1"] .beam{opacity:1;animation:beam 2.4s linear infinite}
+  @keyframes beam{from{transform:translateX(-340px)}to{transform:translateX(340px)}}
+  [data-s="1"] .pool .rim{animation:rim 2.4s linear infinite;animation-delay:var(--d)}
+  [data-s="1"] .ptag{animation:tag 2.4s linear infinite;animation-delay:var(--d)}
+  @keyframes rim{0%{stroke:#354f32;stroke-width:2.4;fill:#eff4ec}25%{stroke:#8fa87c;stroke-width:1;fill:#fcfcf9}100%{stroke:#8fa87c;stroke-width:1;fill:#fcfcf9}}
+  @keyframes tag{0%{opacity:0}4%{opacity:1}40%{opacity:1}50%{opacity:0}100%{opacity:0}}
+  /* step 2: split */
+  [data-s="2"] .arc.in,[data-s="3"] .arc.in,[data-s="4"] .arc.in{opacity:1}
+  [data-s="2"] .parts.in,[data-s="4"] .parts{opacity:1}
+  [data-s="2"] .pct,[data-s="3"] .pct{opacity:1}
+  [data-s="2"] .pool:not(.pick),[data-s="3"] .pool:not(.pick),[data-s="4"] .pool:not(.pick){opacity:.3}
+  [data-s="2"] .pool.pick .surf,[data-s="3"] .pool.pick .surf,[data-s="4"] .pool.pick .surf{fill:#567b51}
+  /* step 3: check */
+  [data-s="3"] .pool.pick .ck,[data-s="4"] .pool.pick .ck{opacity:1;transform:none}
+  [data-s="3"] .sandbox,[data-s="3"] .sbl{opacity:1}
+  [data-s="3"] .arc.out{opacity:.7}
+  /* step 4: sign */
+  [data-s="4"] .arc.out{opacity:1;stroke-dasharray:none}
+  [data-s="4"] .sig{opacity:1;transform:none}
+  [data-s="4"] .outs{animation:pop 1.2s ease-in-out infinite}
+  @keyframes pop{50%{transform:translateY(-6px)}}
   .lnk{font-size:13.5px;color:var(--accent);display:inline-flex;align-items:center;gap:6px;font-weight:500}
   .lnk svg{width:12px;height:12px;transition:transform .2s}
   .lnk:hover svg{transform:translate(2px,-2px)}
+  .better{color:var(--signal)!important;background:var(--selected);border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:500}
   .swapin{animation:swapIn .4s ease}
   @keyframes swapIn{from{opacity:0;transform:translateY(6px)}}
 
@@ -377,7 +407,7 @@
 
   /* ---------- responsive ---------- */
   @media (max-width:1000px){
-    .compare,.build,.cov,.proofrow{grid-template-columns:1fr}
+    .compare,.build,.cov,.how3{grid-template-columns:1fr}
     .links{display:none}
   }
   @media (max-width:640px){
@@ -479,7 +509,7 @@
 <!-- ================= 02 HOW IT WORKS ================= -->
 <section id="how">
   <div class="wrap">
-    <div class="note"><b>02 How it works</b><span>Isometric illustration as the explainer, Ordo-style. Motion idea only: DEX pool tiles ride the belt into the Route engine, light up as they get scanned, and the best trade rolls out the other side as a single coin (NVDA, SPY, gold, TSLA to tie into section 03). Final illustration to be designed and animated; HUD labels say what each part is.</span></div>
+    <div class="note"><b>02 How it works</b><span>Steps on the left drive the isometric scene on the right; it auto-advances, click a step to jump. Scan: a beam sweeps the pools and each one flashes its price. Split: the trade arcs into the three best pools (line weight = share). Check: ticks on each pool and a dashed box around the route for the simulation. Sign: it all flows into the output with one signature. Motion idea only; final illustration to be designed.</span></div>
     <div class="sec-head rv">
       <div>
         <span class="eyebrow"><span class="dot"></span>How Route works</span>
@@ -487,35 +517,31 @@
         <p class="lede">Route reads every pool on every DEX, splits your trade across the ones that pay the most and hands you a single transaction.</p>
       </div>
     </div>
-    <div class="iso-frame rv d1" id="iso">
-      <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
-      <svg id="isoSvg" viewBox="0 0 1160 540" preserveAspectRatio="xMidYMid slice" aria-label="Isometric illustration: DEX pool tiles travel along a belt into the Route engine, and the best trade comes out as a single coin.">
-        <defs>
-          <linearGradient id="scanG" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#9cc489" stop-opacity="0"/><stop offset="1" stop-color="#9cc489" stop-opacity=".45"/></linearGradient>
-        </defs>
-        <g id="isoBelt"></g>
-        <g id="isoUp"></g>
-        <g id="isoBox"></g>
-        <g id="isoDown"></g>
-        <g id="isoHud"></g>
-      </svg>
-      <span class="ph-tag" style="left:24px;bottom:44px">isometric illustration: to be designed + animated. this is the motion idea</span>
-    </div>
-    <div class="isosteps rv d2">
-      <div><i>01</i><b>Scan</b><span>Every pool on every DEX, read live from the chain.</span></div>
-      <div><i>02</i><b>Split</b><span>Your trade spread across the pools that pay the most, after gas.</span></div>
-      <div><i>03</i><b>Check</b><span>The full route simulated before you ever see a quote.</span></div>
-      <div><i>04</i><b>Sign</b><span>One transaction out. Approve and swap batched where supported.</span></div>
-    </div>
-    <div class="proofrow rv d2" id="proof">
-      <div>
-        <h3>Better routes, measured.</h3>
-        <p class="sub">Route v2 vs other aggregators. 102 trades, same block, after gas.</p>
-        <a class="lnk" href="#">Read the case study<svg class="i"><use href="#out"/></svg></a>
+    <div class="how3 rv d1">
+      <div class="hsteps run" id="hsteps">
+        <button type="button" class="hstep on" data-s="1"><i>1</i><b>Scan</b><span>Every pool on every DEX, read live from the chain.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="2"><i>2</i><b>Split</b><span>Your trade spread across the pools that pay the most, after gas.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="3"><i>3</i><b>Check</b><span>The whole route simulated before you ever see a quote.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="4"><i>4</i><b>Sign</b><span>It all comes back as one transaction. One signature.</span><em class="bar"></em></button>
+        <p class="hproof">Route v2 beat Kyber in <b>81 of 92</b> trades, <b>+5.6 bps</b> median. <a class="lnk" href="#">Case study<svg class="i"><use href="#out"/></svg></a></p>
       </div>
-      <div class="pc"><b>vs Kyber</b><div class="big num">+5.6 <small>bps median</small></div><div class="track"><i data-w="88"></i></div><span>Won 81 of 92 trades</span></div>
-      <div class="pc"><b>vs 0x</b><div class="big num">+2.5 <small>bps median</small></div><div class="track"><i data-w="77"></i></div><span>Won 58 of 75 trades</span></div>
-      <div class="pc"><b>vs Nordstern</b><div class="big num">+0.4 <small>bps median</small></div><div class="track"><i data-w="57"></i></div><span>Won 51 of 89 trades</span></div>
+      <div class="stage" id="stage">
+        <svg id="scene" data-s="1" viewBox="0 0 820 540" preserveAspectRatio="xMidYMid meet" aria-label="Isometric scene: a platform of liquidity pools between your token and the token you get. It changes with each step.">
+          <defs>
+            <linearGradient id="beamG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#9cc489" stop-opacity="0"/><stop offset=".55" stop-color="#9cc489" stop-opacity=".55"/><stop offset="1" stop-color="#567b51" stop-opacity=".7"/></linearGradient>
+            <filter id="soft" x="-2" y="-1" width="5" height="3"><feGaussianBlur stdDeviation="5"/></filter>
+          </defs>
+          <g id="sPlat"></g>
+          <g id="sPools"></g>
+          <rect class="beam" id="beam" filter="url(#soft)"/>
+          <g id="sBox"></g>
+          <g id="sArcs"></g>
+          <g class="parts in" id="partsIn"></g>
+          <g class="parts out" id="partsOut"></g>
+          <g id="sTop"></g>
+        </svg>
+        <span class="ph-tag" style="left:20px;bottom:18px">isometric illustration: to be designed + animated. this is the motion idea</span>
+      </div>
     </div>
   </div>
 </section>
@@ -746,10 +772,11 @@
     hero.scrollIntoView({behavior:'smooth'});setTimeout(quote,450);
   };
 
-  /* ================= 02 how it works: isometric pipeline (motion idea) ================= */
-  var SVGNS='http://www.w3.org/2000/svg';
+  /* ================= 02 how it works: steps drive an isometric scene (motion idea) ================= */
+  var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
   function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
-  var CX=600,CY=240;
+  function txt(parent,attrs,s){var t=el('text',attrs,parent);t.textContent=s;return t}
+  var CX=410,CY=300,PH=14;
   function P(x,y,z){return [CX+(x-y)*.866,CY+(x+y)*.5-(z||0)]}
   function pts(a){return a.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' ')}
   function prism(g,x0,y0,w,d,h){
@@ -757,79 +784,70 @@
     el('polygon',{class:'r',points:pts([P(x0+w,y0,0),P(x0+w,y0+d,0),P(x0+w,y0+d,h),P(x0+w,y0,h)])},g);
     el('polygon',{class:'t',points:pts([P(x0,y0,h),P(x0+w,y0,h),P(x0+w,y0+d,h),P(x0,y0+d,h)])},g);
   }
-  // flat drawing on a horizontal plane at (x,y,z)
-  function plane(g,x,y,z){var p=P(x,y,z);return el('g',{transform:'matrix(.866,.5,-.866,.5,'+p[0].toFixed(1)+','+p[1].toFixed(1)+')'},g)}
-  // belt + scan field
-  var belt=$('#isoBelt');
-  el('polygon',{class:'beltfill',points:pts([P(-900,-95),P(900,-95),P(900,95),P(-900,95)])},belt);
-  el('polygon',{class:'scanfield',points:pts([P(-340,-95),P(-80,-95),P(-80,95),P(-340,95)])},belt);
-  el('line',{class:'belt',x1:P(-900,-95)[0],y1:P(-900,-95)[1],x2:P(900,-95)[0],y2:P(900,-95)[1]},belt);
-  el('line',{class:'belt',x1:P(-900,95)[0],y1:P(-900,95)[1],x2:P(900,95)[0],y2:P(900,95)[1]},belt);
-  // the Route engine
-  var box=$('#isoBox');
-  var gp=P(0,0,0);el('ellipse',{class:'glow',cx:gp[0],cy:gp[1]+10,rx:170,ry:90},box);
-  var bg=el('g',{class:'box'},box);prism(bg,-80,-80,160,160,74);
-  var top=plane(bg,0,0,74);
-  el('path',{d:'M8 19V11a5 5 0 0 1 5-5h3',transform:'rotate(-45) translate(-48,-50) scale(4)',fill:'none',stroke:'#272b21','stroke-width':3.2,'stroke-linecap':'round'},top);
-  [[-62,-62],[62,-62],[-62,62],[62,62]].forEach(function(c){el('circle',{cx:c[0],cy:c[1],r:7,fill:'#b5d0a4',stroke:'#354f32','stroke-width':1.2},top)});
-  // DEX tile clusters (each tile = a pool), built at X=0 then slid along the belt
-  var GLYPHS=[
-    function(g){el('circle',{r:8,class:'g'},g)},
-    function(g){el('path',{d:'M0 -9 9 7 -9 7Z',class:'g'},g)},
-    function(g){[[-5,-5],[5,-5],[-5,5],[5,5]].forEach(function(c){el('circle',{cx:c[0],cy:c[1],r:2.6,class:'g'},g)})},
-    function(g){el('path',{d:'M0 -9 8 -4.5 8 4.5 0 9 -8 4.5 -8 -4.5Z',class:'g'},g)},
-    function(g){el('path',{d:'M0 -10C1 -2 2 -1 10 0 2 1 1 2 0 10 -1 2 -2 1 -10 0 -2 -1 -1 -2 0 -10Z',class:'g'},g)}
-  ];
-  var up=$('#isoUp'),clusters=[],SP=170,NC=5;
-  for(var k=0;k<NC;k++){
-    var cg=el('g',{},null),tiles=[];
-    [[-40,-40],[4,-40],[-40,4],[4,4]].forEach(function(o,j){var tg=el('g',{class:'tile'},cg);prism(tg,o[0],o[1],36,36,10);GLYPHS[(k+j)%GLYPHS.length](plane(tg,o[0]+18,o[1]+18,10));tiles.push(tg)});
-    clusters.push({g:cg,x:-120-k*SP,tiles:tiles});
+  function cyl(g,cx,cyBase,r,h,sideCls,topCls,fill){
+    var rx=r*1.2247,ry=r*.7071,top=cyBase-h;
+    el('path',{class:sideCls,d:'M'+(cx-rx)+' '+top+'V'+cyBase+'A'+rx+' '+ry+' 0 0 0 '+(cx+rx)+' '+cyBase+'V'+top+'Z',fill:fill||null},g);
+    el('ellipse',{class:topCls,cx:cx,cy:top,rx:rx,ry:ry,fill:fill||null},g);
+    return {rx:rx,ry:ry,top:top};
   }
-  clusters.slice().reverse().forEach(function(c){up.appendChild(c.g)});
-  // output coins: the best trade, one per swap
-  var down=$('#isoDown'),coins=[],CS=180,NO=4,TOKS=[['N','#76b900'],['S','#2b4c9b'],['Au','#c9a227'],['T','#cc2936']];
-  for(var m=0;m<NO;m++){
-    var og=el('g',{class:'coin3'},null),c0=P(0,0,0),rx=44,ry=25.4,h=18;
-    el('path',{class:'s',d:'M'+(c0[0]-rx)+' '+(c0[1]-h)+'V'+c0[1]+'A'+rx+' '+ry+' 0 0 0 '+(c0[0]+rx)+' '+c0[1]+'V'+(c0[1]-h)+'Z'},og);
-    el('ellipse',{class:'t',cx:c0[0],cy:c0[1]-h,rx:rx,ry:ry},og);
-    var tp=plane(og,0,0,h);el('circle',{r:19,fill:TOKS[m][1]},tp);
-    var tx=el('text',{y:4.5,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#fff',transform:'rotate(-45)'},tp);tx.textContent=TOKS[m][0];
-    coins.push({g:og,x:120+m*CS});
+  // platform with a faint grid
+  var S=150,plat=el('g',{class:'plat'},$('#sPlat'));prism(plat,-S,-S,2*S,2*S,PH);
+  for(var gl=-S+50;gl<S;gl+=50){var a=P(gl,-S,PH),b=P(gl,S,PH),c=P(-S,gl,PH),d=P(S,gl,PH);
+    el('line',{class:'gridl',x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#sPlat'));el('line',{class:'gridl',x1:c[0],y1:c[1],x2:d[0],y2:d[1]},$('#sPlat'))}
+  // liquidity pools (3x3), drawn back to front
+  var PICK={'-1,-1':55,'0,1':30,'1,0':15},pools=[],cells=[];
+  [-1,0,1].forEach(function(a){[-1,0,1].forEach(function(b){cells.push([a,b])})});
+  cells.sort(function(p,q){return (p[0]+p[1])-(q[0]+q[1])});
+  cells.forEach(function(c,i){
+    var w=P(c[0]*88,c[1]*88,PH),dx=w[0]-CX,key=c[0]+','+c[1];
+    var g=el('g',{class:'pool'+(PICK[key]?' pick':''),style:'--d:'+((dx+340)/680*2.4).toFixed(2)+'s'},$('#sPools'));
+    var cy=cyl(g,w[0],w[1],24,36,'side','rim');
+    el('ellipse',{class:'surf',cx:w[0],cy:cy.top+5,rx:cy.rx*.78,ry:cy.ry*.78},g);
+    var tg=el('g',{class:'ptag'},g);el('rect',{x:w[0]-27,y:cy.top-44,width:54,height:19,rx:9.5},tg);
+    txt(tg,{x:w[0],y:cy.top-31,'text-anchor':'middle'},'$'+(217.62+((i*37)%9)*.05).toFixed(2));
+    var ck=el('g',{class:'ck'},g);el('circle',{cx:w[0]+cy.rx-2,cy:cy.top-12,r:9,fill:'#567b51'},ck);
+    el('path',{d:'M'+(w[0]+cy.rx-6)+' '+(cy.top-12)+'l3 3 5-6',stroke:'#fff','stroke-width':2,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},ck);
+    pools.push({key:key,x:w[0],top:cy.top,share:PICK[key]||0});
+  });
+  // scan beam
+  var bm=$('#beam');bm.setAttribute('x',CX-6);bm.setAttribute('y',CY-250);bm.setAttribute('width',12);bm.setAttribute('height',410);bm.setAttribute('fill','url(#beamG)');
+  // simulation sandbox: dashed box around the route
+  (function(){var s=168,h=70,g=$('#sBox'),C=[[-s,-s],[s,-s],[s,s],[-s,s]];
+    var d='';C.forEach(function(c,i){var n=C[(i+1)%4],a=P(c[0],c[1],h),b=P(n[0],n[1],h),e=P(c[0],c[1],0),f=P(n[0],n[1],0);d+='M'+a+'L'+b+'M'+e+'L'+f+'M'+e+'L'+a});
+    el('path',{class:'sandbox',d:d.replace(/,/g,' ')},g);
+    var lp=P(s,s,0);var lg=el('g',{class:'sbl'},g);txt(lg,{class:'slab k',x:lp[0],y:lp[1]+24,'text-anchor':'middle'},'Simulated before you sign');
+  })();
+  // your token in, the token you get out (coin stacks)
+  function stack(wx,wy,n,color,letter,cls){var g=el('g',{class:'stack '+(cls||'')},$('#sTop')),b=P(wx,wy,0),top;
+    for(var i=0;i<n;i++){top=cyl(g,b[0],b[1]-i*12,30,12,'s','t',color)}
+    txt(g,{x:b[0],y:top.top+4,'text-anchor':'middle'},letter);return {x:b[0],top:top.top,base:b[1]}}
+  var IN=stack(-200,200,3,'#627eea','ETH'),OUT=stack(200,-200,3,'#76b900','NVDA','outs');
+  txt($('#sTop'),{class:'slab k',x:IN.x,y:IN.base+44,'text-anchor':'middle'},'You pay');
+  txt($('#sTop'),{class:'slab',x:IN.x,y:IN.base+60,'text-anchor':'middle'},'4.1 ETH');
+  txt($('#sTop'),{class:'slab k',x:OUT.x,y:OUT.base+44,'text-anchor':'middle'},'You get');
+  txt($('#sTop'),{class:'slab',x:OUT.x,y:OUT.base+60,'text-anchor':'middle'},'45.96 NVDA');
+  var sg=el('g',{class:'sig'},$('#sTop'));el('rect',{x:OUT.x-56,y:OUT.base+72,width:112,height:26,rx:13,fill:'#272b21'},sg);
+  txt(sg,{x:OUT.x,y:OUT.base+89,'text-anchor':'middle','font-size':12,'font-weight':500,fill:'#f7f7f2'},'✓ 1 signature');
+  // arcs: token -> picked pools -> output, with flowing dots
+  function arc(x1,y1,x2,y2){var cx=(x1+x2)/2,cy=Math.min(y1,y2)-110;return {d:'M'+x1+' '+y1+'Q'+cx+' '+cy+' '+x2+' '+y2,mx:(x1+2*cx+x2)/4,my:(y1+2*cy+y2)/4}}
+  function dots(group,id,n){for(var i=0;i<n;i++){var c=el('circle',{r:4.5},group),am=el('animateMotion',{dur:'1.8s',repeatCount:'indefinite',begin:(-(i/n)*1.8).toFixed(2)+'s'},c),mp=el('mpath',{href:'#'+id},am);mp.setAttributeNS(XL,'xlink:href','#'+id)}}
+  pools.filter(function(p){return p.share}).forEach(function(p,k){
+    var a=arc(IN.x,IN.top,p.x,p.top),b=arc(p.x,p.top,OUT.x,OUT.top),w=2+p.share/10;
+    el('path',{class:'arc in',id:'arcI'+k,d:a.d,'stroke-width':w},$('#sArcs'));
+    el('path',{class:'arc out',id:'arcO'+k,d:b.d,'stroke-width':w},$('#sArcs'));
+    var n=Math.max(2,Math.round(p.share/12));dots($('#partsIn'),'arcI'+k,n);dots($('#partsOut'),'arcO'+k,n);
+    var pg=el('g',{class:'pct'},$('#sTop'));el('rect',{x:a.mx-22,y:a.my-11,width:44,height:22,rx:11},pg);txt(pg,{x:a.mx,y:a.my+4,'text-anchor':'middle'},p.share+'%');
+  });
+  // steps drive the scene
+  var scene=$('#scene'),hs=$('#hsteps'),hsteps=$$('.hstep'),HS={cur:1,t:null,inView:false};
+  function show(n){
+    HS.cur=n;scene.setAttribute('data-s',n);
+    hsteps.forEach(function(b){b.classList.remove('on');if(+b.dataset.s===n){void b.offsetWidth;b.classList.add('on')}});
+    clearTimeout(HS.t);hs.classList.toggle('run',HS.inView);if(HS.inView)HS.t=setTimeout(function(){show(n%4+1)},3800);
   }
-  coins.forEach(function(c){down.appendChild(c.g)});
-  // HUD callouts
-  function hud(ax,ay,lx,ly,title,sub,anchorEnd){
-    var g=$('#isoHud');el('polyline',{class:'hudl',points:ax+','+ay+' '+lx+','+ay+' '+lx+','+ly},g);el('circle',{class:'hudd',cx:ax,cy:ay,r:3.5},g);
-    var tx0=anchorEnd?lx-8:lx+8,t=el('text',{class:'hud',x:tx0,y:ly-22,'text-anchor':anchorEnd?'end':'start'},g);
-    var a=document.createElementNS(SVGNS,'tspan');a.setAttribute('class','k');a.textContent=title;t.appendChild(a);
-    var b=document.createElementNS(SVGNS,'tspan');b.setAttribute('x',tx0);b.setAttribute('dy','16');b.textContent=sub;t.appendChild(b);
-  }
-  var a1=P(-300,95,10),a2=P(80,-80,74),a3=P(470,0,18);
-  hud(a1[0],a1[1],130,a1[1]+120,'6 DEXs · 23 pools','every pool streams in, live',false);
-  hud(a2[0],a2[1],870,a2[1]-50,'Route engine','scan · split · simulate',false);
-  hud(a3[0],a3[1],1090,a3[1]-80,'Best price out','one swap, one signature',true);
-  // motion
-  var last=0,running=false,SPEED=40;
-  function step(dt){
-    clusters.forEach(function(c){
-      c.x+=SPEED*dt;
-      if(c.x>-10){c.x-=NC*SP;up.insertBefore(c.g,up.firstChild)}
-      var o=c.x>-70?Math.max(0,1-(c.x+70)/55):1;c.g.setAttribute('opacity',o.toFixed(2));
-      c.g.setAttribute('transform','translate('+(c.x*.866).toFixed(1)+','+(c.x*.5).toFixed(1)+')');
-      var lit=c.x>-340&&c.x<-70;c.tiles.forEach(function(tg){tg.classList.toggle('lit',lit)});
-    });
-    coins.forEach(function(c){
-      c.x+=SPEED*dt;
-      if(c.x>840){c.x-=NO*CS;down.insertBefore(c.g,down.firstChild)}
-      c.g.setAttribute('opacity',Math.max(0,Math.min(1,(c.x-100)/45)).toFixed(2));
-      c.g.setAttribute('transform','translate('+(c.x*.866).toFixed(1)+','+(c.x*.5).toFixed(1)+')');
-    });
-  }
-  function frame(t){if(!running)return;var dt=Math.min(.05,(t-(last||t))/1000);last=t;step(dt);requestAnimationFrame(frame)}
-  step(0);
-  onView($('#iso'),function(v){if(v&&!running){running=true;last=0;requestAnimationFrame(frame)}else if(!v)running=false},{threshold:.1});
-  onView($('#proof'),function(v){if(v)$$('#proof .track i').forEach(function(i,k){setTimeout(function(){i.style.width=i.dataset.w+'%'},k*150)})});
+  hsteps.forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.s)})});
+  onView($('#stage'),function(v){var was=HS.inView;HS.inView=v;if(v&&!was)show(HS.cur);else if(!v){clearTimeout(HS.t);hs.classList.remove('run')}},{threshold:.3});
+  show(1);
 
   /* ================= 03 markets: asset wall + head-to-head ================= */
   var WALL=[['Stocks',['NVDA','TSLA','AAPL','GOOGL','META','CRCL','MSTR','MU'],'70s',''],['ETFs & gold',['SPY','QQQ','GLD'],'40s',' rev'],['Crypto',['ETH','cbBTC','VIRTUAL','ROUTE','PONS','CASHCAT','HOOKR','VRAX','IGNITION','RAM'],'80s','']];
