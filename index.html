@@ -346,18 +346,6 @@
   .build-cta{display:flex;gap:10px;margin-top:22px}
 
   /* ---------- 05 coverage ---------- */
-  .orbit{position:relative;width:300px;height:300px;flex:none;margin:-40px 0 -20px}
-  .orbit .core{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px;border-radius:17px;background:var(--cta);display:grid;place-items:center;color:#f7f7f2;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
-  .orbit .core svg{width:24px;height:24px;stroke-width:3.2}
-  .ring{position:absolute;inset:0;animation:spin var(--t) linear infinite}
-  .orbit:hover .ring,.orbit:hover .ring .it > button{animation-play-state:paused}
-  .ring::before{content:"";position:absolute;left:50%;top:50%;width:calc(var(--r) * 2);height:calc(var(--r) * 2);margin:calc(var(--r) * -1);border-radius:50%;border:1.5px solid var(--line)}
-  .ring.out::before{border-style:dashed}
-  .ring .it{position:absolute;left:50%;top:50%;transform:rotate(var(--a)) translate(var(--r)) rotate(calc(var(--a) * -1))}
-  .ring .it > button{display:block;margin:-17px;animation:spin var(--t) linear infinite reverse}
-  .orb{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:9.5px;font-weight:700;color:#fff;box-shadow:0 4px 10px -4px rgba(0,0,0,.35);transition:transform .2s}
-  .ring .it > button:hover .orb{transform:scale(1.15)}
-  .orb.sel{box-shadow:0 0 0 3px var(--background),0 0 0 5px var(--accent)}
   .cov{display:grid;grid-template-columns:1fr 1.5fr;gap:20px;align-items:start}
   .cov > *,.how > *,.markets > *,.build > *{min-width:0}
   .chain-hero{border:1px solid var(--selected-line);border-radius:24px;background:var(--selected);padding:24px;display:flex;flex-direction:column;gap:16px;transition:background .3s,border-color .3s}
@@ -420,7 +408,6 @@
   @media (max-width:1000px){
     .how,.markets,.build,.cov{grid-template-columns:1fr}
     .links{display:none}
-    .orbit{margin:0 auto}
   }
   @media (max-width:640px){
     .wrap{padding:0 16px}
@@ -442,7 +429,6 @@
     .end .big{font-size:80px}
     .ph-tag{display:none}
     .hero-note{padding:12px 16px 0}
-    .orbit{transform:scale(.85)}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
@@ -691,17 +677,12 @@
 <!-- ================= 05 COVERAGE ================= -->
 <section id="coverage">
   <div class="wrap">
-    <div class="note"><b>05 Coverage by chain</b><span>Orbit: live chains on the inner ring, screener-only chains on the outer. Click any chain (orbit or table) to load it in the card. Product chips filter the table. Swaps are live on Robinhood Chain and Arc; the rest show in the screener only. "soon?" marks claims to confirm with Route.</span></div>
+    <div class="note"><b>05 Coverage by chain</b><span>Click any chain in the table to load it in the card. Product chips filter the table. Swaps are live on Robinhood Chain and Arc; the rest show in the screener only. "soon?" marks claims to confirm with Route.</span></div>
     <div class="sec-head rv">
       <div>
         <span class="eyebrow"><span class="dot"></span>Coverage</span>
         <h2 class="h2">Where Route runs.</h2>
         <p class="lede">Built on Robinhood Chain first. Swaps on Arc, market data across eleven chains, more on the way.</p>
-      </div>
-      <div class="orbit" id="orbit">
-        <div class="ring" style="--r:70px;--t:36s" id="ringIn"></div>
-        <div class="ring out" style="--r:130px;--t:70s" id="ringOut"></div>
-        <div class="core"><svg class="i"><use href="#r"/></svg></div>
       </div>
     </div>
     <div class="cov">
@@ -1021,7 +1002,6 @@
       (c.k?'<div class="ch-kpi num swapin">'+c.k.map(function(k){return '<div>'+k[0]+'<b>'+k[1]+'</b></div>'}).join('')+'</div>':'')+
       '<p class="sub swapin" style="font-size:13px;color:var(--muted-foreground)">'+c.d+'</p>';
     $$('#ctable tr[data-id]').forEach(function(r){r.classList.toggle('sel',r.dataset.id===id)});
-    $$('.orb').forEach(function(o){o.classList.toggle('sel',o.dataset.id===id)});
     if(c.x)$('#ctable').classList.add('open'),$('#moreRow').style.display='none';
   }
   function filt(p){
@@ -1031,11 +1011,6 @@
   }
   $('#ctable').addEventListener('click',function(e){var r=e.target.closest('tr');if(!r)return;if(r.id==='moreRow'){$('#ctable').classList.add('open');r.style.display='none';return}selChain(r.dataset.id)});
   $('#fchips').addEventListener('click',function(e){var b=e.target.closest('button');if(b)filt(b.dataset.p)});
-  // orbit
-  function fillRing(el,list){el.innerHTML=list.map(function(c,i){return '<span class="it" style="--a:'+(i*360/list.length)+'deg"><button type="button" aria-label="'+c.n+'">'+'<span class="orb" data-id="'+c.id+'" style="background:'+c.bg+';color:'+(c.fg||'#fff')+'">'+c.ico+'</span></button></span>'}).join('')}
-  fillRing($('#ringIn'),CH.filter(function(c){return c.live}));
-  fillRing($('#ringOut'),CH.filter(function(c){return !c.live}));
-  $('#orbit').addEventListener('click',function(e){var o=e.target.closest('.it button');if(o)selChain($('.orb',o).dataset.id)});
   selChain('rh');
 })();
 </script>

@@ -14,7 +14,7 @@ The button at the bottom right toggles the wireframe notes on and off. Animation
 | 02 | How Route works | Diagram loops Scan → Split → Check → Sign while on screen, with tokens flowing down each route. Trade size ($10 / $1,000 / $25,000) changes the split. Proof bars fill on scroll. |
 | 03 | Onchain markets | Category pills switch the list, any row becomes the lead card, prices tick live, chart redraws per range with hover crosshair, Buy loads the token into the hero. |
 | 04 | Builders | Feature cards drive the code panel: quote, live streaming log, zap legs, partner fee calculator wired into the code. Moving logo strip. |
-| 05 | Coverage by chain | Orbiting chain graphic, chain card that follows whatever you click, product filters on the chain matrix. |
+| 05 | Coverage by chain | Chain card that follows whatever you click in the matrix, product filters on the matrix. |
 | 06 | Close | Big wordmark, tagline, Launch app, footer. Not in the brief. |
 
 ## Sources
