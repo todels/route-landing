@@ -11,7 +11,7 @@ The button at the bottom right toggles the wireframe notes on and off. Animation
 | # | Section | What's in it |
 |---|---------|--------------|
 | 01 | Hero | Swap card as hero, stripped to amount + two tokens + one button at rest. Typing an amount reveals dollar values, a short "checking pools" beat, then rate, route and the Kyber edge. No background graphic. |
-| 02 | How Route works | Four steps beside an isometric route graph: tokens as vertices, pools as edges. Scan lights edges outward from ETH, Split lifts the vertices on the three best paths like map pins, Check ticks each hop, Sign lands in NVDA. Motion idea, final illustration to be designed. |
+| 02 | How Route works | Four steps beside an isometric graph: every token is a node, every DEX pool between two tokens is its own edge. Example ETH to PONS: Scan draws in all 8 pools (Uniswap v4/v3, Metric, Fables, plus hops via USDG), Split keeps the best 3 with their share, Check ticks them, Sign lands in PONS. Motion idea, final illustration to be designed. |
 | 03 | Onchain markets | No charts. Two moving rows of stocks and ETFs/gold, then one big "+$X more than Kyber" number beside a minimal head-to-head that races into order. Click any asset to compare it. |
 | 04 | Builders | Feature list on the left drives the code panel on the right: quote, live streaming log, zap legs, partner fee calculator wired into the code. Placeholder logo row. |
 | 05 | Coverage by chain | Three columns by how much of Route runs there: everything (Robinhood Chain), swaps (Arc), screener data (nine more chains). |

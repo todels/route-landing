@@ -186,41 +186,49 @@
   .stage text{font-family:var(--font)}
   .floor{fill:#f3f5ee;stroke:#dfe6d6;stroke-width:1.2}
   .gridl{stroke:#e6ebdf;stroke-width:1}
-  .edge{stroke:#cfd6c7;stroke-width:2;stroke-linecap:round;transition:stroke .35s,opacity .35s,stroke-width .35s}
-  .edge.seen{stroke:#8fb87e;stroke-width:2.5}
-  .rpath{fill:none;stroke:var(--accent);stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .4s}
-  .vx{cursor:default}
-  .vx .ring{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0}
+  .bge{fill:none;stroke:#d9dfd1;stroke-width:1.6;stroke-linecap:round;transition:opacity .4s}
+  .pe{fill:none;stroke:#9cc489;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .7s ease,stroke .3s,opacity .35s,stroke-width .35s}
+  .pe.on{stroke-dashoffset:0}
+  .plbl{opacity:0;transition:opacity .35s}
+  .plbl.on{opacity:1}
+  .plbl rect{fill:#fcfcf9;stroke:#cfd9c4}
+  .plbl text{font-size:10.5px;font-weight:600;fill:#4b5a46}
+  .plbl .ck{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
+  .vx .ring{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center}
   .vx .stem{fill:#dbe6d0;stroke:#8fa87c;stroke-width:1;transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
   .vx .cap{transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
   .vx .side{fill:#e3e8dc;stroke:#a9b8a0;stroke-width:1}
   .vx .top{stroke:rgba(0,0,0,.15);stroke-width:1}
   .vx .sym{font-size:9.5px;font-weight:700;fill:#fff}
   .vx .nm{font-size:11px;font-weight:600;fill:var(--muted-foreground);transition:fill .3s}
-  .vx.ping .ring{animation:ping 1s ease-out}
-  @keyframes ping{0%{opacity:.8;transform:scale(.6)}100%{opacity:0;transform:scale(1.6)}}
-  .vx .ring{transform-box:fill-box;transform-origin:center}
+  .vx{transition:opacity .4s}
+  .vx.key .ring{opacity:.6;animation:ping 1.6s ease-out infinite}
+  @keyframes ping{0%{opacity:.7;transform:scale(.7)}100%{opacity:0;transform:scale(1.6)}}
+  .vx.key .nm{fill:var(--foreground)}
   .vx.lift .stem{transform:scaleY(1)}
   .vx.lift .cap{transform:translateY(-28px)}
-  .vx.lift .nm{fill:var(--foreground)}
-  .vx .ck{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
   .parts circle{fill:var(--accent);stroke:#fff;stroke-width:1.5}
   .parts{opacity:0;transition:opacity .3s}
-  .pct,.simtag,.sig,.scantag{opacity:0;transition:opacity .4s}
-  .pct rect{fill:#fcfcf9;stroke:#b8cfae}
-  .pct text{font-size:11px;font-weight:600;fill:#354f32}
-  .tagtext{font-size:12px;font-weight:600;fill:var(--foreground)}
+  .pct,.simtag,.sig,.scantag,.splittag{opacity:0;transition:opacity .4s}
+  .pct rect{fill:var(--accent)}
+  .pct text{font-size:11px;font-weight:700;fill:#fff}
+  .tagtext{font-size:12.5px;font-weight:600;fill:var(--foreground)}
   .tagsub{font-size:11.5px;fill:var(--muted-foreground)}
+  .swaptag rect{fill:#fcfcf9;stroke:#dededa}
+  .swaptag text{font-size:12px;font-weight:600;fill:var(--foreground)}
   [data-s="1"] .scantag{opacity:1}
-  [data-s="2"] .rpath,[data-s="3"] .rpath,[data-s="4"] .rpath{opacity:.9}
+  [data-s="2"] .splittag{opacity:1}
   [data-s="2"] .parts,[data-s="4"] .parts{opacity:1}
-  [data-s="2"] .pct,[data-s="3"] .pct{opacity:1}
-  [data-s="2"] .edge:not(.onr),[data-s="3"] .edge:not(.onr),[data-s="4"] .edge:not(.onr){opacity:.35}
-  [data-s="2"] .vx:not(.onr),[data-s="3"] .vx:not(.onr),[data-s="4"] .vx:not(.onr){opacity:.45}
-  [data-s="3"] .vx.onr .ck,[data-s="4"] .vx.onr .ck{opacity:1;transform:none}
+  [data-s="2"] .pct,[data-s="3"] .pct,[data-s="4"] .pct{opacity:1}
+  [data-s="2"] .pe:not(.sel),[data-s="3"] .pe:not(.sel),[data-s="4"] .pe:not(.sel){opacity:.16}
+  [data-s="2"] .plbl:not(.sel),[data-s="3"] .plbl:not(.sel),[data-s="4"] .plbl:not(.sel){opacity:0}
+  [data-s="2"] .pe.sel,[data-s="3"] .pe.sel,[data-s="4"] .pe.sel{stroke:var(--accent);stroke-width:var(--w)}
+  [data-s="2"] .bge,[data-s="3"] .bge,[data-s="4"] .bge{opacity:.35}
+  [data-s="2"] .vx.bgv,[data-s="3"] .vx.bgv,[data-s="4"] .vx.bgv{opacity:.35}
+  [data-s="3"] .pe.sel{stroke-dasharray:.018 .014;animation:dash2 1.2s linear infinite}
+  @keyframes dash2{to{stroke-dashoffset:-.064}}
+  [data-s="3"] .plbl.sel .ck,[data-s="4"] .plbl.sel .ck{opacity:1;transform:none}
   [data-s="3"] .simtag{opacity:1}
-  [data-s="3"] .rpath{stroke-dasharray:6 7;animation:dash 1s linear infinite}
-  @keyframes dash{to{stroke-dashoffset:-26}}
   [data-s="4"] .sig{opacity:1}
   [data-s="4"] .vx.dest .cap{animation:bob 1.2s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(-28px)}50%{transform:translateY(-36px)}}
@@ -478,24 +486,24 @@
 <!-- ================= 02 HOW IT WORKS ================= -->
 <section id="how">
   <div class="wrap">
-    <div class="note"><b>02 How it works</b><span>Graph theory, drawn isometric. Tokens are vertices, pools are edges. Steps on the left drive it (auto-advance, click to jump). Scan: edges light up outward from ETH, layer by layer. Split: the three best paths light up and their vertices rise like map pins (line weight = share). Check: each hop ticked, simulated. Sign: everything lands in NVDA. Motion idea; final illustration to be designed.</span></div>
+    <div class="note"><b>02 How it works</b><span>Per the client: every token is a node, and every pool between two tokens is its own edge (a Uniswap pool, a Metric pool, a Fables pool...). Example swap ETH to PONS. Scan: every ETH/PONS pool draws in with its DEX, plus pools that hop through USDG. Split: only the best 3 of 8 stay lit, with their share, and the nodes on the route rise. Check: those pools ticked and simulated. Sign: one transaction lands in PONS. Background tokens show the wider network. DEX list and split are illustrative.</span></div>
     <div class="sec-head rv">
       <div>
         <span class="label"><em>[02]</em>How Route works</span>
         <h2 class="h2">Every pool scanned.<br>The best route, found.</h2>
-        <p class="lede">Route maps every token and pool on the chain as one graph, then finds the paths through it that get you the most out.</p>
+        <p class="lede">Every token is a node, and every pool between two tokens is a path. For your swap Route finds all of them, then uses the few that pay the most.</p>
       </div>
     </div>
     <div class="how3 rv d1">
       <div class="hsteps run" id="hsteps">
-        <button type="button" class="hstep on" data-s="1"><i>1</i><b>Scan</b><span>Every token is a vertex, every pool an edge. Route reads them all, live.</span><em class="bar"></em></button>
-        <button type="button" class="hstep" data-s="2"><i>2</i><b>Split</b><span>It finds the paths that pay the most and splits your trade across them.</span><em class="bar"></em></button>
-        <button type="button" class="hstep" data-s="3"><i>3</i><b>Check</b><span>Every hop is simulated before you see a quote.</span><em class="bar"></em></button>
-        <button type="button" class="hstep" data-s="4"><i>4</i><b>Sign</b><span>All paths land in one transaction. One signature.</span><em class="bar"></em></button>
+        <button type="button" class="hstep on" data-s="1"><i>1</i><b>Scan</b><span>Every token is a node. Route finds every pool between them: Uniswap, Metric, Fables and more.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="2"><i>2</i><b>Split</b><span>It keeps the few pools that pay the most and splits your trade across them.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="3"><i>3</i><b>Check</b><span>Every pool and hop is simulated before you see a quote.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="4"><i>4</i><b>Sign</b><span>All of it lands in one transaction. One signature.</span><em class="bar"></em></button>
         <p class="hproof">Route v2 beat Kyber in <b>81 of 92</b> trades, <b>+5.6 bps</b> median. <a class="lnk" href="#">Case study<svg class="i"><use href="#out"/></svg></a></p>
       </div>
       <div class="stage" id="stage">
-        <svg id="scene" data-s="1" viewBox="0 0 860 560" preserveAspectRatio="xMidYMid meet" aria-label="Isometric graph: tokens as vertices, pools as edges. The best paths from ETH to NVDA light up and their vertices rise.">
+        <svg id="scene" data-s="1" viewBox="0 0 860 560" preserveAspectRatio="xMidYMid meet" aria-label="Isometric graph: tokens are nodes and each DEX pool is an edge between them. For ETH to PONS, every pool is found and the best three are used.">
           <g id="gFloor"></g>
           <g id="gEdges"></g>
           <g id="gRoutes"></g>
@@ -739,77 +747,85 @@
     hero.scrollIntoView({behavior:'smooth'});setTimeout(quote,450);
   };
 
-  /* ================= 02 how it works: steps drive an isometric route graph (motion idea) ================= */
+  /* ================= 02 how it works: tokens are nodes, pools are the edges between them (motion idea) ================= */
   var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
   function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)if(attrs[k]!=null)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
   function txt(parent,attrs,s){var t=el('text',attrs,parent);t.textContent=s;return t}
-  var CX=430,CY=285;
+  var CX=430,CY=290;
   function P(x,y,z){return [CX+(x-y)*.866,CY+(x+y)*.5-(z||0)]}
   function pts(a){return a.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' ')}
-  // floor: an isometric square with a faint grid
+  // floor
   var FS=240,fl=$('#gFloor');
   el('polygon',{class:'floor',points:pts([P(-FS,-FS),P(FS,-FS),P(FS,FS),P(-FS,FS)])},fl);
   for(var k=-FS+40;k<FS;k+=40){var a1=P(k,-FS),a2=P(k,FS),b1=P(-FS,k),b2=P(FS,k);
     el('line',{class:'gridl',x1:a1[0],y1:a1[1],x2:a2[0],y2:a2[1]},fl);el('line',{class:'gridl',x1:b1[0],y1:b1[1],x2:b2[0],y2:b2[1]},fl)}
-  // vertices = tokens, laid out in layers (screen offsets from centre)
-  var V={ETH:[-300,0,'#627eea','ETH',0],WETH:[-165,-100,'#7d8fd8','WETH',1],USDG:[-165,0,'#2f9e5a','USDG',1],cbBTC:[-165,100,'#f7931a','BTC',1],
-    SPY:[-20,-135,'#2b4c9b','SPY',2],ROUTE:[-20,-45,'#252620','r',2],PONS:[-20,45,'#d0873a','PONS',2],VIRTUAL:[-20,135,'#2fbfb0','VIRT',2],
-    TSLA:[150,-70,'#cc2936','TSLA',3],QQQ:[150,0,'#6c3fc4','QQQ',3],GLD:[150,70,'#c9a227','GLD',3],NVDA:[300,0,'#76b900','NVDA',4]};
-  // edges = pools
-  var E=[['ETH','WETH'],['ETH','USDG'],['ETH','cbBTC'],['WETH','SPY'],['WETH','ROUTE'],['USDG','ROUTE'],['USDG','PONS'],['cbBTC','PONS'],['cbBTC','VIRTUAL'],
-    ['SPY','TSLA'],['SPY','QQQ'],['ROUTE','TSLA'],['ROUTE','QQQ'],['PONS','QQQ'],['PONS','GLD'],['VIRTUAL','GLD'],['TSLA','NVDA'],['QQQ','NVDA'],['GLD','NVDA']];
-  var ROUTES=[[55,['ETH','USDG','ROUTE','QQQ','NVDA']],[30,['ETH','WETH','SPY','TSLA','NVDA']],[15,['ETH','cbBTC','VIRTUAL','GLD','NVDA']]];
-  function at(id){var v=V[id];return [CX+v[0],CY+v[1]]}
-  var onRoute={},edgeOn={};
-  ROUTES.forEach(function(r){r[1].forEach(function(id,i){onRoute[id]=1;if(i)edgeOn[[r[1][i-1],id].sort().join('|')]=1})});
-  E.forEach(function(e,i){var a=at(e[0]),b=at(e[1]);
-    el('line',{class:'edge'+(edgeOn[e.slice().sort().join('|')]?' onr':''),'data-i':i,x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#gEdges'))});
-  // highlighted routes + flowing dots + share labels
-  ROUTES.forEach(function(r,k){
-    var d='M'+r[1].map(function(id){return at(id).join(' ')}).join('L');
-    el('path',{class:'rpath',id:'rp'+k,d:d,'stroke-width':(2.5+r[0]/9).toFixed(1)},$('#gRoutes'));
-    var n=Math.max(2,Math.round(r[0]/11));
-    for(var i=0;i<n;i++){var c=el('circle',{r:4.5},$('#gParts')),am=el('animateMotion',{dur:'2.6s',repeatCount:'indefinite',begin:(-(i/n)*2.6).toFixed(2)+'s'},c),mp=el('mpath',{href:'#rp'+k},am);mp.setAttributeNS(XL,'xlink:href','#rp'+k)}
-    var p0=at(r[1][0]),p1=at(r[1][1]),mx=(p0[0]+p1[0])/2,my=(p0[1]+p1[1])/2;
-    var pg=el('g',{class:'pct'},$('#gTags'));el('rect',{x:mx-22,y:my-11,width:44,height:22,rx:11},pg);txt(pg,{x:mx,y:my+4,'text-anchor':'middle'},r[0]+'%');
+  // every token is a node (screen offsets from centre). ETH -> PONS is the example swap.
+  var V={ETH:[-260,20,'#627eea','ETH','key'],PONS:[260,20,'#d0873a','PONS','key dest'],USDG:[0,165,'#2f9e5a','USDG','hop'],
+    SPY:[-120,-150,'#2b4c9b','SPY','bgv'],NVDA:[90,-165,'#76b900','NVDA','bgv'],ROUTE:[230,-95,'#252620','r','bgv'],cbBTC:[-215,-75,'#f7931a','BTC','bgv']};
+  function at(id){return [CX+V[id][0],CY+V[id][1]]}
+  // other tokens' pools, faint, to show the network around the swap
+  [['ETH','SPY'],['SPY','NVDA'],['NVDA','ROUTE'],['ROUTE','PONS'],['ETH','cbBTC'],['cbBTC','SPY'],['SPY','ROUTE']].forEach(function(e){
+    var a=at(e[0]),b=at(e[1]);el('line',{class:'bge',x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#gEdges'))});
+  // the pools that matter for ETH <> PONS: parallel edges, one per pool
+  var POOLS=[['ETH','PONS','Uniswap v4',-130],['ETH','PONS','Metric',-72],['ETH','PONS','Fables',-16],['ETH','PONS','Uniswap v3',42],
+    ['ETH','USDG','Uniswap v4',-24],['ETH','USDG','Metric',24],['USDG','PONS','Fables',-24],['USDG','PONS','Uniswap v4',24]];
+  var BEST=[[45,[0]],[30,[1]],[25,[5,6]]]; // share, pool indices (the last one hops through USDG)
+  var sel={};BEST.forEach(function(b){b[1].forEach(function(i){sel[i]=b[0]})});
+  function curve(p){var a=at(p[0]),b=at(p[1]),dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L,mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;
+    return {a:a,b:b,c:[mx+nx*2*p[3],my+ny*2*p[3]],m:[mx+nx*p[3],my+ny*p[3]]}}
+  var C=POOLS.map(curve);
+  POOLS.forEach(function(p,i){var c=C[i];
+    el('path',{class:'pe'+(sel[i]?' sel':''),'data-i':i,pathLength:1,d:'M'+c.a.join(' ')+'Q'+c.c.join(' ')+' '+c.b.join(' '),style:sel[i]?'--w:'+(2.5+sel[i]/8).toFixed(1)+'px':null},$('#gRoutes'))});
+  // dex labels on each pool + share pill on the picked ones
+  POOLS.forEach(function(p,i){var c=C[i],w=p[2].length*6.3+20,g=el('g',{class:'plbl'+(sel[i]?' sel':''),'data-i':i},$('#gTags'));
+    el('rect',{x:c.m[0]-w/2,y:c.m[1]-10,width:w,height:20,rx:10},g);txt(g,{x:c.m[0],y:c.m[1]+3.8,'text-anchor':'middle'},p[2]);
+    var ck=el('g',{class:'ck'},g);el('circle',{cx:c.m[0]-w/2,cy:c.m[1],r:7.5,fill:'#567b51',stroke:'#fff','stroke-width':1.5},ck);
+    el('path',{d:'M'+(c.m[0]-w/2-3.5)+' '+c.m[1]+'l2.5 2.5 4.5-5',stroke:'#fff','stroke-width':1.8,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},ck);
   });
-  // draw vertices back to front: pin stem + disc cap, label on the floor
+  BEST.forEach(function(b){var c=C[b[1][0]],w=POOLS[b[1][0]][2].length*6.3+20,g=el('g',{class:'pct'},$('#gTags')),x=c.m[0]+w/2+6;
+    el('rect',{x:x,y:c.m[1]-10,width:38,height:20,rx:10},g);txt(g,{x:x+19,y:c.m[1]+4,'text-anchor':'middle'},b[0]+'%')});
+  // flowing dots along each picked route (the USDG hop is one continuous path)
+  BEST.forEach(function(b,k){
+    var d='M'+C[b[1][0]].a.join(' ');b[1].forEach(function(i){d+='Q'+C[i].c.join(' ')+' '+C[i].b.join(' ')});
+    el('path',{id:'fl'+k,d:d,fill:'none',stroke:'none'},$('#gRoutes'));
+    var n=Math.max(2,Math.round(b[0]/10));
+    for(var i=0;i<n;i++){var c=el('circle',{r:4.5},$('#gParts')),am=el('animateMotion',{dur:(2.4+b[1].length*.5)+'s',repeatCount:'indefinite',begin:(-(i/n)*2.4).toFixed(2)+'s'},c),mp=el('mpath',{href:'#fl'+k},am);mp.setAttributeNS(XL,'xlink:href','#fl'+k)}
+  });
+  // nodes, back to front: pin stem + disc cap, name on the floor
   var RX=26.9,RY=15.6,H=8,LIFT=28;
   Object.keys(V).sort(function(a,b){return V[a][1]-V[b][1]}).forEach(function(id){
-    var v=V[id],p=at(id),g=el('g',{class:'vx'+(onRoute[id]?' onr':'')+(id==='NVDA'?' dest':''),'data-id':id,'data-l':v[4]},$('#gVerts'));
+    var v=V[id],p=at(id),g=el('g',{class:'vx '+v[4],'data-id':id},$('#gVerts'));
     el('ellipse',{class:'ring',cx:p[0],cy:p[1],rx:RX+4,ry:RY+3},g);
     var sw=RX*.42;el('path',{class:'stem',d:'M'+(p[0]-sw)+' '+(p[1]-LIFT)+'V'+p[1]+'A'+sw+' '+(sw*.58)+' 0 0 0 '+(p[0]+sw)+' '+p[1]+'V'+(p[1]-LIFT)+'Z'},g);
     var cap=el('g',{class:'cap'},g),top=p[1]-H;
     el('path',{class:'side',d:'M'+(p[0]-RX)+' '+top+'V'+p[1]+'A'+RX+' '+RY+' 0 0 0 '+(p[0]+RX)+' '+p[1]+'V'+top+'Z'},cap);
     el('ellipse',{class:'top',cx:p[0],cy:top,rx:RX,ry:RY,fill:v[2]},cap);
     txt(cap,{class:'sym',x:p[0],y:top+3.5,'text-anchor':'middle'},v[3]);
-    var ck=el('g',{class:'ck'},cap);el('circle',{cx:p[0]+RX-2,cy:top-12,r:8.5,fill:'#567b51',stroke:'#fff','stroke-width':1.5},ck);
-    el('path',{d:'M'+(p[0]+RX-6)+' '+(top-12)+'l3 3 5-6',stroke:'#fff','stroke-width':2,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},ck);
-    txt(g,{class:'nm',x:p[0],y:p[1]+RY+16,'text-anchor':'middle'},id==='cbBTC'?'cbBTC':id==='VIRTUAL'?'VIRTUAL':id);
+    txt(g,{class:'nm',x:p[0],y:p[1]+RY+16,'text-anchor':'middle'},id);
   });
-  // step tags
-  var t1=el('g',{class:'scantag'},$('#gTags'));txt(t1,{class:'tagtext',x:28,y:40},'Scanning the graph');var scanSub=txt(t1,{class:'tagsub',x:28,y:58},'0 pools · 6 DEXs');
-  var t3=el('g',{class:'simtag'},$('#gTags'));txt(t3,{class:'tagtext',x:28,y:40},'✓ Every hop simulated');txt(t3,{class:'tagsub',x:28,y:58},'before the quote reaches you');
-  var nv=at('NVDA'),t4=el('g',{class:'sig'},$('#gTags'));el('rect',{x:nv[0]-58,y:nv[1]-104,width:116,height:28,rx:14,fill:'#272b21'},t4);
-  txt(t4,{x:nv[0],y:nv[1]-85,'text-anchor':'middle','font-size':12.5,'font-weight':500,fill:'#f7f7f2'},'✓ 1 signature');
+  // tags: the swap, then what each step is doing
+  var sw0=el('g',{class:'swaptag'},$('#gTags'));el('rect',{x:24,y:22,width:196,height:30,rx:15},sw0);txt(sw0,{x:40,y:41},'Swap: $10,000 ETH → PONS');
+  var t1=el('g',{class:'scantag'},$('#gTags'));var scanTxt=txt(t1,{class:'tagtext',x:26,y:76},'Finding every ETH ↔ PONS pool');var scanSub=txt(t1,{class:'tagsub',x:26,y:94},'0 pools · 4 DEXs');
+  var t2=el('g',{class:'splittag'},$('#gTags'));txt(t2,{class:'tagtext',x:26,y:76},'Best 3 of 8 pools');txt(t2,{class:'tagsub',x:26,y:94},'2 direct, 1 through USDG');
+  var t3=el('g',{class:'simtag'},$('#gTags'));txt(t3,{class:'tagtext',x:26,y:76},'✓ Every pool simulated');txt(t3,{class:'tagsub',x:26,y:94},'before the quote reaches you');
+  var pn=at('PONS'),t4=el('g',{class:'sig'},$('#gTags'));el('rect',{x:pn[0]-58,y:pn[1]-104,width:116,height:28,rx:14,fill:'#272b21'},t4);
+  txt(t4,{x:pn[0],y:pn[1]-85,'text-anchor':'middle','font-size':12.5,'font-weight':500,fill:'#f7f7f2'},'✓ 1 signature');
   // steps drive the scene
   var scene=$('#scene'),hs=$('#hsteps'),hsteps=$$('.hstep'),HS={cur:1,t:null,inView:false,tm:[]};
   function later(f,ms){HS.tm.push(setTimeout(f,ms))}
   function show(n){
     HS.tm.forEach(clearTimeout);HS.tm=[];HS.cur=n;scene.setAttribute('data-s',n);
-    var edges=$$('.edge',scene),verts=$$('.vx',scene);
+    var pes=$$('.pe',scene),lbls=$$('.plbl',scene),lifters=$$('.vx.key,.vx.hop',scene);
     if(n===1){
-      edges.forEach(function(e){e.classList.remove('seen')});verts.forEach(function(v){v.classList.remove('lift','ping')});
-      E.forEach(function(e,i){var lv=Math.min(V[e[0]][4],V[e[1]][4]);later(function(){edges[i].classList.add('seen');
-        [e[0],e[1]].forEach(function(id){var vg=$('.vx[data-id="'+id+'"]',scene);vg.classList.remove('ping');void vg.getBoundingClientRect();vg.classList.add('ping')})},250+lv*520+Math.random()*200)});
-      var t0=performance.now();(function ct(t){var q=Math.min(1,(t-t0)/2200);scanSub.textContent=Math.round(23*q)+' pools · 6 DEXs';if(q<1&&HS.cur===1)requestAnimationFrame(ct)})(t0);
+      pes.forEach(function(e){e.classList.remove('on')});lbls.forEach(function(l){l.classList.remove('on')});lifters.forEach(function(v){v.classList.remove('lift')});
+      POOLS.forEach(function(p,i){later(function(){pes[i].classList.add('on');lbls[i].classList.add('on');scanSub.textContent=(i+1)+' pool'+(i?'s':'')+' · 4 DEXs'},350+i*300)});
+      scanSub.textContent='0 pools · 4 DEXs';
     }else{
-      edges.forEach(function(e){e.classList.add('seen')});
-      verts.forEach(function(v){if(!v.classList.contains('onr')){v.classList.remove('lift');return}
-        if(v.classList.contains('lift'))return;later(function(){v.classList.add('lift')},+v.dataset.l*110)});
+      pes.forEach(function(e){e.classList.add('on')});lbls.forEach(function(l){l.classList.add('on')});
+      lifters.forEach(function(v,k){if(!v.classList.contains('lift'))later(function(){v.classList.add('lift')},k*120)});
     }
     hsteps.forEach(function(b){b.classList.remove('on');if(+b.dataset.s===n){void b.offsetWidth;b.classList.add('on')}});
-    clearTimeout(HS.t);hs.classList.toggle('run',HS.inView);if(HS.inView)HS.t=setTimeout(function(){show(n%4+1)},4000);
+    clearTimeout(HS.t);hs.classList.toggle('run',HS.inView);if(HS.inView)HS.t=setTimeout(function(){show(n%4+1)},n===1?4400:4000);
   }
   hsteps.forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.s)})});
   onView($('#stage'),function(v){var was=HS.inView;HS.inView=v;if(v&&!was)show(HS.cur);else if(!v){clearTimeout(HS.t);hs.classList.remove('run')}},{threshold:.3});
