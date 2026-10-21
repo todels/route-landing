@@ -156,10 +156,16 @@
   /* coins */
   .coin{border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-weight:700;font-size:10px;flex:none;width:26px;height:26px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.25)}
 
-  /* ---------- 02 how it works: steps + isometric scene ---------- */
-  .how3{display:grid;grid-template-columns:340px 1fr;gap:28px;align-items:stretch}
+  /* ---------- section labels (Ordo-style brackets) ---------- */
+  .label{display:inline-flex;align-items:center;gap:10px;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+  .label em{font-style:normal;color:var(--faint)}
+  .dark .label{color:var(--lime)}
+  .dark .label em{color:var(--ink-muted)}
+
+  /* ---------- 02 how it works: steps + isometric route graph ---------- */
+  .how3{display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:stretch}
   .hsteps{display:flex;flex-direction:column;justify-content:center;gap:4px}
-  .hstep{position:relative;text-align:left;padding:16px 18px 16px 52px;border-radius:16px;transition:background .3s}
+  .hstep{position:relative;text-align:left;padding:16px 18px 18px 52px;border-radius:16px;transition:background .3s}
   .hstep:hover{background:var(--muted)}
   .hstep i{position:absolute;left:16px;top:16px;width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font:600 12px var(--font);font-style:normal;background:var(--muted);color:var(--muted-foreground);transition:all .3s}
   .hstep b{display:block;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--muted-foreground);transition:color .3s}
@@ -171,114 +177,91 @@
   .hstep.on b{color:var(--foreground)}
   .hstep.on span{max-height:60px;opacity:1}
   .hstep.on .bar{opacity:1}
-  .hsteps.run .hstep.on .bar::after{animation:prog var(--dur,3.8s) linear forwards}
+  .hsteps.run .hstep.on .bar::after{animation:prog var(--dur,4s) linear forwards}
   @keyframes prog{to{width:100%}}
   .hproof{margin:14px 18px 0;font-size:13px;color:var(--muted-foreground);line-height:1.5}
   .hproof b{color:var(--foreground);font-weight:600}
-  .stage{position:relative;height:540px;border-radius:24px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+  .stage{position:relative;height:560px;border-radius:24px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
   .stage svg{position:absolute;inset:0;width:100%;height:100%}
   .stage text{font-family:var(--font)}
-  /* scene parts */
-  .plat .t{fill:#f4f6ef;stroke:#b8cfae;stroke-width:1.2}
-  .plat .r{fill:#c5d6b5;stroke:#8fa87c;stroke-width:1}
-  .plat .l{fill:#dbe6d0;stroke:#8fa87c;stroke-width:1}
-  .gridl{stroke:#dfe6d6;stroke-width:1}
-  .pool .side{fill:#e6eedf;stroke:#8fa87c;stroke-width:1}
-  .pool .liq{fill:#b5d0a4}
-  .pool .rim{fill:#fcfcf9;stroke:#8fa87c;stroke-width:1}
-  .pool .surf{fill:#9cc489;opacity:.75}
-  .pool .lbl{font-size:9.5px;font-weight:600;fill:#567b51}
-  .pool{transition:opacity .4s}
-  .ptag{opacity:0}
-  .ptag rect{fill:#272b21}
-  .ptag text{font-size:10px;fill:#f7f7f2;font-weight:500}
-  .stack .s{stroke:rgba(0,0,0,.18);stroke-width:1}
-  .stack .t{stroke:rgba(0,0,0,.18);stroke-width:1}
-  .stack text{font-size:12px;font-weight:700;fill:#fff}
-  .slab{font-size:12px;fill:var(--muted-foreground)}
-  .slab.k{font-weight:600;fill:var(--foreground)}
-  .beam{opacity:0}
-  .arc{fill:none;stroke:var(--accent);stroke-linecap:round;opacity:0;transition:opacity .4s}
-  .arc.out{stroke-dasharray:5 7}
+  .floor{fill:#f3f5ee;stroke:#dfe6d6;stroke-width:1.2}
+  .gridl{stroke:#e6ebdf;stroke-width:1}
+  .edge{stroke:#cfd6c7;stroke-width:2;stroke-linecap:round;transition:stroke .35s,opacity .35s,stroke-width .35s}
+  .edge.seen{stroke:#8fb87e;stroke-width:2.5}
+  .rpath{fill:none;stroke:var(--accent);stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .4s}
+  .vx{cursor:default}
+  .vx .ring{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0}
+  .vx .stem{fill:#dbe6d0;stroke:#8fa87c;stroke-width:1;transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+  .vx .cap{transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+  .vx .side{fill:#e3e8dc;stroke:#a9b8a0;stroke-width:1}
+  .vx .top{stroke:rgba(0,0,0,.15);stroke-width:1}
+  .vx .sym{font-size:9.5px;font-weight:700;fill:#fff}
+  .vx .nm{font-size:11px;font-weight:600;fill:var(--muted-foreground);transition:fill .3s}
+  .vx.ping .ring{animation:ping 1s ease-out}
+  @keyframes ping{0%{opacity:.8;transform:scale(.6)}100%{opacity:0;transform:scale(1.6)}}
+  .vx .ring{transform-box:fill-box;transform-origin:center}
+  .vx.lift .stem{transform:scaleY(1)}
+  .vx.lift .cap{transform:translateY(-28px)}
+  .vx.lift .nm{fill:var(--foreground)}
+  .vx .ck{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
   .parts circle{fill:var(--accent);stroke:#fff;stroke-width:1.5}
   .parts{opacity:0;transition:opacity .3s}
-  .pct{opacity:0;transition:opacity .4s}
+  .pct,.simtag,.sig,.scantag{opacity:0;transition:opacity .4s}
   .pct rect{fill:#fcfcf9;stroke:#b8cfae}
   .pct text{font-size:11px;font-weight:600;fill:#354f32}
-  .ck{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
-  .sandbox{fill:none;stroke:var(--accent);stroke-width:1.2;stroke-dasharray:4 5;opacity:0;transition:opacity .4s}
-  .sbl{opacity:0;transition:opacity .4s}
-  .sig{opacity:0;transform:translateY(8px);transition:all .4s}
-  .outs{transform-box:fill-box;transform-origin:center bottom}
-  /* step 1: scan */
-  [data-s="1"] .beam{opacity:1;animation:beam 2.4s linear infinite}
-  @keyframes beam{from{transform:translateX(-340px)}to{transform:translateX(340px)}}
-  [data-s="1"] .pool .rim{animation:rim 2.4s linear infinite;animation-delay:var(--d)}
-  [data-s="1"] .ptag{animation:tag 2.4s linear infinite;animation-delay:var(--d)}
-  @keyframes rim{0%{stroke:#354f32;stroke-width:2.4;fill:#eff4ec}25%{stroke:#8fa87c;stroke-width:1;fill:#fcfcf9}100%{stroke:#8fa87c;stroke-width:1;fill:#fcfcf9}}
-  @keyframes tag{0%{opacity:0}4%{opacity:1}40%{opacity:1}50%{opacity:0}100%{opacity:0}}
-  /* step 2: split */
-  [data-s="2"] .arc.in,[data-s="3"] .arc.in,[data-s="4"] .arc.in{opacity:1}
-  [data-s="2"] .parts.in,[data-s="4"] .parts{opacity:1}
+  .tagtext{font-size:12px;font-weight:600;fill:var(--foreground)}
+  .tagsub{font-size:11.5px;fill:var(--muted-foreground)}
+  [data-s="1"] .scantag{opacity:1}
+  [data-s="2"] .rpath,[data-s="3"] .rpath,[data-s="4"] .rpath{opacity:.9}
+  [data-s="2"] .parts,[data-s="4"] .parts{opacity:1}
   [data-s="2"] .pct,[data-s="3"] .pct{opacity:1}
-  [data-s="2"] .pool:not(.pick),[data-s="3"] .pool:not(.pick),[data-s="4"] .pool:not(.pick){opacity:.3}
-  [data-s="2"] .pool.pick .surf,[data-s="3"] .pool.pick .surf,[data-s="4"] .pool.pick .surf{fill:#567b51}
-  /* step 3: check */
-  [data-s="3"] .pool.pick .ck,[data-s="4"] .pool.pick .ck{opacity:1;transform:none}
-  [data-s="3"] .sandbox,[data-s="3"] .sbl{opacity:1}
-  [data-s="3"] .arc.out{opacity:.7}
-  /* step 4: sign */
-  [data-s="4"] .arc.out{opacity:1;stroke-dasharray:none}
-  [data-s="4"] .sig{opacity:1;transform:none}
-  [data-s="4"] .outs{animation:pop 1.2s ease-in-out infinite}
-  @keyframes pop{50%{transform:translateY(-6px)}}
-  .lnk{font-size:13.5px;color:var(--accent);display:inline-flex;align-items:center;gap:6px;font-weight:500}
-  .lnk svg{width:12px;height:12px;transition:transform .2s}
-  .lnk:hover svg{transform:translate(2px,-2px)}
-  .better{color:var(--signal)!important;background:var(--selected);border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:500}
-  .swapin{animation:swapIn .4s ease}
-  @keyframes swapIn{from{opacity:0;transform:translateY(6px)}}
+  [data-s="2"] .edge:not(.onr),[data-s="3"] .edge:not(.onr),[data-s="4"] .edge:not(.onr){opacity:.35}
+  [data-s="2"] .vx:not(.onr),[data-s="3"] .vx:not(.onr),[data-s="4"] .vx:not(.onr){opacity:.45}
+  [data-s="3"] .vx.onr .ck,[data-s="4"] .vx.onr .ck{opacity:1;transform:none}
+  [data-s="3"] .simtag{opacity:1}
+  [data-s="3"] .rpath{stroke-dasharray:6 7;animation:dash 1s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-26}}
+  [data-s="4"] .sig{opacity:1}
+  [data-s="4"] .vx.dest .cap{animation:bob 1.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(-28px)}50%{transform:translateY(-36px)}}
 
   /* ---------- 03 markets: asset wall + head-to-head ---------- */
-  .wall{display:flex;flex-direction:column;gap:10px;margin:0 0 28px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-  .wrow{display:flex;gap:10px;width:max-content;animation:mq var(--t,60s) linear infinite}
+  .wall{display:flex;flex-direction:column;gap:6px;margin:0 0 40px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .wrow{display:flex;width:max-content;animation:mq var(--t,60s) linear infinite}
   .wrow.rev{animation-direction:reverse}
   .wall:hover .wrow{animation-play-state:paused}
-  .chip{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:16px;border:1px solid var(--line);background:var(--surface);white-space:nowrap;transition:border-color .2s,background .2s,transform .2s}
-  .chip:hover{border-color:var(--wire);transform:translateY(-2px)}
-  .chip.sel{border-color:var(--selected-line);background:var(--selected)}
-  .chip .coin{width:32px;height:32px;font-size:10px}
-  .chip b{font-size:14px;font-weight:600;display:block;line-height:1.15;text-align:left}
-  .chip small{font-size:12px;color:var(--muted-foreground)}
-  .chip .px{font-size:13px;font-weight:500;margin-left:6px;border-radius:5px;padding:0 3px}
-  .wlab{display:inline-flex;align-items:center;padding:0 14px;border-radius:16px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-foreground);border:1px dashed var(--wire);white-space:nowrap}
+  .chip{display:inline-flex;align-items:center;gap:12px;padding:14px 34px 14px 0;white-space:nowrap;text-align:left;transition:transform .2s,opacity .2s}
+  .chip:hover{transform:translateY(-2px)}
+  .chip .coin{width:42px;height:42px;font-size:12px}
+  .chip b{display:block;font-size:15px;font-weight:600;line-height:1.2}
+  .chip small{font-size:12.5px;color:var(--muted-foreground)}
+  .chip small span{border-radius:4px;padding:0 2px}
+  .chip small i{font-style:normal}
+  .chip.sel b{color:var(--signal)}
+  .chip.sel .coin{box-shadow:0 0 0 3px var(--background),0 0 0 5px var(--accent)}
   @keyframes mq{to{transform:translateX(-50%)}}
-  .compare{display:grid;grid-template-columns:1fr 1.3fr;gap:32px;border:1px solid var(--line);border-radius:24px;background:var(--surface);padding:28px;align-items:center}
-  .cmp-l h3{font-size:30px;font-weight:500;letter-spacing:-.03em;line-height:1.1}
-  .cmp-l p{font-size:14.5px;color:var(--muted-foreground);margin:10px 0 20px;max-width:380px}
-  .cmp-ctl{display:flex;flex-direction:column;gap:12px}
-  .asset{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:16px;background:var(--background);border:1px solid var(--line)}
-  .asset .coin{width:36px;height:36px;font-size:11px}
-  .asset b{font-size:15px;display:block}
-  .asset small{font-size:12.5px;color:var(--muted-foreground)}
-  .asset .px{margin-left:auto;font-size:15px;font-weight:500;border-radius:5px;padding:0 3px}
-  .hint{font-size:12px;color:var(--faint)}
-  .board{position:relative;height:272px}
-  .lrow{position:absolute;left:0;right:0;height:60px;display:grid;grid-template-columns:118px 1fr 128px;gap:14px;align-items:center;padding:0 14px;border-radius:16px;border:1px solid transparent;transition:top .8s cubic-bezier(.2,.7,.3,1),background .3s,border-color .3s}
-  .lrow .nm{display:flex;align-items:center;gap:9px;font-weight:600;font-size:14px}
-  .lrow .nm i{width:24px;height:24px;border-radius:8px;background:var(--muted);display:grid;place-items:center;font:700 10px var(--font);font-style:normal;color:var(--muted-foreground)}
-  .lrow .bar{height:10px;border-radius:999px;background:var(--muted);overflow:hidden}
+  .h2h{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:center;padding:40px 0 8px;border-top:1px solid var(--line)}
+  .h2h .k{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground)}
+  .gain{font-size:84px;font-weight:500;letter-spacing:-.05em;line-height:.95;color:var(--signal);margin:14px 0 10px}
+  .gain-sub{font-size:16px;color:var(--muted-foreground);max-width:380px}
+  .gain-sub b{color:var(--foreground);font-weight:600}
+  .ctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .apill{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:14px}
+  .apill .coin{width:26px;height:26px;font-size:9px}
+  .board{position:relative;height:256px}
+  .lrow{position:absolute;left:0;right:0;height:64px;display:grid;grid-template-columns:120px 1fr 120px;gap:18px;align-items:center;border-bottom:1px solid var(--line);transition:top .8s cubic-bezier(.2,.7,.3,1)}
+  .lrow .nm{font-weight:500;font-size:15px;color:var(--muted-foreground)}
+  .lrow .bar{height:6px;border-radius:999px;background:var(--muted);overflow:hidden}
   .lrow .bar i{display:block;height:100%;width:0;border-radius:999px;background:var(--wire);transition:width 1s cubic-bezier(.2,.7,.3,1)}
-  .lrow .v{text-align:right;font-size:14px;font-weight:500;line-height:1.2}
-  .lrow .v small{display:block;font-size:11.5px;color:var(--loss);font-weight:500}
-  .lrow.me{background:var(--selected);border-color:var(--selected-line)}
-  .lrow.me .nm i{background:var(--cta);color:#f7f7f2}
+  .lrow .v{text-align:right;font-size:15px;font-weight:500;line-height:1.2}
+  .lrow .v small{display:block;font-size:12px;color:var(--loss);font-weight:500}
+  .lrow.me .nm{color:var(--foreground);font-weight:700}
+  .lrow.me .bar{height:10px}
   .lrow.me .bar i{background:var(--accent)}
+  .lrow.me .v{font-size:17px}
   .lrow.me .v small{color:var(--signal)}
-  .callout{margin-top:14px;padding:14px 16px;border-radius:16px;background:var(--cta);color:#f7f7f2;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
-  .callout b{font-size:24px;font-weight:500;color:var(--lime);letter-spacing:-.02em}
-  .axis{font-size:11px;color:var(--faint);text-align:right;margin-top:6px}
-  .usp{display:flex;gap:22px;flex-wrap:wrap;font-size:13.5px;color:var(--muted-foreground);margin-top:22px;justify-content:center}
+  .foot-note{font-size:11.5px;color:var(--faint);margin-top:10px}
+  .usp{display:flex;gap:26px;flex-wrap:wrap;font-size:13.5px;color:var(--muted-foreground);margin-top:34px}
   .usp span{display:inline-flex;align-items:center;gap:7px}
   .usp svg{color:var(--accent)}
   .up{color:var(--signal)}
@@ -288,108 +271,94 @@
   .dark{background:var(--ink);color:#f1f1ea;border-bottom-color:var(--ink-line)}
   .dark .h2{color:#f7f7f2}
   .dark .lede{color:var(--ink-muted)}
-  .dark .eyebrow{background:rgba(197,214,181,.1);border-color:rgba(197,214,181,.3);color:var(--lime)}
-  .dark .eyebrow .dot{background:var(--lime);box-shadow:0 0 0 3px rgba(197,214,181,.18)}
-  .build{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start}
-  .code{border:1px solid var(--ink-line);border-radius:20px;background:#13140f;overflow:hidden;display:flex;flex-direction:column;min-height:420px}
+  .build{display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:stretch}
+  .ftabs{display:flex;flex-direction:column;gap:4px;justify-content:center}
+  .ftab{position:relative;text-align:left;padding:16px 18px 18px 52px;border-radius:16px;transition:background .3s}
+  .ftab:hover{background:var(--ink-2)}
+  .ftab .fi{position:absolute;left:16px;top:15px;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--ink-2);color:var(--ink-muted);transition:all .3s}
+  .ftab .fi svg{width:14px;height:14px}
+  .ftab span.fi{max-height:none;opacity:1;margin:0;overflow:visible}
+  .ftab b{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:600;color:var(--ink-muted);transition:color .3s}
+  .ftab b em{font:600 10px var(--font);font-style:normal;color:var(--warn);background:rgba(166,112,44,.18);padding:2px 7px;border-radius:999px}
+  .ftab span{display:block;font-size:13.5px;color:var(--ink-muted);line-height:1.45;margin-top:4px;max-height:0;opacity:0;overflow:hidden;transition:max-height .4s,opacity .3s}
+  .ftab .bar{position:absolute;left:52px;right:18px;bottom:8px;height:2px;background:var(--ink-line);opacity:0;overflow:hidden;border-radius:2px}
+  .ftab .bar::after{content:"";display:block;height:100%;width:0;background:var(--lime)}
+  .ftab.on{background:var(--ink-2);box-shadow:0 0 0 1px var(--ink-line)}
+  .ftab.on .fi{background:var(--lime);color:var(--ink)}
+  .ftab.on b{color:#f7f7f2}
+  .ftab.on span{max-height:60px;opacity:1}
+  .ftab.on .bar{opacity:1}
+  .ftabs.auto .ftab.on .bar::after{animation:prog 6.5s linear forwards}
+  .also{font-size:13px;color:var(--ink-muted);margin:12px 18px 0}
+  .also b{color:#d8dacf;font-weight:500}
+  .build-cta{display:flex;gap:10px;margin:18px 18px 0}
+  .code{border:1px solid var(--ink-line);border-radius:22px;background:#13140f;overflow:hidden;display:flex;flex-direction:column;min-height:460px}
   .code-top{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid var(--ink-line)}
   .code-top .lang{font:500 12px var(--mono);color:var(--ink-muted);padding:4px 9px;border-radius:8px}
   .code-top .lang.on{background:var(--ink-2);color:#f1f1ea}
   .code-top .copy{margin-left:auto;font:500 11.5px var(--mono);color:var(--ink-muted);padding:4px 9px;border-radius:8px;border:1px solid var(--ink-line)}
   .code-top .copy:hover{color:#f1f1ea}
-  pre{margin:0;padding:18px 20px;font:13px/1.65 var(--mono);color:#d8dacf;overflow-x:auto;flex:1}
+  pre{margin:0;padding:20px 22px;font:13px/1.7 var(--mono);color:#d8dacf;overflow-x:auto;flex:1}
   pre .k{color:#c5d6b5} pre .s{color:#e3c58e} pre .c{color:#6d7066} pre .n{color:#9fc2e8}
   pre .hl{background:rgba(197,214,181,.16);border-radius:4px;padding:0 3px;color:#e9f3df}
   pre .ln{display:block;opacity:0;transform:translateX(-4px);animation:lnIn .28s ease forwards;animation-delay:calc(var(--d) * 28ms)}
   @keyframes lnIn{to{opacity:1;transform:none}}
   .xp{display:none;border-top:1px solid var(--ink-line)}
   .xp.on{display:block}
-  .live{display:flex;align-items:center;gap:10px;padding:12px 20px;font:12.5px var(--mono);color:var(--ink-muted);flex-wrap:wrap}
+  .live{display:flex;align-items:center;gap:10px;padding:14px 22px;font:12.5px var(--mono);color:var(--ink-muted);flex-wrap:wrap}
   .live i{width:8px;height:8px;border-radius:50%;background:var(--lime);animation:blink 1.2s ease-in-out infinite}
   .live b{color:#f1f1ea;font-weight:500;border-radius:4px;padding:0 3px}
   @keyframes blink{50%{opacity:.25}}
-  .slog{padding:10px 20px 12px;font:12.5px/1.7 var(--mono);color:var(--ink-muted);height:142px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+  .slog{padding:10px 22px 12px;font:12.5px/1.7 var(--mono);color:var(--ink-muted);height:142px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
   .slog div{animation:lnIn .3s ease forwards;opacity:0;white-space:nowrap}
   .slog b{color:#f1f1ea;font-weight:500}
   .slog .u{color:#9fd18b}.slog .d{color:#e59a8f}
-  .zapv{padding:18px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:12.5px var(--mono);color:#d8dacf}
+  .zapv{padding:20px 22px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:12.5px var(--mono);color:#d8dacf}
   .zchip{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:10px;background:var(--ink-2);border:1px solid var(--ink-line);white-space:nowrap}
   .zchip .coin{width:18px;height:18px;font-size:8px}
   .zline{flex:1;min-width:24px;height:2px;background:repeating-linear-gradient(90deg,var(--lime) 0 6px,transparent 6px 12px);background-size:24px 2px;animation:zl .8s linear infinite;opacity:.7}
   @keyframes zl{to{background-position:24px 0}}
   .zchip.lp{background:rgba(197,214,181,.14);border-color:rgba(197,214,181,.4);color:var(--lime)}
-  .calc{padding:16px 20px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;font-size:12.5px;color:var(--ink-muted)}
+  .calc{padding:16px 22px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;font-size:12.5px;color:var(--ink-muted)}
   .calc label{display:flex;justify-content:space-between;margin-bottom:6px}
   .calc label b{color:#f1f1ea;font-weight:500;font-family:var(--mono)}
   .calc input[type=range]{width:100%;accent-color:var(--lime)}
   .earn{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(197,214,181,.1);border:1px solid rgba(197,214,181,.3)}
   .earn b{font-size:28px;font-weight:500;color:var(--lime);letter-spacing:-.02em}
-  .feats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .feat{border:1px solid var(--ink-line);border-radius:18px;background:var(--ink-2);padding:18px;display:flex;flex-direction:column;gap:8px;position:relative;text-align:left;transition:all .25s;overflow:hidden}
-  .feat:hover{border-color:#4a4f40}
-  .feat.on{border-color:rgba(197,214,181,.6);background:#2c3126;box-shadow:0 0 0 3px rgba(197,214,181,.08)}
-  .feat .fi{width:34px;height:34px;border-radius:11px;background:rgba(197,214,181,.12);color:var(--lime);display:grid;place-items:center;transition:transform .3s}
-  .feat.on .fi{transform:scale(1.08)}
-  .feat .fi svg{width:16px;height:16px}
-  .feat b{font-size:15.5px;font-weight:600;color:#f7f7f2}
-  .feat p{font-size:13px;color:var(--ink-muted);line-height:1.45}
-  .feat .tagx{position:absolute;right:14px;top:16px;font-size:10.5px;font-weight:600;color:var(--warn);background:rgba(166,112,44,.15);padding:2px 7px;border-radius:999px}
-  .feat .fp{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--lime)}
-  .feats.auto .feat.on .fp{animation:prog 6.5s linear forwards}
-  .also{grid-column:1/-1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ink-muted);padding:4px 2px}
-  .also span{padding:4px 10px;border-radius:999px;border:1px solid var(--ink-line);color:#d8dacf}
-  .logos{margin-top:44px;padding-top:28px;border-top:1px solid var(--ink-line);overflow:hidden}
-  .logos small{display:block;font-size:12px;color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
-  .logo-track{display:flex;gap:10px;width:max-content;animation:mq 30s linear infinite}
-  .logos:hover .logo-track{animation-play-state:paused}
-  .logo-track div{width:180px;height:64px;border-radius:14px;border:1px dashed var(--ink-line);display:grid;place-items:center;font:500 12px var(--mono);color:var(--ink-muted);transition:all .2s}
-  .logo-track div:hover{border-color:var(--lime);color:var(--lime)}
-  .build-cta{display:flex;gap:10px;margin-top:22px}
+  .logos{margin-top:56px;padding-top:26px;border-top:1px solid var(--ink-line);display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+  .logos small{font:500 12px var(--mono);color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase}
+  .logos i{display:block;width:96px;height:18px;border-radius:5px;background:var(--ink-line);opacity:.8}
 
   /* ---------- 05 coverage ---------- */
-  .cov{display:grid;grid-template-columns:1fr 1.5fr;gap:20px;align-items:start}
-  .cov > *,.compare > *,.build > *{min-width:0}
-  .chain-hero{border:1px solid var(--selected-line);border-radius:24px;background:var(--selected);padding:24px;display:flex;flex-direction:column;gap:16px;transition:background .3s,border-color .3s}
-  .chain-hero.data{background:var(--surface);border-color:var(--line)}
-  .chain-hero .head{display:flex;align-items:center;gap:12px}
-  .chain-ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px;flex:none}
-  .chain-hero b.t{font-size:20px;font-weight:600;letter-spacing:-.01em}
-  .chain-hero .head small{display:block;font-size:12.5px;color:var(--muted-foreground)}
-  .stat-pill{margin-left:auto;font-size:12px;font-weight:500;padding:4px 10px;border-radius:999px;white-space:nowrap}
-  .stat-pill.live{background:var(--background);color:var(--signal);border:1px solid var(--selected-line)}
-  .stat-pill.data{background:var(--muted);color:var(--muted-foreground)}
+  .tiers{display:grid;grid-template-columns:1.2fr 1fr 1.4fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .tier{padding:30px 28px 32px;display:flex;flex-direction:column;gap:18px}
+  .tier + .tier{border-left:1px solid var(--line)}
+  .tier:first-child{padding-left:0}
+  .tier:last-child{padding-right:0}
+  .tier .k{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground);display:flex;align-items:center;gap:8px}
+  .tier .k i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(86,123,81,.18);animation:breathe 2.4s ease-in-out infinite}
+  .tier .k i.off{background:var(--wire);box-shadow:none;animation:none}
+  .chain-ico{border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:700;flex:none}
+  .cbig{display:flex;align-items:center;gap:14px}
+  .cbig .chain-ico{width:56px;height:56px;font-size:15px}
+  .cbig b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
+  .cbig small{font-size:13px;color:var(--muted-foreground)}
   .prods{display:flex;gap:6px;flex-wrap:wrap}
-  .prods span{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--background);border:1px solid var(--line);color:var(--faint);text-decoration:line-through}
-  .prods span.y2{color:var(--signal);border-color:var(--selected-line);text-decoration:none}
-  .prods span.s2{color:var(--warn);border-color:#e6d3ad;text-decoration:none;background:var(--warn-bg)}
-  .ch-kpi{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .ch-kpi div{background:var(--background);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:12px;color:var(--muted-foreground)}
-  .ch-kpi b{display:block;font-size:22px;font-weight:500;color:var(--foreground);letter-spacing:-.02em;margin-top:2px}
-  .fchips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-  .fchips button{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted-foreground);transition:all .2s}
-  .fchips button.on{background:var(--cta);color:#f7f7f2;border-color:var(--cta-border)}
-  .matrix{border:1px solid var(--line);border-radius:22px;background:var(--surface);overflow:hidden}
-  table{width:100%;border-collapse:collapse;font-size:13.5px}
-  th{font-weight:500;color:var(--muted-foreground);font-size:12px;text-align:center;padding:14px 8px;border-bottom:1px solid var(--line);background:var(--background);transition:color .2s}
-  th.col-on{color:var(--foreground)}
-  th:first-child,td:first-child{text-align:left;padding-left:18px}
-  td{padding:11px 8px;border-bottom:1px solid rgba(37,38,32,.06);text-align:center;transition:background .2s,opacity .3s}
-  td.col-on{background:rgba(239,244,236,.7)}
-  tbody tr{cursor:pointer;transition:opacity .3s}
-  tbody tr:hover td{background:var(--muted)}
-  tbody tr.sel td{background:var(--selected)}
-  tbody tr.dim{opacity:.3}
-  tbody tr.extra{display:none}
-  tbody.open tr.extra{display:table-row}
-  tr:last-child td{border-bottom:0}
-  .cn{display:flex;align-items:center;gap:10px;font-weight:500}
-  .cn .chain-ico{width:24px;height:24px;border-radius:8px;font-size:8.5px}
-  .y{width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;display:inline-grid;place-items:center}
-  .y svg{width:11px;height:11px;stroke-width:3}
+  .prods span{font-size:12.5px;padding:4px 10px;border-radius:999px;background:var(--selected);color:var(--signal);font-weight:500}
+  .cstats{display:flex;gap:28px}
+  .cstats div{font-size:12.5px;color:var(--muted-foreground)}
+  .cstats b{display:block;font-size:26px;font-weight:500;color:var(--foreground);letter-spacing:-.02em}
+  .cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 12px}
+  .cmini{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:500}
+  .cmini .chain-ico{width:30px;height:30px;font-size:9px;border-radius:9px}
+  .tier p{font-size:13px;color:var(--muted-foreground);line-height:1.5}
   .soon{font-size:11px;color:var(--warn);background:var(--warn-bg);padding:2px 8px;border-radius:999px;font-weight:500}
-  .no{color:var(--faint)}
-  .more-row td{color:var(--accent);font-weight:500;font-size:13px}
-  .legend{font-size:12px;color:var(--muted-foreground);padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:18px;flex-wrap:wrap}
+  .lnk{font-size:13.5px;color:var(--accent);display:inline-flex;align-items:center;gap:6px;font-weight:500}
+  .lnk svg{width:12px;height:12px;transition:transform .2s}
+  .lnk:hover svg{transform:translate(2px,-2px)}
+  .better{color:var(--signal)!important;background:var(--selected);border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:500}
+  .swapin{animation:swapIn .4s ease}
+  @keyframes swapIn{from{opacity:0;transform:translateY(6px)}}
 
   /* ---------- 06 footer ---------- */
   .end{padding:110px 0 40px;text-align:center;border-bottom:0;overflow:hidden}
@@ -407,7 +376,7 @@
 
   /* ---------- responsive ---------- */
   @media (max-width:1000px){
-    .compare,.build,.cov,.how3{grid-template-columns:1fr}
+    .h2h,.build,.tiers,.how3{grid-template-columns:1fr}
     .links{display:none}
   }
   @media (max-width:640px){
@@ -509,36 +478,30 @@
 <!-- ================= 02 HOW IT WORKS ================= -->
 <section id="how">
   <div class="wrap">
-    <div class="note"><b>02 How it works</b><span>Steps on the left drive the isometric scene on the right; it auto-advances, click a step to jump. Scan: a beam sweeps the pools and each one flashes its price. Split: the trade arcs into the three best pools (line weight = share). Check: ticks on each pool and a dashed box around the route for the simulation. Sign: it all flows into the output with one signature. Motion idea only; final illustration to be designed.</span></div>
+    <div class="note"><b>02 How it works</b><span>Graph theory, drawn isometric. Tokens are vertices, pools are edges. Steps on the left drive it (auto-advance, click to jump). Scan: edges light up outward from ETH, layer by layer. Split: the three best paths light up and their vertices rise like map pins (line weight = share). Check: each hop ticked, simulated. Sign: everything lands in NVDA. Motion idea; final illustration to be designed.</span></div>
     <div class="sec-head rv">
       <div>
-        <span class="eyebrow"><span class="dot"></span>How Route works</span>
+        <span class="label"><em>[02]</em>How Route works</span>
         <h2 class="h2">Every pool scanned.<br>The best route, found.</h2>
-        <p class="lede">Route reads every pool on every DEX, splits your trade across the ones that pay the most and hands you a single transaction.</p>
+        <p class="lede">Route maps every token and pool on the chain as one graph, then finds the paths through it that get you the most out.</p>
       </div>
     </div>
     <div class="how3 rv d1">
       <div class="hsteps run" id="hsteps">
-        <button type="button" class="hstep on" data-s="1"><i>1</i><b>Scan</b><span>Every pool on every DEX, read live from the chain.</span><em class="bar"></em></button>
-        <button type="button" class="hstep" data-s="2"><i>2</i><b>Split</b><span>Your trade spread across the pools that pay the most, after gas.</span><em class="bar"></em></button>
-        <button type="button" class="hstep" data-s="3"><i>3</i><b>Check</b><span>The whole route simulated before you ever see a quote.</span><em class="bar"></em></button>
-        <button type="button" class="hstep" data-s="4"><i>4</i><b>Sign</b><span>It all comes back as one transaction. One signature.</span><em class="bar"></em></button>
+        <button type="button" class="hstep on" data-s="1"><i>1</i><b>Scan</b><span>Every token is a vertex, every pool an edge. Route reads them all, live.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="2"><i>2</i><b>Split</b><span>It finds the paths that pay the most and splits your trade across them.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="3"><i>3</i><b>Check</b><span>Every hop is simulated before you see a quote.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="4"><i>4</i><b>Sign</b><span>All paths land in one transaction. One signature.</span><em class="bar"></em></button>
         <p class="hproof">Route v2 beat Kyber in <b>81 of 92</b> trades, <b>+5.6 bps</b> median. <a class="lnk" href="#">Case study<svg class="i"><use href="#out"/></svg></a></p>
       </div>
       <div class="stage" id="stage">
-        <svg id="scene" data-s="1" viewBox="0 0 820 540" preserveAspectRatio="xMidYMid meet" aria-label="Isometric scene: a platform of liquidity pools between your token and the token you get. It changes with each step.">
-          <defs>
-            <linearGradient id="beamG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#9cc489" stop-opacity="0"/><stop offset=".55" stop-color="#9cc489" stop-opacity=".55"/><stop offset="1" stop-color="#567b51" stop-opacity=".7"/></linearGradient>
-            <filter id="soft" x="-2" y="-1" width="5" height="3"><feGaussianBlur stdDeviation="5"/></filter>
-          </defs>
-          <g id="sPlat"></g>
-          <g id="sPools"></g>
-          <rect class="beam" id="beam" filter="url(#soft)"/>
-          <g id="sBox"></g>
-          <g id="sArcs"></g>
-          <g class="parts in" id="partsIn"></g>
-          <g class="parts out" id="partsOut"></g>
-          <g id="sTop"></g>
+        <svg id="scene" data-s="1" viewBox="0 0 860 560" preserveAspectRatio="xMidYMid meet" aria-label="Isometric graph: tokens as vertices, pools as edges. The best paths from ETH to NVDA light up and their vertices rise.">
+          <g id="gFloor"></g>
+          <g id="gEdges"></g>
+          <g id="gRoutes"></g>
+          <g class="parts" id="gParts"></g>
+          <g id="gVerts"></g>
+          <g id="gTags"></g>
         </svg>
         <span class="ph-tag" style="left:20px;bottom:18px">isometric illustration: to be designed + animated. this is the motion idea</span>
       </div>
@@ -549,10 +512,10 @@
 <!-- ================= 03 MARKETS ================= -->
 <section id="markets">
   <div class="wrap">
-    <div class="note"><b>03 Onchain markets</b><span>No charts. A moving wall of what you can trade (stocks, ETFs and gold, crypto), then a head-to-head: the same order through Route and other aggregators, rows race into place. Click any chip in the wall to compare that asset, change the order size on the left. Gaps use the case-study medians for illustration; per-asset numbers should come from Route.</span></div>
+    <div class="note"><b>03 Onchain markets</b><span>No charts. Two moving rows of what you can trade (stocks; ETFs, gold and more), then one big number: how much more you get on Route than on Kyber, with the full head-to-head racing into order beside it. Click any asset in the rows to compare it. Gaps use the case-study medians for illustration; per-asset numbers should come from Route.</span></div>
     <div class="sec-head rv">
       <div>
-        <span class="eyebrow"><span class="dot"></span>Onchain markets</span>
+        <span class="label"><em>[03]</em>Onchain markets</span>
         <h2 class="h2">Stocks, onchain.<br>Best price, 24/7.</h2>
         <p class="lede">Tokenized stocks, ETFs and gold trade on Robinhood Chain around the clock. Route gets you more of every one of them than anywhere else onchain.</p>
       </div>
@@ -561,21 +524,20 @@
   </div>
   <div class="wall rv d1" id="wall"></div>
   <div class="wrap">
-    <div class="compare rv d2" id="compare">
-      <div class="cmp-l">
-        <h3>Same order.<br>More <span id="cmpSym">NVDA</span>.</h3>
-        <p>We send the same trade through Route and the other aggregators at the same block. Route comes out on top.</p>
-        <div class="cmp-ctl">
-          <div class="asset" id="cmpAsset"></div>
-          <div class="seg" id="amtSeg" style="align-self:flex-start"><button type="button" data-a="1000">$1,000</button><button type="button" data-a="10000" class="on">$10,000</button><button type="button" data-a="100000">$100,000</button></div>
-          <span class="hint">Pick any asset from the wall above.</span>
-          <button class="btn pri" type="button" id="cmpBuy" style="align-self:flex-start">Buy NVDA on Route</button>
+    <div class="h2h rv d2" id="compare">
+      <div>
+        <span class="k">Same order, same block</span>
+        <div class="gain num" id="callV">+$5.60</div>
+        <p class="gain-sub" id="callTxt">more NVDA than on Kyber, on a $10,000 order.</p>
+        <div class="ctl">
+          <span class="apill" id="cmpAsset"></span>
+          <div class="seg" id="amtSeg"><button type="button" data-a="1000">$1k</button><button type="button" data-a="10000" class="on">$10k</button><button type="button" data-a="100000">$100k</button></div>
+          <button class="btn pri" type="button" id="cmpBuy">Buy NVDA</button>
         </div>
       </div>
       <div>
         <div class="board" id="board"></div>
-        <div class="axis">bars zoomed in to show the gap</div>
-        <div class="callout"><span id="callTxt">More NVDA than on Kyber</span><b class="num" id="callV">+$5.60</b></div>
+        <p class="foot-note">Output after gas. Bars zoomed in to show the gap. Pick any asset from the rows above.</p>
       </div>
     </div>
     <div class="usp"><span><svg class="i"><use href="#clock"/></svg>Trades nights and weekends</span><span><svg class="i"><use href="#check"/></svg>Settles in seconds</span><span><svg class="i"><use href="#key"/></svg>Stays in your wallet</span></div>
@@ -585,16 +547,26 @@
 <!-- ================= 04 BUILDERS ================= -->
 <section class="dark" id="builders">
   <div class="wrap">
-    <div class="note"><b>04 Builders</b><span>Feature cards are tabs that drive the code panel (auto-cycles until clicked). Quote shows the documented Partner API call; streaming shows a live log; zaps animate the legs; partner fees has a calculator wired into the code's feeBps. Only /quote is documented, the other calls are illustrative. Logo strip is placeholders.</span></div>
+    <div class="note"><b>04 Builders</b><span>Same pattern as How it works: features as a list on the left, the code panel on the right follows (auto-cycles until clicked). Quote shows the documented Partner API call; streaming a live log; zaps the legs; partner fees a calculator wired into the code. Only /quote is documented, the rest is illustrative. Logo row = placeholders.</span></div>
     <div class="sec-head rv">
       <div>
-        <span class="eyebrow"><span class="dot"></span>Infrastructure for builders</span>
+        <span class="label"><em>[04]</em>Infrastructure for builders</span>
         <h2 class="h2">The routing behind<br>route.fun, in your app.</h2>
         <p class="lede">One API for best-price swaps on Robinhood Chain. Quote, build and earn on every trade you send through.</p>
       </div>
     </div>
-    <div class="build">
-      <div class="code rv d1">
+    <div class="build rv d1">
+      <div>
+        <div class="ftabs auto" id="ftabs">
+          <button type="button" class="ftab on" data-f="quote"><span class="fi"><svg class="i"><use href="#bolt"/></svg></span><b>Quote + build</b><span>Best route and a signable transaction in one call.</span><em class="bar"></em></button>
+          <button type="button" class="ftab" data-f="stream"><span class="fi"><svg class="i"><use href="#wave"/></svg></span><b>Streaming quotes <em>confirm</em></b><span>Prices pushed to your app as the chain moves. No polling.</span><em class="bar"></em></button>
+          <button type="button" class="ftab" data-f="zap"><span class="fi"><svg class="i"><use href="#zap"/></svg></span><b>Zaps</b><span>Any supported token into a pool position, one transaction.</span><em class="bar"></em></button>
+          <button type="button" class="ftab" data-f="fees"><span class="fi"><svg class="i"><use href="#coins"/></svg></span><b>Partner fees</b><span>Add up to 50 bps on swaps you route, paid onchain.</span><em class="bar"></em></button>
+        </div>
+        <p class="also">Also: <b>swap widget</b>, <b>SDK</b>, <b>multi-swap</b></p>
+        <div class="build-cta"><a class="btn lime" href="#">Get an API key</a><a class="btn ghost-d" href="#">Docs<svg class="i"><use href="#out"/></svg></a></div>
+      </div>
+      <div class="code">
         <div class="code-top"><button type="button" class="lang on" data-l="curl">cURL</button><button type="button" class="lang" data-l="ts">TypeScript</button><button type="button" class="copy" id="copy">Copy</button></div>
         <pre id="code"></pre>
         <div class="xp on" data-x="quote"><div class="live"><i></i>best route · ETH → NVDA <b class="num" id="ticker">11.1902</b><span id="tick-age">3 pools · updated 0.4s ago</span></div></div>
@@ -606,44 +578,39 @@
           <div class="earn"><span>You earn</span><b class="num" id="earnV">$2,500 / mo</b></div>
         </div></div>
       </div>
-      <div class="feats auto rv d2" id="feats">
-        <button type="button" class="feat on" data-f="quote"><span class="fi"><svg class="i"><use href="#bolt"/></svg></span><b>Quote + build API</b><p>Best route and a signable transaction in one call. Split routing across pools and hops.</p><span class="fp"></span></button>
-        <button type="button" class="feat" data-f="stream"><span class="tagx">confirm</span><span class="fi"><svg class="i"><use href="#wave"/></svg></span><b>Streaming quotes</b><p>Prices pushed to your app as the chain moves. No polling.</p><span class="fp"></span></button>
-        <button type="button" class="feat" data-f="zap"><span class="fi"><svg class="i"><use href="#zap"/></svg></span><b>Zaps</b><p>Any supported token into a pool position in one transaction.</p><span class="fp"></span></button>
-        <button type="button" class="feat" data-f="fees"><span class="fi"><svg class="i"><use href="#coins"/></svg></span><b>Partner fees</b><p>Add up to 50 bps on swaps you route. Paid onchain, every trade.</p><span class="fp"></span></button>
-        <div class="also">Also: <span>Swap widget</span><span>SDK</span><span>Multi-swap</span></div>
-      </div>
     </div>
-    <div class="build-cta"><a class="btn lime" href="#">Get an API key</a><a class="btn ghost-d" href="#">Read the docs<svg class="i"><use href="#out"/></svg></a></div>
-    <div class="logos">
-      <small>Built on Route</small>
-      <div class="logo-track"><div>partner</div><div>partner</div><div>partner</div><div>partner</div><div>partner</div><div>partner</div><div>partner</div><div>partner</div><div>partner</div><div>partner</div><div>partner</div><div>partner</div></div>
-    </div>
+    <div class="logos"><small>Built on Route</small><i></i><i></i><i></i><i></i><i></i><i></i></div>
   </div>
 </section>
 
 <!-- ================= 05 COVERAGE ================= -->
 <section id="coverage">
   <div class="wrap">
-    <div class="note"><b>05 Coverage by chain</b><span>Click any chain in the table to load it in the card. Product chips filter the table. Swaps are live on Robinhood Chain and Arc; the rest show in the screener only. "soon?" marks claims to confirm with Route.</span></div>
+    <div class="note"><b>05 Coverage by chain</b><span>Three columns by how much of Route runs there: everything (Robinhood Chain), swaps (Arc), market data only (the screener chains). Reads at a glance, no table. Per-chain claims and stats still to confirm with Route.</span></div>
     <div class="sec-head rv">
       <div>
-        <span class="eyebrow"><span class="dot"></span>Coverage</span>
+        <span class="label"><em>[05]</em>Coverage</span>
         <h2 class="h2">Where Route runs.</h2>
         <p class="lede">Built on Robinhood Chain first. Swaps on Arc, market data across eleven chains, more on the way.</p>
       </div>
     </div>
-    <div class="cov">
-      <div class="chain-hero rv d1" id="chainCard"></div>
-      <div class="rv d2">
-        <div class="fchips" id="fchips"><button type="button" class="on" data-p="">All</button><button type="button" data-p="swap">Swap</button><button type="button" data-p="limit">Limit</button><button type="button" data-p="api">API</button><button type="button" data-p="earn">Earn</button><button type="button" data-p="screener">Screener</button></div>
-        <div class="matrix">
-          <table>
-            <thead><tr><th>Chain</th><th data-p="swap">Swap</th><th data-p="limit">Limit</th><th data-p="api">API</th><th data-p="earn">Earn</th><th data-p="screener">Screener</th></tr></thead>
-            <tbody id="ctable"></tbody>
-          </table>
-          <div class="legend"><span><span class="y" style="width:12px;height:12px;vertical-align:-1px"></span> live</span><span><span class="soon">soon?</span> to confirm with Route</span><span>· not available</span></div>
-        </div>
+    <div class="tiers rv d1">
+      <div class="tier">
+        <span class="k"><i></i>Everything live</span>
+        <div class="cbig"><span class="chain-ico" style="background:#c6f432;color:#1c1e18">RH</span><div><b>Robinhood Chain</b><small>Home chain · ID 4663</small></div></div>
+        <div class="prods"><span>Swap</span><span>Limit</span><span>Multi-swap</span><span>Earn</span><span>API</span></div>
+        <div class="cstats num"><div><b>$43.45M</b>volume</div><div><b>75,262</b>swaps</div></div>
+      </div>
+      <div class="tier">
+        <span class="k"><i></i>Swaps live</span>
+        <div class="cbig"><span class="chain-ico" style="background:#272b21">Arc</span><div><b>Arc</b><small>Since Sep 16</small></div></div>
+        <div class="prods"><span>Swap</span></div>
+        <p>Live quotes and network switching on the website. No Route fee. API <span class="soon">soon?</span></p>
+      </div>
+      <div class="tier">
+        <span class="k"><i class="off"></i>In the screener</span>
+        <div class="cgrid" id="cgrid"></div>
+        <p>Tokens and prices from nine more chains. Swaps there <span class="soon">to confirm</span></p>
       </div>
     </div>
   </div>
@@ -772,112 +739,112 @@
     hero.scrollIntoView({behavior:'smooth'});setTimeout(quote,450);
   };
 
-  /* ================= 02 how it works: steps drive an isometric scene (motion idea) ================= */
+  /* ================= 02 how it works: steps drive an isometric route graph (motion idea) ================= */
   var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
-  function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+  function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)if(attrs[k]!=null)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
   function txt(parent,attrs,s){var t=el('text',attrs,parent);t.textContent=s;return t}
-  var CX=410,CY=300,PH=14;
+  var CX=430,CY=285;
   function P(x,y,z){return [CX+(x-y)*.866,CY+(x+y)*.5-(z||0)]}
   function pts(a){return a.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' ')}
-  function prism(g,x0,y0,w,d,h){
-    el('polygon',{class:'l',points:pts([P(x0,y0+d,0),P(x0+w,y0+d,0),P(x0+w,y0+d,h),P(x0,y0+d,h)])},g);
-    el('polygon',{class:'r',points:pts([P(x0+w,y0,0),P(x0+w,y0+d,0),P(x0+w,y0+d,h),P(x0+w,y0,h)])},g);
-    el('polygon',{class:'t',points:pts([P(x0,y0,h),P(x0+w,y0,h),P(x0+w,y0+d,h),P(x0,y0+d,h)])},g);
-  }
-  function cyl(g,cx,cyBase,r,h,sideCls,topCls,fill){
-    var rx=r*1.2247,ry=r*.7071,top=cyBase-h;
-    el('path',{class:sideCls,d:'M'+(cx-rx)+' '+top+'V'+cyBase+'A'+rx+' '+ry+' 0 0 0 '+(cx+rx)+' '+cyBase+'V'+top+'Z',fill:fill||null},g);
-    el('ellipse',{class:topCls,cx:cx,cy:top,rx:rx,ry:ry,fill:fill||null},g);
-    return {rx:rx,ry:ry,top:top};
-  }
-  // platform with a faint grid
-  var S=150,plat=el('g',{class:'plat'},$('#sPlat'));prism(plat,-S,-S,2*S,2*S,PH);
-  for(var gl=-S+50;gl<S;gl+=50){var a=P(gl,-S,PH),b=P(gl,S,PH),c=P(-S,gl,PH),d=P(S,gl,PH);
-    el('line',{class:'gridl',x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#sPlat'));el('line',{class:'gridl',x1:c[0],y1:c[1],x2:d[0],y2:d[1]},$('#sPlat'))}
-  // liquidity pools (3x3), drawn back to front
-  var PICK={'-1,-1':55,'0,1':30,'1,0':15},pools=[],cells=[];
-  [-1,0,1].forEach(function(a){[-1,0,1].forEach(function(b){cells.push([a,b])})});
-  cells.sort(function(p,q){return (p[0]+p[1])-(q[0]+q[1])});
-  cells.forEach(function(c,i){
-    var w=P(c[0]*88,c[1]*88,PH),dx=w[0]-CX,key=c[0]+','+c[1];
-    var g=el('g',{class:'pool'+(PICK[key]?' pick':''),style:'--d:'+((dx+340)/680*2.4).toFixed(2)+'s'},$('#sPools'));
-    var cy=cyl(g,w[0],w[1],24,36,'side','rim');
-    el('ellipse',{class:'surf',cx:w[0],cy:cy.top+5,rx:cy.rx*.78,ry:cy.ry*.78},g);
-    var tg=el('g',{class:'ptag'},g);el('rect',{x:w[0]-27,y:cy.top-44,width:54,height:19,rx:9.5},tg);
-    txt(tg,{x:w[0],y:cy.top-31,'text-anchor':'middle'},'$'+(217.62+((i*37)%9)*.05).toFixed(2));
-    var ck=el('g',{class:'ck'},g);el('circle',{cx:w[0]+cy.rx-2,cy:cy.top-12,r:9,fill:'#567b51'},ck);
-    el('path',{d:'M'+(w[0]+cy.rx-6)+' '+(cy.top-12)+'l3 3 5-6',stroke:'#fff','stroke-width':2,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},ck);
-    pools.push({key:key,x:w[0],top:cy.top,share:PICK[key]||0});
+  // floor: an isometric square with a faint grid
+  var FS=240,fl=$('#gFloor');
+  el('polygon',{class:'floor',points:pts([P(-FS,-FS),P(FS,-FS),P(FS,FS),P(-FS,FS)])},fl);
+  for(var k=-FS+40;k<FS;k+=40){var a1=P(k,-FS),a2=P(k,FS),b1=P(-FS,k),b2=P(FS,k);
+    el('line',{class:'gridl',x1:a1[0],y1:a1[1],x2:a2[0],y2:a2[1]},fl);el('line',{class:'gridl',x1:b1[0],y1:b1[1],x2:b2[0],y2:b2[1]},fl)}
+  // vertices = tokens, laid out in layers (screen offsets from centre)
+  var V={ETH:[-300,0,'#627eea','ETH',0],WETH:[-165,-100,'#7d8fd8','WETH',1],USDG:[-165,0,'#2f9e5a','USDG',1],cbBTC:[-165,100,'#f7931a','BTC',1],
+    SPY:[-20,-135,'#2b4c9b','SPY',2],ROUTE:[-20,-45,'#252620','r',2],PONS:[-20,45,'#d0873a','PONS',2],VIRTUAL:[-20,135,'#2fbfb0','VIRT',2],
+    TSLA:[150,-70,'#cc2936','TSLA',3],QQQ:[150,0,'#6c3fc4','QQQ',3],GLD:[150,70,'#c9a227','GLD',3],NVDA:[300,0,'#76b900','NVDA',4]};
+  // edges = pools
+  var E=[['ETH','WETH'],['ETH','USDG'],['ETH','cbBTC'],['WETH','SPY'],['WETH','ROUTE'],['USDG','ROUTE'],['USDG','PONS'],['cbBTC','PONS'],['cbBTC','VIRTUAL'],
+    ['SPY','TSLA'],['SPY','QQQ'],['ROUTE','TSLA'],['ROUTE','QQQ'],['PONS','QQQ'],['PONS','GLD'],['VIRTUAL','GLD'],['TSLA','NVDA'],['QQQ','NVDA'],['GLD','NVDA']];
+  var ROUTES=[[55,['ETH','USDG','ROUTE','QQQ','NVDA']],[30,['ETH','WETH','SPY','TSLA','NVDA']],[15,['ETH','cbBTC','VIRTUAL','GLD','NVDA']]];
+  function at(id){var v=V[id];return [CX+v[0],CY+v[1]]}
+  var onRoute={},edgeOn={};
+  ROUTES.forEach(function(r){r[1].forEach(function(id,i){onRoute[id]=1;if(i)edgeOn[[r[1][i-1],id].sort().join('|')]=1})});
+  E.forEach(function(e,i){var a=at(e[0]),b=at(e[1]);
+    el('line',{class:'edge'+(edgeOn[e.slice().sort().join('|')]?' onr':''),'data-i':i,x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#gEdges'))});
+  // highlighted routes + flowing dots + share labels
+  ROUTES.forEach(function(r,k){
+    var d='M'+r[1].map(function(id){return at(id).join(' ')}).join('L');
+    el('path',{class:'rpath',id:'rp'+k,d:d,'stroke-width':(2.5+r[0]/9).toFixed(1)},$('#gRoutes'));
+    var n=Math.max(2,Math.round(r[0]/11));
+    for(var i=0;i<n;i++){var c=el('circle',{r:4.5},$('#gParts')),am=el('animateMotion',{dur:'2.6s',repeatCount:'indefinite',begin:(-(i/n)*2.6).toFixed(2)+'s'},c),mp=el('mpath',{href:'#rp'+k},am);mp.setAttributeNS(XL,'xlink:href','#rp'+k)}
+    var p0=at(r[1][0]),p1=at(r[1][1]),mx=(p0[0]+p1[0])/2,my=(p0[1]+p1[1])/2;
+    var pg=el('g',{class:'pct'},$('#gTags'));el('rect',{x:mx-22,y:my-11,width:44,height:22,rx:11},pg);txt(pg,{x:mx,y:my+4,'text-anchor':'middle'},r[0]+'%');
   });
-  // scan beam
-  var bm=$('#beam');bm.setAttribute('x',CX-6);bm.setAttribute('y',CY-250);bm.setAttribute('width',12);bm.setAttribute('height',410);bm.setAttribute('fill','url(#beamG)');
-  // simulation sandbox: dashed box around the route
-  (function(){var s=168,h=70,g=$('#sBox'),C=[[-s,-s],[s,-s],[s,s],[-s,s]];
-    var d='';C.forEach(function(c,i){var n=C[(i+1)%4],a=P(c[0],c[1],h),b=P(n[0],n[1],h),e=P(c[0],c[1],0),f=P(n[0],n[1],0);d+='M'+a+'L'+b+'M'+e+'L'+f+'M'+e+'L'+a});
-    el('path',{class:'sandbox',d:d.replace(/,/g,' ')},g);
-    var lp=P(s,s,0);var lg=el('g',{class:'sbl'},g);txt(lg,{class:'slab k',x:lp[0],y:lp[1]+24,'text-anchor':'middle'},'Simulated before you sign');
-  })();
-  // your token in, the token you get out (coin stacks)
-  function stack(wx,wy,n,color,letter,cls){var g=el('g',{class:'stack '+(cls||'')},$('#sTop')),b=P(wx,wy,0),top;
-    for(var i=0;i<n;i++){top=cyl(g,b[0],b[1]-i*12,30,12,'s','t',color)}
-    txt(g,{x:b[0],y:top.top+4,'text-anchor':'middle'},letter);return {x:b[0],top:top.top,base:b[1]}}
-  var IN=stack(-200,200,3,'#627eea','ETH'),OUT=stack(200,-200,3,'#76b900','NVDA','outs');
-  txt($('#sTop'),{class:'slab k',x:IN.x,y:IN.base+44,'text-anchor':'middle'},'You pay');
-  txt($('#sTop'),{class:'slab',x:IN.x,y:IN.base+60,'text-anchor':'middle'},'4.1 ETH');
-  txt($('#sTop'),{class:'slab k',x:OUT.x,y:OUT.base+44,'text-anchor':'middle'},'You get');
-  txt($('#sTop'),{class:'slab',x:OUT.x,y:OUT.base+60,'text-anchor':'middle'},'45.96 NVDA');
-  var sg=el('g',{class:'sig'},$('#sTop'));el('rect',{x:OUT.x-56,y:OUT.base+72,width:112,height:26,rx:13,fill:'#272b21'},sg);
-  txt(sg,{x:OUT.x,y:OUT.base+89,'text-anchor':'middle','font-size':12,'font-weight':500,fill:'#f7f7f2'},'✓ 1 signature');
-  // arcs: token -> picked pools -> output, with flowing dots
-  function arc(x1,y1,x2,y2){var cx=(x1+x2)/2,cy=Math.min(y1,y2)-110;return {d:'M'+x1+' '+y1+'Q'+cx+' '+cy+' '+x2+' '+y2,mx:(x1+2*cx+x2)/4,my:(y1+2*cy+y2)/4}}
-  function dots(group,id,n){for(var i=0;i<n;i++){var c=el('circle',{r:4.5},group),am=el('animateMotion',{dur:'1.8s',repeatCount:'indefinite',begin:(-(i/n)*1.8).toFixed(2)+'s'},c),mp=el('mpath',{href:'#'+id},am);mp.setAttributeNS(XL,'xlink:href','#'+id)}}
-  pools.filter(function(p){return p.share}).forEach(function(p,k){
-    var a=arc(IN.x,IN.top,p.x,p.top),b=arc(p.x,p.top,OUT.x,OUT.top),w=2+p.share/10;
-    el('path',{class:'arc in',id:'arcI'+k,d:a.d,'stroke-width':w},$('#sArcs'));
-    el('path',{class:'arc out',id:'arcO'+k,d:b.d,'stroke-width':w},$('#sArcs'));
-    var n=Math.max(2,Math.round(p.share/12));dots($('#partsIn'),'arcI'+k,n);dots($('#partsOut'),'arcO'+k,n);
-    var pg=el('g',{class:'pct'},$('#sTop'));el('rect',{x:a.mx-22,y:a.my-11,width:44,height:22,rx:11},pg);txt(pg,{x:a.mx,y:a.my+4,'text-anchor':'middle'},p.share+'%');
+  // draw vertices back to front: pin stem + disc cap, label on the floor
+  var RX=26.9,RY=15.6,H=8,LIFT=28;
+  Object.keys(V).sort(function(a,b){return V[a][1]-V[b][1]}).forEach(function(id){
+    var v=V[id],p=at(id),g=el('g',{class:'vx'+(onRoute[id]?' onr':'')+(id==='NVDA'?' dest':''),'data-id':id,'data-l':v[4]},$('#gVerts'));
+    el('ellipse',{class:'ring',cx:p[0],cy:p[1],rx:RX+4,ry:RY+3},g);
+    var sw=RX*.42;el('path',{class:'stem',d:'M'+(p[0]-sw)+' '+(p[1]-LIFT)+'V'+p[1]+'A'+sw+' '+(sw*.58)+' 0 0 0 '+(p[0]+sw)+' '+p[1]+'V'+(p[1]-LIFT)+'Z'},g);
+    var cap=el('g',{class:'cap'},g),top=p[1]-H;
+    el('path',{class:'side',d:'M'+(p[0]-RX)+' '+top+'V'+p[1]+'A'+RX+' '+RY+' 0 0 0 '+(p[0]+RX)+' '+p[1]+'V'+top+'Z'},cap);
+    el('ellipse',{class:'top',cx:p[0],cy:top,rx:RX,ry:RY,fill:v[2]},cap);
+    txt(cap,{class:'sym',x:p[0],y:top+3.5,'text-anchor':'middle'},v[3]);
+    var ck=el('g',{class:'ck'},cap);el('circle',{cx:p[0]+RX-2,cy:top-12,r:8.5,fill:'#567b51',stroke:'#fff','stroke-width':1.5},ck);
+    el('path',{d:'M'+(p[0]+RX-6)+' '+(top-12)+'l3 3 5-6',stroke:'#fff','stroke-width':2,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},ck);
+    txt(g,{class:'nm',x:p[0],y:p[1]+RY+16,'text-anchor':'middle'},id==='cbBTC'?'cbBTC':id==='VIRTUAL'?'VIRTUAL':id);
   });
+  // step tags
+  var t1=el('g',{class:'scantag'},$('#gTags'));txt(t1,{class:'tagtext',x:28,y:40},'Scanning the graph');var scanSub=txt(t1,{class:'tagsub',x:28,y:58},'0 pools · 6 DEXs');
+  var t3=el('g',{class:'simtag'},$('#gTags'));txt(t3,{class:'tagtext',x:28,y:40},'✓ Every hop simulated');txt(t3,{class:'tagsub',x:28,y:58},'before the quote reaches you');
+  var nv=at('NVDA'),t4=el('g',{class:'sig'},$('#gTags'));el('rect',{x:nv[0]-58,y:nv[1]-104,width:116,height:28,rx:14,fill:'#272b21'},t4);
+  txt(t4,{x:nv[0],y:nv[1]-85,'text-anchor':'middle','font-size':12.5,'font-weight':500,fill:'#f7f7f2'},'✓ 1 signature');
   // steps drive the scene
-  var scene=$('#scene'),hs=$('#hsteps'),hsteps=$$('.hstep'),HS={cur:1,t:null,inView:false};
+  var scene=$('#scene'),hs=$('#hsteps'),hsteps=$$('.hstep'),HS={cur:1,t:null,inView:false,tm:[]};
+  function later(f,ms){HS.tm.push(setTimeout(f,ms))}
   function show(n){
-    HS.cur=n;scene.setAttribute('data-s',n);
+    HS.tm.forEach(clearTimeout);HS.tm=[];HS.cur=n;scene.setAttribute('data-s',n);
+    var edges=$$('.edge',scene),verts=$$('.vx',scene);
+    if(n===1){
+      edges.forEach(function(e){e.classList.remove('seen')});verts.forEach(function(v){v.classList.remove('lift','ping')});
+      E.forEach(function(e,i){var lv=Math.min(V[e[0]][4],V[e[1]][4]);later(function(){edges[i].classList.add('seen');
+        [e[0],e[1]].forEach(function(id){var vg=$('.vx[data-id="'+id+'"]',scene);vg.classList.remove('ping');void vg.getBoundingClientRect();vg.classList.add('ping')})},250+lv*520+Math.random()*200)});
+      var t0=performance.now();(function ct(t){var q=Math.min(1,(t-t0)/2200);scanSub.textContent=Math.round(23*q)+' pools · 6 DEXs';if(q<1&&HS.cur===1)requestAnimationFrame(ct)})(t0);
+    }else{
+      edges.forEach(function(e){e.classList.add('seen')});
+      verts.forEach(function(v){if(!v.classList.contains('onr')){v.classList.remove('lift');return}
+        if(v.classList.contains('lift'))return;later(function(){v.classList.add('lift')},+v.dataset.l*110)});
+    }
     hsteps.forEach(function(b){b.classList.remove('on');if(+b.dataset.s===n){void b.offsetWidth;b.classList.add('on')}});
-    clearTimeout(HS.t);hs.classList.toggle('run',HS.inView);if(HS.inView)HS.t=setTimeout(function(){show(n%4+1)},3800);
+    clearTimeout(HS.t);hs.classList.toggle('run',HS.inView);if(HS.inView)HS.t=setTimeout(function(){show(n%4+1)},4000);
   }
   hsteps.forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.s)})});
   onView($('#stage'),function(v){var was=HS.inView;HS.inView=v;if(v&&!was)show(HS.cur);else if(!v){clearTimeout(HS.t);hs.classList.remove('run')}},{threshold:.3});
   show(1);
 
-  /* ================= 03 markets: asset wall + head-to-head ================= */
-  var WALL=[['Stocks',['NVDA','TSLA','AAPL','GOOGL','META','CRCL','MSTR','MU'],'70s',''],['ETFs & gold',['SPY','QQQ','GLD'],'40s',' rev'],['Crypto',['ETH','cbBTC','VIRTUAL','ROUTE','PONS','CASHCAT','HOOKR','VRAX','IGNITION','RAM'],'80s','']];
+  /* ================= 03 markets: asset rows + head-to-head ================= */
+  TK.SPCX=TK.SPCX||{n:'SpaceX',p:146.56,c:-4.56,bg:'#1d1d1f',l:'X'};
+  TK.GME=TK.GME||{n:'GameStop',p:27.74,c:-.84,bg:'#e3262c',l:'G'};
+  TK.BABA=TK.BABA||{n:'Alibaba',p:110.18,c:-.65,bg:'#ff6a00',l:'B'};
+  TK.AMC=TK.AMC||{n:'AMC',p:2.97,c:-1.16,bg:'#b3122e',l:'A'};
+  TK.HIMS=TK.HIMS||{n:'Hims & Hers',p:27.10,c:.4,bg:'#2a6b5f',l:'H'};
+  var WALL=[[['NVDA','TSLA','AAPL','GOOGL','META','CRCL','MSTR','MU'],'70s',''],[['SPY','QQQ','GLD','SPCX','GME','BABA','AMC','HIMS'],'80s',' rev']];
   var CMP={sym:'NVDA',amt:10000,shown:false};
-  function chip(s){var t=TK[s];return '<button type="button" class="chip'+(s===CMP.sym?' sel':'')+'" data-s="'+s+'">'+coin(s)+'<span><b>'+s+'</b><small>'+t.n+'</small></span><span class="px num" data-px="'+s+'">'+fp(t.p)+'</span></button>'}
-  $('#wall').innerHTML=WALL.map(function(r){
-    var unit='<span class="wlab">'+r[0]+'</span>'+r[1].map(chip).join(''),set=unit;
-    while((set.match(/class="chip/g)||[]).length<10)set+=unit;
-    return '<div class="wrow'+r[3]+'" style="--t:'+r[2]+'">'+set+set+'</div>'}).join('');
-  var COMP=[['Route','r',0],['Nordstern','N',.4],['0x','0x',2.5],['Kyber','K',5.6]],ROWH=68;
-  $('#board').innerHTML=COMP.map(function(c,k){return '<div class="lrow'+(k?'':' me')+'" data-k="'+k+'"><span class="nm"><i>'+c[1]+'</i>'+c[0]+'</span><span class="bar"><i></i></span><span class="v num"><span class="o">…</span><small></small></span></div>'}).join('');
+  function chip(s){var t=TK[s];return '<button type="button" class="chip'+(s===CMP.sym?' sel':'')+'" data-s="'+s+'">'+coin(s)+'<span><b>'+s+'</b><small><span class="num" data-px="'+s+'">'+fp(t.p)+'</span> · <i class="'+(t.c>=0?'up':'dn')+'" data-chg="'+s+'">'+fc(t.c)+'</i></small></span></button>'}
+  $('#wall').innerHTML=WALL.map(function(r){var list=r[0].slice();while(list.length<14)list=list.concat(r[0]);var set=list.map(chip).join('');
+    return '<div class="wrow'+r[2]+'" style="--t:'+r[1]+'">'+set+set+'</div>'}).join('');
+  var COMP=[['Route',0],['Nordstern',.4],['0x',2.5],['Kyber',5.6]],ROWH=64;
+  $('#board').innerHTML=COMP.map(function(c,k){return '<div class="lrow'+(k?'':' me')+'"><span class="nm">'+c[0]+'</span><span class="bar"><i></i></span><span class="v num"><span class="o">…</span><small></small></span></div>'}).join('');
   function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
   function runCompare(){
     var s=CMP.sym,t=TK[s],A=CMP.amt,rows=$$('.lrow');
-    $('#cmpSym').textContent=s;$('#cmpBuy').textContent='Buy '+s+' on Route';
-    $('#cmpAsset').innerHTML=coin(s)+'<div><b>'+t.n+'</b><small>'+s+(s==='USDG'?'':' / USDG')+' · Robinhood Chain</small></div><span class="px num" data-px="'+s+'">'+fp(t.p)+'</span>';
+    $('#cmpBuy').textContent='Buy '+s;$('#cmpAsset').innerHTML=coin(s)+s;
     $$('.chip').forEach(function(c){c.classList.toggle('sel',c.dataset.s===s)});
-    // start shuffled with Route at the bottom, then race into order
-    var start=[1,2,3,0].sort(function(){return Math.random()-.5});start.splice(start.indexOf(0),1);start.push(0);
+    var start=[1,2,3].sort(function(){return Math.random()-.5});start.push(0);
     start.forEach(function(k,pos){var r=rows[k];r.style.top=(pos*ROWH)+'px';$('.bar i',r).style.width='0';$('.o',r).textContent='…';$('small',r).textContent=''});
+    $('#callTxt').innerHTML='more <b>'+s+'</b> than on Kyber, on a '+money(A).replace('.00','')+' order.';
     setTimeout(function(){
       var routeOut=A/t.p*(1-.0006);
-      COMP.forEach(function(c,k){var r=rows[k],out=routeOut*(1-c[2]/1e4),t0=performance.now(),o=$('.o',r);
-        r.style.top=(k*ROWH)+'px';$('.bar i',r).style.width=(100-c[2]*7)+'%';
+      COMP.forEach(function(c,k){var r=rows[k],out=routeOut*(1-c[1]/1e4),t0=performance.now(),o=$('.o',r);
+        r.style.top=(k*ROWH)+'px';$('.bar i',r).style.width=(100-c[1]*7)+'%';
         (function st(tt){var q=Math.min(1,(tt-t0)/900);o.textContent=fa(out*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(st)})(t0);
-        $('small',r).textContent=k?'-'+money(A*c[2]/1e4):'Best price';
+        $('small',r).textContent=k?'-'+money(A*c[1]/1e4):'best price';
       });
-      $('#callTxt').textContent='More '+s+' than on Kyber, on a '+money(A).replace('.00','')+' order';
       var t1=performance.now(),cv=$('#callV'),gain=A*5.6/1e4;
-      (function st(tt){var q=Math.min(1,(tt-t1)/900);cv.textContent='+'+money(gain*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(st)})(t1);
+      (function st(tt){var q=Math.min(1,(tt-t1)/1000);cv.textContent='+'+money(gain*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(st)})(t1);
     },380);
   }
   $('#wall').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;CMP.sym=c.dataset.s;runCompare();$('#compare').scrollIntoView({behavior:'smooth',block:'nearest'})});
@@ -904,14 +871,13 @@
     $('#code').innerHTML=CODE[B.f][B.l].map(function(l,i){return '<span class="ln" style="--d:'+i+'">'+(l||'&#8203;')+'</span>'}).join('');
     $$('.fee-bps').forEach(function(s){s.textContent=$('#bpsR').value});
     $$('.xp').forEach(function(x){x.classList.toggle('on',x.dataset.x===B.f)});
-    $$('#feats .feat').forEach(function(x){x.classList.remove('on');if(x.dataset.f===B.f){void x.offsetWidth;x.classList.add('on')}});
+    $$('#ftabs .ftab').forEach(function(x){x.classList.remove('on');if(x.dataset.f===B.f){void x.offsetWidth;x.classList.add('on')}});
   }
   function autoNext(){clearTimeout(B.t);if(B.auto&&B.inView)B.t=setTimeout(function(){var o=['quote','stream','zap','fees'];B.f=o[(o.indexOf(B.f)+1)%4];renderCode();autoNext()},6500)}
-  $('#feats').addEventListener('click',function(e){var f=e.target.closest('.feat');if(!f)return;B.auto=false;$('#feats').classList.remove('auto');clearTimeout(B.t);B.f=f.dataset.f;renderCode()});
+  $('#ftabs').addEventListener('click',function(e){var f=e.target.closest('.ftab');if(!f)return;B.auto=false;$('#ftabs').classList.remove('auto');clearTimeout(B.t);B.f=f.dataset.f;renderCode()});
   $$('.lang').forEach(function(b){b.addEventListener('click',function(){$$('.lang').forEach(function(x){x.classList.toggle('on',x===b)});B.l=b.dataset.l;renderCode()})});
-  $('#copy').addEventListener('click',function(){var txt=$('#code').innerText.replace(/​/g,'');try{navigator.clipboard.writeText(txt)}catch(e){}var c=$('#copy');c.textContent='Copied';setTimeout(function(){c.textContent='Copy'},1400)});
+  $('#copy').addEventListener('click',function(){var tx=$('#code').innerText.replace(/​/g,'');try{navigator.clipboard.writeText(tx)}catch(e){}var c=$('#copy');c.textContent='Copied';setTimeout(function(){c.textContent='Copy'},1400)});
   onView($('#builders'),function(v){B.inView=v;autoNext()},{threshold:.2});
-  // live best-route ticker + streaming log
   var tk=$('#ticker'),q=11.1902,blk=18402211;
   setInterval(function(){var d=(Math.random()-.5)*.004;q+=d;tk.textContent=q.toFixed(4);flash(tk,d>=0);$('#tick-age').textContent=(2+Math.round(Math.random()))+' pools · updated '+(Math.random()*.6+.1).toFixed(1)+'s ago'},1400);
   var slog=$('#slog');
@@ -920,7 +886,6 @@
     var row=document.createElement('div');row.innerHTML='block '+blk.toLocaleString('en-US')+'  out <b>'+q.toFixed(4)+'</b> NVDA  <span class="'+(d>=0?'u':'d')+'">'+(d>=0?'▲':'▼')+' '+Math.abs(d*1e4).toFixed(1)+'</span>  '+(2+Math.round(Math.random()))+' pools';
     slog.appendChild(row);while(slog.children.length>6)slog.removeChild(slog.firstChild);
   },900);
-  // partner fee calculator
   function fmtUsd0(n){return n>=1e6?'$'+(n/1e6).toFixed(n>=1e7?0:1)+'M':n>=1e3?'$'+Math.round(n/1e3)+'K':'$'+Math.round(n)}
   function calc(){
     var vol=1e5*Math.pow(500,$('#volR').value/100),bps=+$('#bpsR').value,earn=vol*bps/1e4;
@@ -932,42 +897,8 @@
   calc();renderCode();
 
   /* ================= 05 coverage ================= */
-  var CH=[
-    {id:'rh',n:'Robinhood Chain',ico:'RH',bg:'#c6f432',fg:'#1c1e18',live:1,sub:'Home chain · ID 4663',p:{swap:1,limit:1,api:1,earn:1,screener:1},k:[['Volume','$43.45M'],['Swaps','75,262'],['Pools routed','xx'],['Tokens','xx']],d:'Every Route product runs here: swap, limit, multi-swap, Earn and the Partner API.'},
-    {id:'arc',n:'Arc',ico:'Arc',bg:'#272b21',live:1,sub:'Swaps since Sep 16',p:{swap:1,api:'s'},k:[['Volume','xx'],['Swaps','xx'],['Pools routed','xx'],['Route fee','0%']],d:'Website swaps with live quotes and network switching. No Route fee; pool fees and gas still apply.'},
-    {id:'sol',n:'Solana',ico:'SOL',bg:'#14f195',fg:'#1c1e18',sub:'Screener data',p:{swap:'s',screener:1},d:'Tokens and prices show in the screener. Swaps to confirm with Route.'},
-    {id:'eth',n:'Ethereum',ico:'ETH',bg:'#627eea',sub:'Screener data',p:{swap:'s',screener:1},d:'Tokens and prices show in the screener. Swaps to confirm with Route.'},
-    {id:'base',n:'Base',ico:'B',bg:'#0052ff',sub:'Screener data',p:{swap:'s',screener:1},d:'Tokens and prices show in the screener. Swaps to confirm with Route.'},
-    {id:'hyper',n:'HyperEVM',ico:'H',bg:'#97fce4',fg:'#1c1e18',sub:'Screener data',p:{swap:'s',screener:1},d:'Tokens and prices show in the screener. Swaps to confirm with Route.'},
-    {id:'bnb',n:'BNB Chain',ico:'BNB',bg:'#f0b90b',fg:'#1c1e18',sub:'Screener data',p:{screener:1},x:1,d:'Tokens and prices show in the screener.'},
-    {id:'btc',n:'Bitcoin',ico:'BTC',bg:'#f7931a',sub:'Screener data',p:{screener:1},x:1,d:'Tokens and prices show in the screener.'},
-    {id:'arb',n:'Arbitrum',ico:'ARB',bg:'#28a0f0',sub:'Screener data',p:{screener:1},x:1,d:'Tokens and prices show in the screener.'},
-    {id:'pol',n:'Polygon',ico:'POL',bg:'#8247e5',sub:'Screener data',p:{screener:1},x:1,d:'Tokens and prices show in the screener.'},
-    {id:'avax',n:'Avalanche',ico:'AVA',bg:'#e84142',sub:'Screener data',p:{screener:1},x:1,d:'Tokens and prices show in the screener.'}
-  ];
-  var PR=['swap','limit','api','earn','screener'],PRN={swap:'Swap',limit:'Limit',api:'API',earn:'Earn',screener:'Screener'};
-  var CV={sel:'rh',f:''};
-  function ico(c,cls){return '<span class="'+(cls||'chain-ico')+'" style="background:'+c.bg+';color:'+(c.fg||'#fff')+'">'+c.ico+'</span>'}
-  function cell(v){return v===1?'<span class="y"><svg class="i"><use href="#check"/></svg></span>':v==='s'?'<span class="soon">soon?</span>':'·'}
-  $('#ctable').innerHTML=CH.map(function(c){return '<tr data-id="'+c.id+'"'+(c.x?' class="extra"':'')+'><td><span class="cn">'+ico(c)+c.n+'</span></td>'+PR.map(function(p){return '<td data-p="'+p+'"'+(c.p[p]?'':' class="no"')+'>'+cell(c.p[p])+'</td>'}).join('')+'</tr>'}).join('')+'<tr class="more-row" id="moreRow"><td colspan="6">Show 5 more chains</td></tr>';
-  function selChain(id){
-    CV.sel=id;var c=CH.filter(function(x){return x.id===id})[0],card=$('#chainCard');
-    card.classList.toggle('data',!c.live);
-    card.innerHTML='<div class="head swapin">'+ico(c)+'<div><b class="t">'+c.n+'</b><small>'+c.sub+'</small></div><span class="stat-pill '+(c.live?'live':'data')+'">'+(c.live?'● Live':'Screener only')+'</span></div>'+
-      '<div class="prods swapin">'+PR.map(function(p){return '<span class="'+(c.p[p]===1?'y2':c.p[p]==='s'?'s2':'')+'">'+PRN[p]+(c.p[p]==='s'?'?':'')+'</span>'}).join('')+'</div>'+
-      (c.k?'<div class="ch-kpi num swapin">'+c.k.map(function(k){return '<div>'+k[0]+'<b>'+k[1]+'</b></div>'}).join('')+'</div>':'')+
-      '<p class="sub swapin" style="font-size:13px;color:var(--muted-foreground)">'+c.d+'</p>';
-    $$('#ctable tr[data-id]').forEach(function(r){r.classList.toggle('sel',r.dataset.id===id)});
-    if(c.x)$('#ctable').classList.add('open'),$('#moreRow').style.display='none';
-  }
-  function filt(p){
-    CV.f=p;$$('#fchips button').forEach(function(b){b.classList.toggle('on',b.dataset.p===p)});
-    $$('#ctable tr[data-id]').forEach(function(r){var c=CH.filter(function(x){return x.id===r.dataset.id})[0];r.classList.toggle('dim',!!p&&!c.p[p])});
-    $$('th[data-p],td[data-p]').forEach(function(t){t.classList.toggle('col-on',!!p&&t.dataset.p===p)});
-  }
-  $('#ctable').addEventListener('click',function(e){var r=e.target.closest('tr');if(!r)return;if(r.id==='moreRow'){$('#ctable').classList.add('open');r.style.display='none';return}selChain(r.dataset.id)});
-  $('#fchips').addEventListener('click',function(e){var b=e.target.closest('button');if(b)filt(b.dataset.p)});
-  selChain('rh');
+  var MORE=[['Solana','SOL','#14f195','#1c1e18'],['Ethereum','ETH','#627eea'],['Base','B','#0052ff'],['HyperEVM','H','#97fce4','#1c1e18'],['BNB Chain','BNB','#f0b90b','#1c1e18'],['Bitcoin','BTC','#f7931a'],['Arbitrum','ARB','#28a0f0'],['Polygon','POL','#8247e5'],['Avalanche','AVA','#e84142']];
+  $('#cgrid').innerHTML=MORE.map(function(c){return '<span class="cmini"><span class="chain-ico" style="background:'+c[2]+';color:'+(c[3]||'#fff')+'">'+c[1]+'</span>'+c[0]+'</span>'}).join('');
 })();
 </script>
 </body>

@@ -11,10 +11,10 @@ The button at the bottom right toggles the wireframe notes on and off. Animation
 | # | Section | What's in it |
 |---|---------|--------------|
 | 01 | Hero | Swap card as hero, stripped to amount + two tokens + one button at rest. Typing an amount reveals dollar values, a short "checking pools" beat, then rate, route and the Kyber edge. No background graphic. |
-| 02 | How Route works | Four steps beside an isometric scene (liquidity-pool platform between your token and the output). Steps auto-advance or click: Scan sweeps a beam over the pools, Split arcs the trade into the best three, Check ticks them and boxes the route as a simulation, Sign merges it all into the output. Motion idea, final illustration to be designed. |
-| 03 | Onchain markets | No charts. Moving wall of tradeable stocks, ETFs and gold, crypto. Head-to-head: the same order through Route vs Nordstern, 0x and Kyber, rows race into place. Click any chip to compare that asset. |
-| 04 | Builders | Feature cards drive the code panel: quote, live streaming log, zap legs, partner fee calculator wired into the code. Moving logo strip. |
-| 05 | Coverage by chain | Chain card that follows whatever you click in the matrix, product filters on the matrix. |
+| 02 | How Route works | Four steps beside an isometric route graph: tokens as vertices, pools as edges. Scan lights edges outward from ETH, Split lifts the vertices on the three best paths like map pins, Check ticks each hop, Sign lands in NVDA. Motion idea, final illustration to be designed. |
+| 03 | Onchain markets | No charts. Two moving rows of stocks and ETFs/gold, then one big "+$X more than Kyber" number beside a minimal head-to-head that races into order. Click any asset to compare it. |
+| 04 | Builders | Feature list on the left drives the code panel on the right: quote, live streaming log, zap legs, partner fee calculator wired into the code. Placeholder logo row. |
+| 05 | Coverage by chain | Three columns by how much of Route runs there: everything (Robinhood Chain), swaps (Arc), screener data (nine more chains). |
 | 06 | Close | Big wordmark, tagline, Launch app, footer. Not in the brief. |
 
 ## Sources
