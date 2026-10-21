@@ -187,13 +187,13 @@
   .floor{fill:#f3f5ee;stroke:#dfe6d6;stroke-width:1.2}
   .gridl{stroke:#e6ebdf;stroke-width:1}
   .bge{fill:none;stroke:#d9dfd1;stroke-width:1.6;stroke-linecap:round;transition:opacity .4s}
-  .pe{fill:none;stroke:#9cc489;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .7s ease,stroke .3s,opacity .35s,stroke-width .35s}
-  .pe.on{stroke-dashoffset:0}
-  .plbl{opacity:0;transition:opacity .35s}
-  .plbl.on{opacity:1}
-  .plbl rect{fill:#fcfcf9;stroke:#cfd9c4}
-  .plbl text{font-size:10.5px;font-weight:600;fill:#4b5a46}
-  .plbl .ck{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
+  .st{fill:none;stroke:#9cc489;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .45s ease,stroke .3s,opacity .35s,stroke-width .35s}
+  .st.on{stroke-dashoffset:0}
+  .cchip{opacity:0;transition:opacity .3s}
+  .cchip.on{opacity:1}
+  .cchip rect{fill:#fcfcf9;stroke:#cfd9c4}
+  .cchip text{font-size:11px;font-weight:600;fill:#4b5a46}
+  .cchip .ck{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
   .vx .ring{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center}
   .vx .stem{fill:#dbe6d0;stroke:#8fa87c;stroke-width:1;transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
   .vx .cap{transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
@@ -202,9 +202,9 @@
   .vx .sym{font-size:9.5px;font-weight:700;fill:#fff}
   .vx .nm{font-size:11px;font-weight:600;fill:var(--muted-foreground);transition:fill .3s}
   .vx{transition:opacity .4s}
-  .vx.key .ring{opacity:.6;animation:ping 1.6s ease-out infinite}
+  .vx.key .ring,.vx.hop .ring{opacity:.6;animation:ping 1.6s ease-out infinite}
   @keyframes ping{0%{opacity:.7;transform:scale(.7)}100%{opacity:0;transform:scale(1.6)}}
-  .vx.key .nm{fill:var(--foreground)}
+  .vx.key .nm,.vx.hop .nm{fill:var(--foreground)}
   .vx.lift .stem{transform:scaleY(1)}
   .vx.lift .cap{transform:translateY(-28px)}
   .parts circle{fill:var(--accent);stroke:#fff;stroke-width:1.5}
@@ -220,14 +220,13 @@
   [data-s="2"] .splittag{opacity:1}
   [data-s="2"] .parts,[data-s="4"] .parts{opacity:1}
   [data-s="2"] .pct,[data-s="3"] .pct,[data-s="4"] .pct{opacity:1}
-  [data-s="2"] .pe:not(.sel),[data-s="3"] .pe:not(.sel),[data-s="4"] .pe:not(.sel){opacity:.16}
-  [data-s="2"] .plbl:not(.sel),[data-s="3"] .plbl:not(.sel),[data-s="4"] .plbl:not(.sel){opacity:0}
-  [data-s="2"] .pe.sel,[data-s="3"] .pe.sel,[data-s="4"] .pe.sel{stroke:var(--accent);stroke-width:var(--w)}
+  [data-s="2"] .st:not(.sel),[data-s="3"] .st:not(.sel),[data-s="4"] .st:not(.sel){opacity:.22}
+  [data-s="2"] .st.sel,[data-s="3"] .st.sel,[data-s="4"] .st.sel{stroke:var(--accent);stroke-width:3}
   [data-s="2"] .bge,[data-s="3"] .bge,[data-s="4"] .bge{opacity:.35}
   [data-s="2"] .vx.bgv,[data-s="3"] .vx.bgv,[data-s="4"] .vx.bgv{opacity:.35}
-  [data-s="3"] .pe.sel{stroke-dasharray:.018 .014;animation:dash2 1.2s linear infinite}
-  @keyframes dash2{to{stroke-dashoffset:-.064}}
-  [data-s="3"] .plbl.sel .ck,[data-s="4"] .plbl.sel .ck{opacity:1;transform:none}
+  [data-s="3"] .st.sel{stroke-dasharray:.02 .014;animation:dash2 1.2s linear infinite}
+  @keyframes dash2{to{stroke-dashoffset:-.068}}
+  [data-s="3"] .cchip .ck,[data-s="4"] .cchip .ck{opacity:1;transform:none}
   [data-s="3"] .simtag{opacity:1}
   [data-s="4"] .sig{opacity:1}
   [data-s="4"] .vx.dest .cap{animation:bob 1.2s ease-in-out infinite}
@@ -486,18 +485,18 @@
 <!-- ================= 02 HOW IT WORKS ================= -->
 <section id="how">
   <div class="wrap">
-    <div class="note"><b>02 How it works</b><span>Per the client: every token is a node, and every pool between two tokens is its own edge (a Uniswap pool, a Metric pool, a Fables pool...). Example swap ETH to PONS. Scan: every ETH/PONS pool draws in with its DEX, plus pools that hop through USDG. Split: only the best 3 of 8 stay lit, with their share, and the nodes on the route rise. Check: those pools ticked and simulated. Sign: one transaction lands in PONS. Background tokens show the wider network. DEX list and split are illustrative.</span></div>
+    <div class="note"><b>02 How it works</b><span>Every token is a node; the pools between two tokens are drawn as one bundle of strands (one strand per pool), so 3 or 30 pools stay tidy. Example ETH to PONS with USDG as the usual hop. Scan: bundles fan open while pools are read and counted, then close. Split: the best 7 of 20 strands light up, 40% direct and 60% through USDG. Check: picked pools ticked and simulated. Sign: one transaction lands in PONS. Pool counts and split are illustrative.</span></div>
     <div class="sec-head rv">
       <div>
         <span class="label"><em>[02]</em>How Route works</span>
         <h2 class="h2">Every pool scanned.<br>The best route, found.</h2>
-        <p class="lede">Every token is a node, and every pool between two tokens is a path. For your swap Route finds all of them, then uses the few that pay the most.</p>
+        <p class="lede">Every token is a node, and every pool between two tokens is a path. Route reads all of them, direct or through USDG, then uses the few that pay the most.</p>
       </div>
     </div>
     <div class="how3 rv d1">
       <div class="hsteps run" id="hsteps">
-        <button type="button" class="hstep on" data-s="1"><i>1</i><b>Scan</b><span>Every token is a node. Route finds every pool between them: Uniswap, Metric, Fables and more.</span><em class="bar"></em></button>
-        <button type="button" class="hstep" data-s="2"><i>2</i><b>Split</b><span>It keeps the few pools that pay the most and splits your trade across them.</span><em class="bar"></em></button>
+        <button type="button" class="hstep on" data-s="1"><i>1</i><b>Scan</b><span>Every token is a node. Route reads every pool between them, on every DEX.</span><em class="bar"></em></button>
+        <button type="button" class="hstep" data-s="2"><i>2</i><b>Split</b><span>It picks the best few pools, direct or through USDG, and splits your trade across them.</span><em class="bar"></em></button>
         <button type="button" class="hstep" data-s="3"><i>3</i><b>Check</b><span>Every pool and hop is simulated before you see a quote.</span><em class="bar"></em></button>
         <button type="button" class="hstep" data-s="4"><i>4</i><b>Sign</b><span>All of it lands in one transaction. One signature.</span><em class="bar"></em></button>
         <p class="hproof">Route v2 beat Kyber in <b>81 of 92</b> trades, <b>+5.6 bps</b> median. <a class="lnk" href="#">Case study<svg class="i"><use href="#out"/></svg></a></p>
@@ -747,7 +746,7 @@
     hero.scrollIntoView({behavior:'smooth'});setTimeout(quote,450);
   };
 
-  /* ================= 02 how it works: tokens are nodes, pools are the edges between them (motion idea) ================= */
+  /* ================= 02 how it works: tokens are nodes, pools are bundled strands between them (motion idea) ================= */
   var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
   function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)if(attrs[k]!=null)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
   function txt(parent,attrs,s){var t=el('text',attrs,parent);t.textContent=s;return t}
@@ -759,38 +758,39 @@
   el('polygon',{class:'floor',points:pts([P(-FS,-FS),P(FS,-FS),P(FS,FS),P(-FS,FS)])},fl);
   for(var k=-FS+40;k<FS;k+=40){var a1=P(k,-FS),a2=P(k,FS),b1=P(-FS,k),b2=P(FS,k);
     el('line',{class:'gridl',x1:a1[0],y1:a1[1],x2:a2[0],y2:a2[1]},fl);el('line',{class:'gridl',x1:b1[0],y1:b1[1],x2:b2[0],y2:b2[1]},fl)}
-  // every token is a node (screen offsets from centre). ETH -> PONS is the example swap.
-  var V={ETH:[-260,20,'#627eea','ETH','key'],PONS:[260,20,'#d0873a','PONS','key dest'],USDG:[0,165,'#2f9e5a','USDG','hop'],
+  // tokens are nodes; USDG is the usual hop
+  var V={ETH:[-270,25,'#627eea','ETH','key'],PONS:[270,25,'#d0873a','PONS','key dest'],USDG:[0,165,'#2f9e5a','USDG','hop'],
     SPY:[-120,-150,'#2b4c9b','SPY','bgv'],NVDA:[90,-165,'#76b900','NVDA','bgv'],ROUTE:[230,-95,'#252620','r','bgv'],cbBTC:[-215,-75,'#f7931a','BTC','bgv']};
   function at(id){return [CX+V[id][0],CY+V[id][1]]}
-  // other tokens' pools, faint, to show the network around the swap
   [['ETH','SPY'],['SPY','NVDA'],['NVDA','ROUTE'],['ROUTE','PONS'],['ETH','cbBTC'],['cbBTC','SPY'],['SPY','ROUTE']].forEach(function(e){
     var a=at(e[0]),b=at(e[1]);el('line',{class:'bge',x1:a[0],y1:a[1],x2:b[0],y2:b[1]},$('#gEdges'))});
-  // the pools that matter for ETH <> PONS: parallel edges, one per pool
-  var POOLS=[['ETH','PONS','Uniswap v4',-130],['ETH','PONS','Metric',-72],['ETH','PONS','Fables',-16],['ETH','PONS','Uniswap v3',42],
-    ['ETH','USDG','Uniswap v4',-24],['ETH','USDG','Metric',24],['USDG','PONS','Fables',-24],['USDG','PONS','Uniswap v4',24]];
-  var BEST=[[45,[0]],[30,[1]],[25,[5,6]]]; // share, pool indices (the last one hops through USDG)
-  var sel={};BEST.forEach(function(b){b[1].forEach(function(i){sel[i]=b[0]})});
-  function curve(p){var a=at(p[0]),b=at(p[1]),dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L,mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;
-    return {a:a,b:b,c:[mx+nx*2*p[3],my+ny*2*p[3]],m:[mx+nx*p[3],my+ny*p[3]]}}
-  var C=POOLS.map(curve);
-  POOLS.forEach(function(p,i){var c=C[i];
-    el('path',{class:'pe'+(sel[i]?' sel':''),'data-i':i,pathLength:1,d:'M'+c.a.join(' ')+'Q'+c.c.join(' ')+' '+c.b.join(' '),style:sel[i]?'--w:'+(2.5+sel[i]/8).toFixed(1)+'px':null},$('#gRoutes'))});
-  // dex labels on each pool + share pill on the picked ones
-  POOLS.forEach(function(p,i){var c=C[i],w=p[2].length*6.3+20,g=el('g',{class:'plbl'+(sel[i]?' sel':''),'data-i':i},$('#gTags'));
-    el('rect',{x:c.m[0]-w/2,y:c.m[1]-10,width:w,height:20,rx:10},g);txt(g,{x:c.m[0],y:c.m[1]+3.8,'text-anchor':'middle'},p[2]);
-    var ck=el('g',{class:'ck'},g);el('circle',{cx:c.m[0]-w/2,cy:c.m[1],r:7.5,fill:'#567b51',stroke:'#fff','stroke-width':1.5},ck);
-    el('path',{d:'M'+(c.m[0]-w/2-3.5)+' '+c.m[1]+'l2.5 2.5 4.5-5',stroke:'#fff','stroke-width':1.8,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},ck);
+  // corridors: every pool between two tokens is one strand in the bundle
+  var FAN=14,TIGHT=5.5,DEXS=['Uniswap v4','Metric','Fables','Uniswap v3'];
+  var CORR=[{a:'ETH',b:'PONS',n:6,base:-55,side:-1,pick:[1,4]},{a:'ETH',b:'USDG',n:9,base:0,side:1,pick:[2,5,7]},{a:'USDG',b:'PONS',n:5,base:0,side:1,pick:[1,3]}];
+  CORR.forEach(function(c,ci){
+    var a=at(c.a),b=at(c.b),dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy);
+    c.A=a;c.B=b;c.nx=-dy/L;c.ny=dx/L;c.mx=(a[0]+b[0])/2;c.my=(a[1]+b[1])/2;c.gap=FAN;c.strands=[];c.count=0;
+    for(var i=0;i<c.n;i++){var picked=c.pick.indexOf(i)>-1;
+      c.strands.push(el('path',{class:'st'+(picked?' sel':''),id:'st'+ci+'_'+i,pathLength:1},$('#gRoutes')))}
+    var g=el('g',{class:'cchip'},$('#gTags'));c.chipR=el('rect',{height:22,rx:11},g);c.chipT=txt(g,{'text-anchor':'middle'},'');
+    var ck=el('g',{class:'ck'},g);c.ckC=el('circle',{r:7.5,fill:'#567b51',stroke:'#fff','stroke-width':1.5},ck);c.ckP=el('path',{stroke:'#fff','stroke-width':1.8,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},ck);c.chip=g;
   });
-  BEST.forEach(function(b){var c=C[b[1][0]],w=POOLS[b[1][0]][2].length*6.3+20,g=el('g',{class:'pct'},$('#gTags')),x=c.m[0]+w/2+6;
-    el('rect',{x:x,y:c.m[1]-10,width:38,height:20,rx:10},g);txt(g,{x:x+19,y:c.m[1]+4,'text-anchor':'middle'},b[0]+'%')});
-  // flowing dots along each picked route (the USDG hop is one continuous path)
-  BEST.forEach(function(b,k){
-    var d='M'+C[b[1][0]].a.join(' ');b[1].forEach(function(i){d+='Q'+C[i].c.join(' ')+' '+C[i].b.join(' ')});
-    el('path',{id:'fl'+k,d:d,fill:'none',stroke:'none'},$('#gRoutes'));
-    var n=Math.max(2,Math.round(b[0]/10));
-    for(var i=0;i<n;i++){var c=el('circle',{r:4.5},$('#gParts')),am=el('animateMotion',{dur:(2.4+b[1].length*.5)+'s',repeatCount:'indefinite',begin:(-(i/n)*2.4).toFixed(2)+'s'},c),mp=el('mpath',{href:'#fl'+k},am);mp.setAttributeNS(XL,'xlink:href','#fl'+k)}
-  });
+  function chipText(c,s){c.chipT.textContent=s;c.cw=s.length*6.4+22;c.chipR.setAttribute('width',c.cw)}
+  function layout(c){
+    for(var i=0;i<c.n;i++){var off=c.base+(i-(c.n-1)/2)*c.gap,cx=c.mx+c.nx*2*off,cy=c.my+c.ny*2*off;
+      c.strands[i].setAttribute('d','M'+c.A[0]+' '+c.A[1]+'Q'+cx.toFixed(1)+' '+cy.toFixed(1)+' '+c.B[0]+' '+c.B[1])}
+    var co=c.base+c.side*((c.n-1)/2*c.gap+18),px=c.mx+c.nx*co,py=c.my+c.ny*co,w=c.cw||60;
+    c.chipR.setAttribute('x',px-w/2);c.chipR.setAttribute('y',py-11);c.chipT.setAttribute('x',px);c.chipT.setAttribute('y',py+4);
+    c.ckC.setAttribute('cx',px-w/2);c.ckC.setAttribute('cy',py);c.ckP.setAttribute('d','M'+(px-w/2-3.5)+' '+py+'l2.5 2.5 4.5-5');c.cx=px;c.cy=py;
+  }
+  function tweenGap(to,ms){var from=CORR.map(function(c){return c.gap}),t0=performance.now();
+    (function st(t){var q=ms?Math.min(1,(t-t0)/ms):1,e=1-Math.pow(1-q,3);CORR.forEach(function(c,i){c.gap=from[i]+(to-from[i])*e;layout(c)});if(q<1)requestAnimationFrame(st)})(t0)}
+  CORR.forEach(function(c){chipText(c,c.n+' pools');layout(c)});
+  // flowing dots along the picked strands
+  CORR.forEach(function(c,ci){c.pick.forEach(function(i){for(var j=0;j<2;j++){var cc=el('circle',{r:4},$('#gParts')),am=el('animateMotion',{dur:'2.4s',repeatCount:'indefinite',begin:(-j*1.2-i*.3).toFixed(2)+'s'},cc),mp=el('mpath',{href:'#st'+ci+'_'+i},am);mp.setAttributeNS(XL,'xlink:href','#st'+ci+'_'+i)}})});
+  // share pills: direct vs through USDG
+  function pill(x,y,s){var g=el('g',{class:'pct'},$('#gTags')),w=s.length*6.6+18;el('rect',{x:x-w/2,y:y-11,width:w,height:22,rx:11},g);txt(g,{x:x,y:y+4,'text-anchor':'middle'},s);return g}
+  var us=at('USDG');pill(us[0],us[1]+58,'60% through USDG');
   // nodes, back to front: pin stem + disc cap, name on the floor
   var RX=26.9,RY=15.6,H=8,LIFT=28;
   Object.keys(V).sort(function(a,b){return V[a][1]-V[b][1]}).forEach(function(id){
@@ -803,29 +803,37 @@
     txt(cap,{class:'sym',x:p[0],y:top+3.5,'text-anchor':'middle'},v[3]);
     txt(g,{class:'nm',x:p[0],y:p[1]+RY+16,'text-anchor':'middle'},id);
   });
-  // tags: the swap, then what each step is doing
+  // tags
   var sw0=el('g',{class:'swaptag'},$('#gTags'));el('rect',{x:24,y:22,width:196,height:30,rx:15},sw0);txt(sw0,{x:40,y:41},'Swap: $10,000 ETH → PONS');
-  var t1=el('g',{class:'scantag'},$('#gTags'));var scanTxt=txt(t1,{class:'tagtext',x:26,y:76},'Finding every ETH ↔ PONS pool');var scanSub=txt(t1,{class:'tagsub',x:26,y:94},'0 pools · 4 DEXs');
-  var t2=el('g',{class:'splittag'},$('#gTags'));txt(t2,{class:'tagtext',x:26,y:76},'Best 3 of 8 pools');txt(t2,{class:'tagsub',x:26,y:94},'2 direct, 1 through USDG');
+  var t1=el('g',{class:'scantag'},$('#gTags'));var scanTxt=txt(t1,{class:'tagtext',x:26,y:76},'Reading every pool');var scanSub=txt(t1,{class:'tagsub',x:26,y:94},'');
+  var t2=el('g',{class:'splittag'},$('#gTags'));txt(t2,{class:'tagtext',x:26,y:76},'Best 7 of 20 pools');txt(t2,{class:'tagsub',x:26,y:94},'40% direct · 60% through USDG');
   var t3=el('g',{class:'simtag'},$('#gTags'));txt(t3,{class:'tagtext',x:26,y:76},'✓ Every pool simulated');txt(t3,{class:'tagsub',x:26,y:94},'before the quote reaches you');
   var pn=at('PONS'),t4=el('g',{class:'sig'},$('#gTags'));el('rect',{x:pn[0]-58,y:pn[1]-104,width:116,height:28,rx:14,fill:'#272b21'},t4);
   txt(t4,{x:pn[0],y:pn[1]-85,'text-anchor':'middle','font-size':12.5,'font-weight':500,fill:'#f7f7f2'},'✓ 1 signature');
+  var directPill=pill(0,0,'40%');
   // steps drive the scene
-  var scene=$('#scene'),hs=$('#hsteps'),hsteps=$$('.hstep'),HS={cur:1,t:null,inView:false,tm:[]};
+  var scene=$('#scene'),hs=$('#hsteps'),hsteps=$$('.hstep'),HS={cur:1,t:null,inView:false,tm:[],tick:null};
   function later(f,ms){HS.tm.push(setTimeout(f,ms))}
+  function placeDirectPill(){var c=CORR[0],w=c.cw||60;$('rect',directPill).setAttribute('x',c.cx+w/2+6);$('rect',directPill).setAttribute('y',c.cy-11);$('text',directPill).setAttribute('x',c.cx+w/2+6+18);$('text',directPill).setAttribute('y',c.cy+4);$('rect',directPill).setAttribute('width',36)}
   function show(n){
-    HS.tm.forEach(clearTimeout);HS.tm=[];HS.cur=n;scene.setAttribute('data-s',n);
-    var pes=$$('.pe',scene),lbls=$$('.plbl',scene),lifters=$$('.vx.key,.vx.hop',scene);
+    HS.tm.forEach(clearTimeout);HS.tm=[];clearInterval(HS.tick);HS.cur=n;scene.setAttribute('data-s',n);
+    var lifters=$$('.vx.key,.vx.hop',scene);
     if(n===1){
-      pes.forEach(function(e){e.classList.remove('on')});lbls.forEach(function(l){l.classList.remove('on')});lifters.forEach(function(v){v.classList.remove('lift')});
-      POOLS.forEach(function(p,i){later(function(){pes[i].classList.add('on');lbls[i].classList.add('on');scanSub.textContent=(i+1)+' pool'+(i?'s':'')+' · 4 DEXs'},350+i*300)});
-      scanSub.textContent='0 pools · 4 DEXs';
+      lifters.forEach(function(v){v.classList.remove('lift')});
+      CORR.forEach(function(c){c.count=0;c.strands.forEach(function(s){s.classList.remove('on')});c.chip.classList.add('on');chipText(c,'0 pools')});
+      tweenGap(FAN,250);
+      var order=[];for(var r=0;r<9;r++)CORR.forEach(function(c,ci){if(r<c.n)order.push([ci,r])});
+      order.forEach(function(o,k){later(function(){var c=CORR[o[0]];c.strands[o[1]].classList.add('on');c.count++;chipText(c,c.count+' pool'+(c.count>1?'s':''));layout(c)},300+k*115)});
+      var di=0;scanSub.textContent=DEXS[0]+' · 0 pools';HS.tick=setInterval(function(){di=(di+1)%DEXS.length;var tot=CORR.reduce(function(s,c){return s+c.count},0);scanSub.textContent=DEXS[di]+' · '+tot+' pools'},260);
+      later(function(){clearInterval(HS.tick);scanSub.textContent='20 pools · 4 DEXs';tweenGap(TIGHT,700)},3000);
     }else{
-      pes.forEach(function(e){e.classList.add('on')});lbls.forEach(function(l){l.classList.add('on')});
+      CORR.forEach(function(c){c.strands.forEach(function(s){s.classList.add('on')});c.chip.classList.add('on');chipText(c,c.pick.length+' of '+c.n)});
+      if(CORR[0].gap!==TIGHT)tweenGap(TIGHT,350);else CORR.forEach(layout);
+      placeDirectPill();later(placeDirectPill,420);
       lifters.forEach(function(v,k){if(!v.classList.contains('lift'))later(function(){v.classList.add('lift')},k*120)});
     }
     hsteps.forEach(function(b){b.classList.remove('on');if(+b.dataset.s===n){void b.offsetWidth;b.classList.add('on')}});
-    clearTimeout(HS.t);hs.classList.toggle('run',HS.inView);if(HS.inView)HS.t=setTimeout(function(){show(n%4+1)},n===1?4400:4000);
+    clearTimeout(HS.t);hs.classList.toggle('run',HS.inView);if(HS.inView)HS.t=setTimeout(function(){show(n%4+1)},n===1?4600:4000);
   }
   hsteps.forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.s)})});
   onView($('#stage'),function(v){var was=HS.inView;HS.inView=v;if(v&&!was)show(HS.cur);else if(!v){clearTimeout(HS.t);hs.classList.remove('run')}},{threshold:.3});
