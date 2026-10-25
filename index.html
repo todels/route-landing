@@ -106,7 +106,7 @@
 
   /* ---------- 01 hero ---------- */
   .hero{padding:0;overflow:hidden;border-bottom:1px solid var(--line)}
-  .hero-in{position:relative;height:940px}
+  .hero-in{position:relative;height:1080px}
   .hero-copy{position:relative;z-index:2;text-align:center;padding-top:64px}
   .hero h1{font-size:62px;font-weight:500;letter-spacing:-.045em;line-height:1;margin:18px 0 14px}
   .hero .sub{font-size:17px;color:var(--muted-foreground);max-width:520px;margin:0 auto}
@@ -148,6 +148,37 @@
   .better{color:var(--signal)!important;background:var(--selected);border-radius:999px;padding:2px 8px;font-size:11.5px}
   .opts{border-top:1px dashed var(--line);padding-top:8px;margin-top:2px;color:var(--faint)}
   .opts svg{width:13px;height:13px}
+
+  /* exploded hardware stack under the swap: white illustration, depth only */
+  .rig{position:absolute;left:0;right:0;top:0;height:100%;perspective:1500px;perspective-origin:50% 120px;pointer-events:none;z-index:1}
+  .layer{position:absolute;left:50%;top:var(--y);width:var(--w);height:var(--d);margin-left:calc(var(--w) / -2);transform-style:preserve-3d;transform:rotateX(62deg)}
+  .layer .tf{position:absolute;inset:0;border-radius:30px;background:#fbfbf9;box-shadow:inset 0 0 0 1.5px #e3e4dd,0 0 0 1px rgba(0,0,0,.02)}
+  .layer .fr{position:absolute;left:0;right:0;bottom:0;height:var(--t);transform-origin:50% 100%;transform:rotateX(90deg);background:linear-gradient(180deg,#e2e3dc,#eeefe9);border-radius:0 0 14px 14px;box-shadow:inset 0 0 0 1.5px #dcddd5}
+  .layer .sh{position:absolute;left:4%;right:4%;top:18%;bottom:-6%;border-radius:40px;background:rgba(37,38,32,.10);filter:blur(28px);transform:translateZ(-60px)}
+  .screw{position:absolute;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#dcddd6 70%);box-shadow:inset 0 0 0 1px #cfd0c8}
+  .screw::after{content:"";position:absolute;left:3px;right:3px;top:6px;height:1.5px;background:#c3c4bc;transform:rotate(-30deg)}
+  .socket{position:absolute;left:50%;top:50%;width:62%;height:56%;transform:translate(-50%,-50%);border-radius:22px;background:#f3f4ef;box-shadow:inset 0 2px 6px rgba(0,0,0,.06),inset 0 0 0 1.5px #e3e4dd}
+  .vents{position:absolute;height:44%;width:26px;top:28%;background:repeating-linear-gradient(90deg,#e1e2db 0 3px,transparent 3px 8px);border-radius:4px}
+  .chip{position:absolute;border-radius:8px;background:#f3f4ef;box-shadow:0 0 0 1.5px #e1e2db,0 3px 0 #e1e2db}
+  .pins{position:absolute;background-image:radial-gradient(#d6d7cf 1.6px,transparent 2px);background-size:12px 12px}
+  .gridtop{position:absolute;inset:24px;border-radius:20px;background-image:linear-gradient(#ecede7 1px,transparent 1px),linear-gradient(90deg,#ecede7 1px,transparent 1px);background-size:40px 40px;opacity:.9}
+  .fr .port{position:absolute;top:28%;width:30px;height:44%;border-radius:5px;background:#3a3c34;box-shadow:inset 0 0 0 2px #55574d}
+  .fr .slits{position:absolute;top:30%;height:40%;width:90px;background:repeating-linear-gradient(90deg,#cfd0c8 0 3px,transparent 3px 8px)}
+  .led{position:absolute;width:9px;height:9px;border-radius:50%;background:#e3e4dd;box-shadow:inset 0 0 0 1px #d2d3cb}
+  .led.on{background:#c6f432;box-shadow:0 0 8px rgba(198,244,50,.9)}
+  .hero-in:has(.swap.loading) .led{animation:ledscan .5s steps(1) infinite;animation-delay:var(--ld,0s)}
+  .hero-in:has(.swap.has:not(.loading)) .led.pick{background:#c6f432;box-shadow:0 0 8px rgba(198,244,50,.9)}
+  @keyframes ledscan{0%{background:#c6f432;box-shadow:0 0 8px rgba(198,244,50,.9)}50%{background:#e3e4dd;box-shadow:none}}
+  .wires{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
+  .wires .cab{fill:none;stroke:#2f3129;stroke-width:3;stroke-linecap:round}
+  .wires .cab.y{stroke:#d4a92a}
+  .wires .guide{stroke:#cfd0c8;stroke-width:1.2;stroke-dasharray:4 6}
+  .wires .pulse{fill:none;stroke:#c6f432;stroke-width:3;stroke-linecap:round;stroke-dasharray:14 400;opacity:0}
+  .hero-in:has(.swap.loading) .wires .pulse{opacity:1;animation:pulse 0.9s linear infinite}
+  @keyframes pulse{from{stroke-dashoffset:420}to{stroke-dashoffset:0}}
+  .hstats{margin-top:14px;font-size:13px;color:var(--muted-foreground);display:flex;justify-content:center;align-items:center;gap:10px}
+  .hstats b{color:var(--foreground);font-weight:600}
+  .hstats i{width:3px;height:3px;border-radius:50%;background:var(--wire)}
   .stats{position:absolute;z-index:2;left:0;right:0;bottom:44px;display:flex;justify-content:center;gap:56px}
   .stat{text-align:center}
   .stat b{display:block;font-size:26px;font-weight:500;letter-spacing:-.02em}
@@ -440,14 +471,41 @@
 
 <!-- ================= 01 HERO ================= -->
 <section class="hero" id="hero">
-  <div class="hero-note"><div class="note"><b>01 Hero</b><span>Rest state is three things: an amount, two tokens, one button. Type an amount and the dollar values, a short "checking pools" beat, then rate, route and the Kyber edge slide in. Limit, multi-swap and slippage sit behind the gear. Default pair is a stock (ETH → NVDA) to tee up section 03.</span></div></div>
+  <div class="hero-note"><div class="note"><b>01 Hero</b><span>The swap UI sits on top of a white isometric illustration: an exploded view of the Route machine under it (socket board, logic board, base plate with ports and two cables). Depth only, no colour, so the UI stays the focus. Type an amount and the LEDs scan and the cables pulse while pools are checked, then the picked LEDs stay lit. Illustration is a placeholder for the designer.</span></div></div>
   <div class="hero-in">
 
     <div class="hero-copy wrap">
       <span class="eyebrow"><span class="dot"></span>Live on Robinhood Chain and Arc</span>
       <h1>Make the most of every move.</h1>
       <p class="sub">Route checks every pool for the best price, then hands you one transaction to sign.</p>
+      <p class="hstats num"><b>$43.45M</b> volume <i></i> <b>75,262</b> swaps <i></i> beat Kyber in <b>81 of 92</b> trades</p>
     </div>
+
+    <!-- exploded hardware stack: plain white illustration, the swap UI sits on top -->
+    <div class="rig" id="rig" aria-hidden="true">
+      <div class="layer" id="baseL" style="--w:860px;--d:470px;--y:600px;--t:36px">
+        <span class="sh"></span><span class="tf"><span class="gridtop"></span></span>
+        <span class="fr"><span class="slits" style="left:60px"></span><span class="slits" style="right:60px"></span></span>
+      </div>
+      <div class="layer" id="midL" style="--w:700px;--d:420px;--y:520px;--t:28px">
+        <span class="sh"></span><span class="tf">
+          <span class="chip" style="left:60px;top:70px;width:90px;height:70px"></span><span class="chip" style="right:60px;top:70px;width:90px;height:70px"></span>
+          <span class="pins" style="left:180px;right:180px;top:60px;height:60px"></span>
+          <span class="vents" style="left:40px"></span><span class="vents" style="right:40px"></span><span class="led" style="left:72px;bottom:44px;--ld:0.00s"></span><span class="led pick" style="left:90px;bottom:44px;--ld:0.08s"></span><span class="led" style="left:108px;bottom:44px;--ld:0.16s"></span><span class="led pick" style="left:126px;bottom:44px;--ld:0.24s"></span><span class="led" style="left:144px;bottom:44px;--ld:0.32s"></span><span class="led pick" style="left:162px;bottom:44px;--ld:0.40s"></span>
+          <span class="screw" style="left:22px;top:22px"></span><span class="screw" style="right:22px;top:22px"></span><span class="screw" style="left:22px;bottom:22px"></span><span class="screw" style="right:22px;bottom:22px"></span>
+        </span>
+        <span class="fr"><span class="slits" style="left:40px;width:120px"></span><span class="slits" style="right:40px;width:120px"></span></span>
+      </div>
+      <div class="layer" style="--w:580px;--d:380px;--y:410px;--t:20px">
+        <span class="sh"></span><span class="tf">
+          <span class="socket"></span>
+          <span class="screw" style="left:20px;top:20px"></span><span class="screw" style="right:20px;top:20px"></span><span class="screw" style="left:20px;bottom:20px"></span><span class="screw" style="right:20px;bottom:20px"></span>
+          
+        </span>
+        <span class="fr"></span>
+      </div>
+    </div>
+    <svg class="wires" id="wires" aria-hidden="true"></svg>
 
     <div class="swap" id="swap">
       <span class="ph-tag" style="left:-176px;top:34px">try typing an amount</span>
@@ -474,11 +532,6 @@
       <button class="cta-big off" id="cta" type="button" disabled>Enter an amount</button>
     </div>
 
-    <div class="stats wrap">
-      <div class="stat"><b class="num">$43.45M</b><span>total volume</span></div>
-      <div class="stat"><b class="num">75,262</b><span>swaps</span></div>
-      <div class="stat"><b class="num">81 / 92</b><span>trades beat Kyber</span></div>
-    </div>
   </div>
 </section>
 
@@ -740,6 +793,21 @@
     var raw=payIn.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1');if(raw!==payIn.value)payIn.value=raw;quote();
   });
   renderToks();
+
+  // hero rig: exploded-view guides from the card down through the stack, cables out of the base
+  function drawWires(){
+    var svg=$('#wires'),hi=$('.hero-in'),H=hi.getBoundingClientRect(),sw=$('#swap').getBoundingClientRect(),base=$('#midL .tf').getBoundingClientRect(),W=H.width;
+    var x1=sw.left-H.left+26,x2=sw.right-H.left-26,y0=sw.bottom-H.top-14,by=base.bottom-H.top+12,bl=base.left-H.left,bw=base.width;
+    var lx=bl+bw*.3,rx=bl+bw*.7,ly=by;
+    var cl='M'+lx+' '+(ly+8)+'C'+(lx-20)+' '+(ly+60)+' '+(lx-300)+' '+(ly+10)+' -40 '+(ly-40);
+    var cr='M'+rx+' '+(ly+8)+'C'+(rx+20)+' '+(ly+60)+' '+(rx+300)+' '+(ly+10)+' '+(W+40)+' '+(ly-30);
+    svg.innerHTML='<line class="guide" x1="'+x1+'" y1="'+y0+'" x2="'+x1+'" y2="'+(by-30)+'"/><line class="guide" x1="'+x2+'" y1="'+y0+'" x2="'+x2+'" y2="'+(by-30)+'"/>'+
+      '<path class="cab" d="'+cl+'"/><path class="cab y" d="'+cr+'"/><path class="pulse" d="'+cl+'"/><path class="pulse" d="'+cr+'" style="animation-delay:-.45s"/>'+
+      '<rect x="'+(lx-16)+'" y="'+(ly-4)+'" width="32" height="14" rx="4" fill="#3a3c34"/><rect x="'+(rx-16)+'" y="'+(ly-4)+'" width="32" height="14" rx="4" fill="#3a3c34"/>';
+  }
+  addEventListener('resize',drawWires);addEventListener('load',drawWires);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawWires);
+  drawWires();
   // "Buy" in the markets section loads that token here
   window.loadHero=function(sym){
     S.get=sym;S.pay=sym==='USDG'?'ETH':'USDG';renderToks();payIn.value='500';
