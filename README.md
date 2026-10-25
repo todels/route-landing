@@ -10,7 +10,7 @@ The button at the bottom right toggles the wireframe notes on and off. Animation
 
 | # | Section | What's in it |
 |---|---------|--------------|
-| 01 | Hero | Swap card sits on top of a white isometric illustration: an exploded view of the Route machine under it (socket board, logic board with LEDs, base plate, two cables). Typing an amount scans the LEDs and pulses the cables while the quote loads. Stats moved to one line under the subhead. |
+| 01 | Hero | Swap card stands on a small white hardware stack (socket plate, logic board with LEDs, base plate with two cables, joined by standoffs). The stack follows the card when it grows. Typing an amount scans the LEDs and pulses the cables. Stats sit in one line under the subhead. |
 | 02 | How Route works | Four steps beside an isometric graph: tokens are nodes, the pools between two tokens are one bundle of strands (a strand per pool), with USDG as the usual hop. ETH to PONS: Scan fans the bundles open and counts 20 pools, Split lights the best 7 (40% direct, 60% through USDG), Check ticks them, Sign lands in PONS. Motion idea, final illustration to be designed. |
 | 03 | Onchain markets | No charts. Two moving rows of stocks and ETFs/gold, then one big "+$X more than Kyber" number beside a minimal head-to-head that races into order. Click any asset to compare it. |
 | 04 | Builders | Feature list on the left drives the code panel on the right: quote, live streaming log, zap legs, partner fee calculator wired into the code. Placeholder logo row. |
