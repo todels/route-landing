@@ -106,7 +106,7 @@
 
   /* ---------- 01 hero ---------- */
   .hero{padding:0;overflow:hidden;border-bottom:1px solid var(--line)}
-  .hero-in{position:relative;height:1020px}
+  .hero-in{position:relative;height:940px}
   .hero-copy{position:relative;z-index:2;text-align:center;padding-top:64px}
   .hero h1{font-size:62px;font-weight:500;letter-spacing:-.045em;line-height:1;margin:18px 0 14px}
   .hero .sub{font-size:17px;color:var(--muted-foreground);max-width:520px;margin:0 auto}
@@ -148,38 +148,6 @@
   .better{color:var(--signal)!important;background:var(--selected);border-radius:999px;padding:2px 8px;font-size:11.5px}
   .opts{border-top:1px dashed var(--line);padding-top:8px;margin-top:2px;color:var(--faint)}
   .opts svg{width:13px;height:13px}
-
-  /* exploded hardware stack under the swap: white illustration, depth only */
-  .rig{position:absolute;left:0;right:0;top:0;height:100%;perspective:1500px;perspective-origin:50% 120px;pointer-events:none;z-index:1}
-  .layer{position:absolute;left:50%;top:var(--y);width:var(--w);height:var(--d);margin-left:calc(var(--w) / -2);transform-style:preserve-3d;transform:rotateX(62deg)}
-  .layer .tf{position:absolute;inset:0;border-radius:30px;background:#fbfbf9;box-shadow:inset 0 0 0 1.5px #e3e4dd,0 0 0 1px rgba(0,0,0,.02)}
-  .layer .fr{position:absolute;left:0;right:0;bottom:0;height:var(--t);transform-origin:50% 100%;transform:rotateX(90deg);background:linear-gradient(180deg,#e2e3dc,#eeefe9);border-radius:0 0 14px 14px;box-shadow:inset 0 0 0 1.5px #dcddd5}
-  .layer .sh{position:absolute;left:6%;right:6%;top:30%;bottom:-4%;border-radius:40px;background:rgba(37,38,32,.08);filter:blur(22px);transform:translateZ(-40px)}
-  .screw{position:absolute;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#dcddd6 70%);box-shadow:inset 0 0 0 1px #cfd0c8}
-  .screw::after{content:"";position:absolute;left:3px;right:3px;top:6px;height:1.5px;background:#c3c4bc;transform:rotate(-30deg)}
-  .socket{position:absolute;left:50%;top:50%;width:62%;height:56%;transform:translate(-50%,-50%);border-radius:22px;background:#f3f4ef;box-shadow:inset 0 2px 6px rgba(0,0,0,.06),inset 0 0 0 1.5px #e3e4dd}
-  .vents{position:absolute;height:44%;width:26px;top:28%;background:repeating-linear-gradient(90deg,#e1e2db 0 3px,transparent 3px 8px);border-radius:4px}
-  .chip{position:absolute;border-radius:8px;background:#f3f4ef;box-shadow:0 0 0 1.5px #e1e2db,0 3px 0 #e1e2db}
-  .pins{position:absolute;background-image:radial-gradient(#d6d7cf 1.6px,transparent 2px);background-size:12px 12px}
-  .gridtop{position:absolute;inset:24px;border-radius:20px;background-image:linear-gradient(#ecede7 1px,transparent 1px),linear-gradient(90deg,#ecede7 1px,transparent 1px);background-size:40px 40px;opacity:.9}
-  .fr .port{position:absolute;top:28%;width:30px;height:44%;border-radius:5px;background:#3a3c34;box-shadow:inset 0 0 0 2px #55574d}
-  .fr .slits{position:absolute;top:30%;height:40%;width:90px;background:repeating-linear-gradient(90deg,#cfd0c8 0 3px,transparent 3px 8px)}
-  .led{position:absolute;width:9px;height:9px;border-radius:50%;background:#e3e4dd;box-shadow:inset 0 0 0 1px #d2d3cb}
-  .led.on{background:#c6f432;box-shadow:0 0 8px rgba(198,244,50,.9)}
-  .hero-in:has(.swap.loading) .led{animation:ledscan .5s steps(1) infinite;animation-delay:var(--ld,0s)}
-  .hero-in:has(.swap.has:not(.loading)) .led.pick{background:#c6f432;box-shadow:0 0 8px rgba(198,244,50,.9)}
-  @keyframes ledscan{0%{background:#c6f432;box-shadow:0 0 8px rgba(198,244,50,.9)}50%{background:#e3e4dd;box-shadow:none}}
-  .wires{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
-  .wires .cab{fill:none;stroke:#2f3129;stroke-width:3;stroke-linecap:round}
-  .wires .cab.y{stroke:#d4a92a}
-  .wires .post{fill:#f1f2ec;stroke:#d6d7cf;stroke-width:1.2}
-  .wires .postcap{fill:#e4e5de}
-  .wires .pulse{fill:none;stroke:#c6f432;stroke-width:3;stroke-linecap:round;stroke-dasharray:14 400;opacity:0}
-  .hero-in:has(.swap.loading) .wires .pulse{opacity:1;animation:pulse 0.9s linear infinite}
-  @keyframes pulse{from{stroke-dashoffset:420}to{stroke-dashoffset:0}}
-  .hstats{margin-top:14px;font-size:13px;color:var(--muted-foreground);display:flex;justify-content:center;align-items:center;gap:10px}
-  .hstats b{color:var(--foreground);font-weight:600}
-  .hstats i{width:3px;height:3px;border-radius:50%;background:var(--wire)}
   .stats{position:absolute;z-index:2;left:0;right:0;bottom:44px;display:flex;justify-content:center;gap:56px}
   .stat{text-align:center}
   .stat b{display:block;font-size:26px;font-weight:500;letter-spacing:-.02em}
@@ -472,40 +440,14 @@
 
 <!-- ================= 01 HERO ================= -->
 <section class="hero" id="hero">
-  <div class="hero-note"><div class="note"><b>01 Hero</b><span>The swap UI stands on a small white hardware stack, like a screen on its base: socket plate, logic board with LEDs, base plate with two cables, joined by standoffs. Depth only, no colour, so the UI stays the focus. The stack follows the card when it grows. Type an amount and the LEDs scan and the cables pulse while pools are checked. Illustration is a placeholder for the designer.</span></div></div>
+  <div class="hero-note"><div class="note"><b>01 Hero</b><span>Rest state is three things: an amount, two tokens, one button. Type an amount and the dollar values, a short "checking pools" beat, then rate, route and the Kyber edge slide in. Limit, multi-swap and slippage sit behind the gear. Default pair is a stock (ETH → NVDA) to tee up section 03.</span></div></div>
   <div class="hero-in">
 
     <div class="hero-copy wrap">
       <span class="eyebrow"><span class="dot"></span>Live on Robinhood Chain and Arc</span>
       <h1>Make the most of every move.</h1>
       <p class="sub">Route checks every pool for the best price, then hands you one transaction to sign.</p>
-      <p class="hstats num"><b>$43.45M</b> volume <i></i> <b>75,262</b> swaps <i></i> beat Kyber in <b>81 of 92</b> trades</p>
     </div>
-
-    <!-- exploded hardware stack: plain white illustration, the swap UI sits on top -->
-    <div class="rig" id="rig" aria-hidden="true">
-      <div class="layer" id="baseL" style="--w:560px;--d:320px;--y:600px;--t:24px">
-        <span class="sh"></span><span class="tf"><span class="gridtop"></span><span class="screw" style="left:18px;bottom:16px"></span><span class="screw" style="right:18px;bottom:16px"></span></span>
-        <span class="fr"><span class="slits" style="left:34px;width:70px"></span><span class="slits" style="right:34px;width:70px"></span></span>
-      </div>
-      <div class="layer" id="midL" style="--w:540px;--d:310px;--y:540px;--t:18px">
-        <span class="sh"></span><span class="tf">
-          <span class="chip" style="left:44px;top:60px;width:80px;height:60px"></span><span class="chip" style="right:44px;top:60px;width:80px;height:60px"></span>
-          <span class="pins" style="left:150px;right:150px;top:50px;height:48px"></span>
-          <span class="led" style="left:40px;bottom:22px;--ld:0.00s"></span><span class="led pick" style="left:56px;bottom:22px;--ld:0.08s"></span><span class="led" style="left:72px;bottom:22px;--ld:0.16s"></span><span class="led pick" style="left:88px;bottom:22px;--ld:0.24s"></span><span class="led" style="left:104px;bottom:22px;--ld:0.32s"></span><span class="led pick" style="left:120px;bottom:22px;--ld:0.40s"></span>
-          <span class="screw" style="right:18px;bottom:16px"></span>
-        </span>
-        <span class="fr"><span class="slits" style="right:30px;width:80px"></span></span>
-      </div>
-      <div class="layer" id="topL" style="--w:520px;--d:300px;--y:480px;--t:14px">
-        <span class="sh"></span><span class="tf">
-          <span class="socket"></span>
-          <span class="screw" style="left:16px;top:16px"></span><span class="screw" style="right:16px;top:16px"></span><span class="screw" style="left:16px;bottom:14px"></span><span class="screw" style="right:16px;bottom:14px"></span>
-        </span>
-        <span class="fr"></span>
-      </div>
-    </div>
-    <svg class="wires" id="wires" aria-hidden="true"></svg>
 
     <div class="swap" id="swap">
       <span class="ph-tag" style="left:-176px;top:34px">try typing an amount</span>
@@ -532,6 +474,11 @@
       <button class="cta-big off" id="cta" type="button" disabled>Enter an amount</button>
     </div>
 
+    <div class="stats wrap">
+      <div class="stat"><b class="num">$43.45M</b><span>total volume</span></div>
+      <div class="stat"><b class="num">75,262</b><span>swaps</span></div>
+      <div class="stat"><b class="num">81 / 92</b><span>trades beat Kyber</span></div>
+    </div>
   </div>
 </section>
 
@@ -793,32 +740,6 @@
     var raw=payIn.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1');if(raw!==payIn.value)payIn.value=raw;quote();
   });
   renderToks();
-
-  // hero rig: exploded-view guides from the card down through the stack, cables out of the base
-  function drawWires(){
-    var hi=$('.hero-in'),H=hi.getBoundingClientRect(),sw=$('#swap').getBoundingClientRect(),cardB=sw.bottom-H.top;
-    var L=[['#topL',cardB+30],['#midL',0],['#baseL',0]],GAP=44,prev=null;
-    function front(id){return $(id+' .tf').getBoundingClientRect().bottom-H.top}
-    L.forEach(function(l){
-      var el=$(l[0]),t=parseFloat(getComputedStyle(el).getPropertyValue('--t')),want=prev?prev.f+prev.t+GAP:l[1];
-      for(var k=0;k<3;k++){var y=parseFloat(el.style.getPropertyValue('--y'));el.style.setProperty('--y',(y+(want-front(l[0])))+'px')}
-      prev={f:front(l[0]),t:t,r:$(l[0]+' .tf').getBoundingClientRect()};l.push(prev);
-    });
-    var svg=$('#wires'),out='',cx=(sw.left+sw.right)/2-H.left;
-    out+='<ellipse cx="'+cx+'" cy="'+(cardB+4)+'" rx="'+(sw.width/2-10)+'" ry="9" fill="rgba(37,38,32,.16)" filter="url(#cshadow)"/>';
-    for(var i=0;i<2;i++){var up=L[i][2],lo=L[i+1][2],y1=up.f+up.t,y2=lo.f-8;
-      [up.r.left-H.left+34,up.r.right-H.left-34].forEach(function(x){out+='<rect class="post" x="'+(x-5)+'" y="'+y1+'" width="10" height="'+(y2-y1)+'" rx="3"/><ellipse class="postcap" cx="'+x+'" cy="'+y2+'" rx="9" ry="3.5"/>'})}
-    var bs=L[2][2],by=bs.f+bs.t*.5,bl=bs.r.left-H.left,bw=bs.r.width,lx=bl+bw*.3,rx=bl+bw*.7,W=H.width;
-    var cl='M'+lx+' '+(by+6)+'C'+(lx-20)+' '+(by+56)+' '+(lx-280)+' '+(by+20)+' -40 '+(by-30);
-    var cr='M'+rx+' '+(by+6)+'C'+(rx+20)+' '+(by+56)+' '+(rx+280)+' '+(by+20)+' '+(W+40)+' '+(by-20);
-    out+='<path class="cab" d="'+cl+'"/><path class="cab y" d="'+cr+'"/><path class="pulse" d="'+cl+'"/><path class="pulse" d="'+cr+'" style="animation-delay:-.45s"/>';
-    out+='<rect x="'+(lx-15)+'" y="'+(by-5)+'" width="30" height="12" rx="4" fill="#3a3c34"/><rect x="'+(rx-15)+'" y="'+(by-5)+'" width="30" height="12" rx="4" fill="#3a3c34"/>';
-    svg.innerHTML='<defs><filter id="cshadow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="6"/></filter></defs>'+out;
-  }
-  if(window.ResizeObserver)new ResizeObserver(function(){drawWires()}).observe($('#swap'));
-  addEventListener('resize',drawWires);addEventListener('load',drawWires);
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawWires);
-  drawWires();
   // "Buy" in the markets section loads that token here
   window.loadHero=function(sym){
     S.get=sym;S.pay=sym==='USDG'?'ETH':'USDG';renderToks();payIn.value='500';
