@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Route swap card: live quotes and private mode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f5f0;--card:#ecece6;--pane:#fbfbf8;--pane2:#f0f0ea;--fg:#1f201b;--muted:#77786f;--faint:#a9aaa1;--line:#deded6;
+    --ink:#22231d;--lime:#c6f432;--accent:#567b51;--signal:#354f32;--sel:#eff4ec;--selline:#b8cfae;--priv:#3b3f8f;--privbg:#eceefa;--privline:#c9cdf0;
+    --font:"Geist",Arial,sans-serif;--mono:"Geist Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 var(--font);-webkit-font-smoothing:antialiased}
+  .num{font-variant-numeric:tabular-nums}
+  svg.i{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .board{max-width:1240px;margin:0 auto;padding:40px 24px 100px}
+  .lbl{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+  h1{font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1.05;margin:14px 0 10px}
+  .lede{color:var(--muted);max-width:640px;margin:0}
+  .explain{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:34px 0 48px}
+  .ex{background:var(--pane);border:1px solid var(--line);border-radius:20px;padding:22px 24px}
+  .ex h3{margin:0 0 4px;font-size:18px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .ex .who{font-size:13px;color:var(--muted);margin-bottom:12px}
+  .ex p{margin:0 0 10px;font-size:14.5px}
+  .ex p:last-child{margin:0}
+  .ex b{font-weight:600}
+  .quote{font-style:italic;color:var(--muted)}
+  .try{display:grid;grid-template-columns:1fr 440px 1fr;gap:28px;align-items:start;margin-bottom:64px}
+  .try .side{font-size:14px;color:var(--muted);padding-top:40px}
+  .try .side b{color:var(--fg);font-weight:600}
+  .try .side ol{padding-left:18px;margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+  h2{font-size:24px;font-weight:500;letter-spacing:-.02em;margin:0 0 6px}
+  .states{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 22px;margin-top:22px}
+  .state .cap{display:flex;gap:10px;align-items:baseline;margin:0 0 10px}
+  .state .cap b{font:600 12px var(--mono);color:var(--accent)}
+  .state .cap span{font-size:14px;font-weight:600}
+  .state .note{font-size:13px;color:var(--muted);margin:10px 4px 0;line-height:1.5}
+  .qs{margin-top:64px;background:var(--pane);border:1px solid var(--line);border-radius:20px;padding:22px 26px}
+  .qs ol{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14.5px}
+
+  /* ---------- the card (follows the designed hero card) ---------- */
+  .card{background:var(--card);border-radius:28px;padding:10px;box-shadow:0 30px 60px -36px rgba(30,32,25,.35),0 0 0 1px #e1e1da;display:flex;flex-direction:column;gap:8px;transition:background .3s,box-shadow .3s}
+  .card.priv{background:#e7e8f3;box-shadow:0 30px 60px -36px rgba(30,32,80,.35),0 0 0 1px var(--privline)}
+  .head{display:flex;align-items:center;gap:6px;padding:4px 4px 2px;flex-wrap:wrap;row-gap:8px}
+  .tabs{display:flex;gap:2px;background:rgba(0,0,0,.04);border-radius:12px;padding:3px}
+  .tabs button{font:500 13px var(--font);border:0;background:none;padding:6px 11px;border-radius:9px;color:var(--muted);cursor:pointer;display:inline-flex;gap:5px;align-items:center}
+  .tabs button.on{background:var(--pane);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  .tabs button svg{width:12px;height:12px}
+  .tg{margin-left:auto;display:flex;gap:6px}
+  .tgl{display:inline-flex;align-items:center;gap:7px;font:500 12.5px var(--font);padding:6px 10px 6px 8px;border-radius:999px;border:1px solid var(--line);background:var(--pane);color:var(--muted);cursor:pointer}
+  .tgl i{width:24px;height:14px;border-radius:999px;background:#d9dad2;position:relative;transition:background .2s}
+  .tgl i::after{content:"";position:absolute;left:2px;top:2px;width:10px;height:10px;border-radius:50%;background:#fff;transition:left .2s}
+  .tgl.on i::after{left:12px}
+  .tgl.live.on{color:var(--signal);border-color:var(--selline);background:var(--sel)}
+  .tgl.live.on i{background:var(--accent)}
+  .tgl.prv.on{color:var(--priv);border-color:var(--privline);background:var(--privbg)}
+  .tgl.prv.on i{background:var(--priv)}
+  .sub{display:flex;align-items:center;justify-content:space-between;padding:0 4px;font-size:12.5px;color:var(--muted)}
+  .seg{display:inline-flex;gap:2px;background:rgba(0,0,0,.04);border-radius:10px;padding:2px}
+  .seg span{padding:4px 10px;border-radius:8px;font-size:12.5px}
+  .seg span.on{background:var(--pane);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  .pane{background:var(--pane);border-radius:22px;padding:16px 18px;box-shadow:0 0 0 1px #e6e6df}
+  .pane.get{background:var(--pane2)}
+  .pane .top{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+  .pane .top .rule{flex:1;height:1px;background:var(--line)}
+  .amt{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 6px}
+  .amt .v{font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1}
+  .amt .v.ph{color:var(--faint)}
+  .tok{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:#fff;border:1px solid #e6e6df;font-weight:600;font-size:14px;white-space:nowrap}
+  .coin{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 10px var(--font);flex:none}
+  .pane .bot{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+  .pane .bot .pb{display:inline-flex;align-items:center;gap:5px;color:var(--priv);font-weight:500}
+  .flip{width:40px;height:40px;border-radius:50%;background:var(--pane);box-shadow:0 0 0 4px var(--card),0 0 0 5px #e1e1da;display:grid;place-items:center;margin:-24px auto;position:relative;z-index:1;color:var(--muted)}
+  .card.priv .flip{box-shadow:0 0 0 4px #e7e8f3,0 0 0 5px var(--privline)}
+  .row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:2px 8px;font-size:13px;color:var(--muted)}
+  .row b{color:var(--fg);font-weight:500}
+  .livepill{display:inline-flex;align-items:center;gap:6px;color:var(--signal);font-weight:500}
+  .livepill i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(86,123,81,.18);animation:blink 1s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.35}}
+  .ring{display:inline-flex;align-items:center;gap:6px}
+  .ring svg{width:14px;height:14px}
+  .recv{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 8px 0;font-size:13px;color:var(--muted)}
+  .recv .seg span.on{color:var(--priv)}
+  .addr{display:flex;align-items:center;gap:8px;margin:8px 0 2px;padding:10px 12px;border-radius:14px;background:#fff;border:1px solid #e6e6df;font:500 13px var(--mono);color:var(--faint)}
+  .addr .paste{margin-left:auto;font:500 12px var(--font);color:var(--muted);padding:3px 9px;border-radius:8px;background:var(--pane2)}
+  .shield{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:16px;background:var(--privbg);border:1px solid var(--privline);color:var(--priv);font-size:12.5px;line-height:1.45}
+  .shield svg{width:16px;height:16px;margin-top:1px}
+  .cta{display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 22px;border-radius:22px;background:var(--ink);color:#f5f5ef;font:500 15.5px var(--font);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 3px 0 #000}
+  .card.priv .cta{background:var(--priv);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 3px 0 #23265c}
+  .cta svg{width:16px;height:16px}
+  .qr{width:120px;height:120px;border-radius:14px;margin:6px auto 4px;background:
+     conic-gradient(from 90deg at 18% 18%,#22231d 0 25%,transparent 0) 0 0/40px 40px,
+     repeating-linear-gradient(90deg,#d6d6ce 0 6px,transparent 6px 12px),repeating-linear-gradient(0deg,#d6d6ce 0 6px,transparent 6px 12px);border:8px solid #fff;box-shadow:0 0 0 1px #e6e6df}
+  .paddr{font:500 14px var(--mono);text-align:center;color:var(--fg);word-break:break-all;padding:4px 10px}
+  .flash{animation:fl .6s ease}
+  @keyframes fl{0%{background:rgba(198,244,50,.45);border-radius:6px}100%{background:transparent}}
+</style>
+</head>
+<body>
+<div class="board">
+  <span class="lbl">Route landing · hero swap card</span>
+  <h1>Live quotes and private mode</h1>
+  <p class="lede">Two things Micah asked for on the hero swap. Both are options on the same card, so the resting card stays as designed: two small switches in its header, everything else only appears when they're turned on.</p>
+
+  <div class="explain">
+    <div class="ex">
+      <h3>1 · Live quotes</h3>
+      <div class="who quote">"no ui changes just one btn ... it'll just change from polling quotes to live-streaming them"</div>
+      <p><b>What it means:</b> today the card asks Route for a fresh price every few seconds (polling), so the number jumps now and then and shows a refresh countdown. With <b>Live</b> on, Route pushes a new price to the card every block, so the number you'd get updates continuously.</p>
+      <p><b>On the card:</b> one switch in the header. When it's on, the refresh countdown is replaced by a "Live" dot, and the "you get" number ticks as prices move. Nothing else changes.</p>
+    </div>
+    <div class="ex">
+      <h3>2 · Private swaps, transfers, shielded addresses</h3>
+      <div class="who quote">"add them as an option for swaps on the landing page since we need to add them for Umbra"</div>
+      <p><b>What it means:</b> <a href="https://v2.umbraprivacy.com/">Umbra</a> is a privacy layer live on Robinhood Chain. You keep a <b>private balance</b>, and swaps or sends made from it hide the amounts and addresses onchain. Route is adding Umbra as an option.</p>
+      <p><b>On the card:</b> a <b>Private</b> switch. Swaps then run through Umbra from your private balance. Two tabs appear next to Swap: <b>Send</b> (a private transfer to someone's private account or to a normal wallet) and <b>Receive</b> (your shielded address: the private address people send to).</p>
+    </div>
+  </div>
+
+  <div class="try">
+    <div class="side">
+      <b>Try it</b>
+      <ol>
+        <li>Flip <b>Live</b>: the "you get" number starts ticking every block.</li>
+        <li>Flip <b>Private</b>: the card turns into the private version and Send / Receive appear.</li>
+        <li>Open <b>Send</b> and <b>Receive</b>.</li>
+      </ol>
+    </div>
+    <div id="live-card"></div>
+    <div class="side">Colours for private mode (indigo) are placeholders to make the state obvious. The designer picks the real treatment; it just has to read as "you're in private mode" at a glance.</div>
+  </div>
+
+  <h2>Every state</h2>
+  <p class="lede">For the designer: the card in each state, left to right, top to bottom.</p>
+  <div class="states" id="states"></div>
+
+  <div class="qs">
+    <h3 style="margin:0;font-size:17px">To confirm with Micah</h3>
+    <ol>
+      <li>Live quotes: on or off by default? Does it work for every pair or only some?</li>
+      <li>Private swaps: does the user need an Umbra private account first (create it, then deposit), or can Route shield on the fly from a normal wallet?</li>
+      <li>Private swaps: does the output land in the private balance by default, with an option to send it to a public wallet (that's how Umbra's own app works)?</li>
+      <li>Which tokens work in private mode, and is there an extra fee to show?</li>
+      <li>Should Send and Receive exist only in private mode (as wireframed), or also for normal transfers?</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+  var IC={
+    shield:'<svg class="i" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.2 3 7.7 7 9 4-1.3 7-4.8 7-9V6Z"/></svg>',
+    out:'<svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>',
+    flip:'<svg class="i" viewBox="0 0 24 24"><path d="M8 4v16m0 0-3-3m3 3 3-3M16 20V4m0 0-3 3m3-3 3 3"/></svg>',
+    chev:'<svg class="i" viewBox="0 0 24 24" style="width:12px;height:12px;opacity:.5"><path d="m6 9 6 6 6-6"/></svg>',
+    ring:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#deded6" stroke-width="2.4"/><circle cx="8" cy="8" r="6.5" fill="none" stroke="#567b51" stroke-width="2.4" stroke-dasharray="41" stroke-dashoffset="14" transform="rotate(-90 8 8)"/></svg>'
+  };
+  function tok(l,bg,name){return '<span class="tok"><span class="coin" style="background:'+bg+'">'+l+'</span>'+name+IC.chev+'</span>'}
+  function card(s){
+    var p=s.priv, tabs='<div class="tabs"><button data-m="swap" class="'+(s.mode==='swap'?'on':'')+'">Swap</button>'+
+      (p?'<button data-m="send" class="'+(s.mode==='send'?'on':'')+'">'+IC.shield+'Send</button><button data-m="receive" class="'+(s.mode==='receive'?'on':'')+'">'+IC.shield+'Receive</button>':'')+'</div>';
+    var head='<div class="head">'+tabs+'<div class="tg"><button class="tgl live'+(s.live?' on':'')+'" data-t="live"><i></i>Live</button><button class="tgl prv'+(p?' on':'')+'" data-t="priv"><i></i>Private</button></div></div>';
+    var body='';
+    if(s.mode==='swap'){
+      body+='<div class="sub"><span class="seg"><span class="on">Market</span><span>Limit</span></span><span>0.5% slippage</span></div>';
+      body+='<div class="pane"><div class="top">you pay<span class="rule"></span></div><div class="amt"><span class="v num">0.2</span>'+tok('E','#627eea','ETH')+'</div>'+
+        '<div class="bot"><span class="num">≈ $497.23</span>'+(p?'<span class="pb">'+IC.shield+(s.setup?'no private balance yet':'private balance · 1.20 ETH')+'</span>':'<span class="num">balance 1.84 ETH</span>')+'</div></div>';
+      body+='<div class="flip">'+IC.flip+'</div>';
+      body+='<div class="pane get"><div class="top">you get<span class="rule"></span></div><div class="amt"><span class="v num" data-live="1">240,000</span>'+tok('r','#22231d','ROUTE')+'</div><div class="bot"><span class="num">≈ $497.23</span><span></span></div></div>';
+      if(p)body+='<div class="recv">Receive at<span class="seg"><span class="'+(s.recip!=='public'?'on':'')+'">Private account</span><span class="'+(s.recip==='public'?'on':'')+'">Public wallet</span></span></div>';
+      body+='<div class="row"><span>1 ETH = 1,200,000 ROUTE</span>'+(s.live?'<span class="livepill"><i></i>Live · every block</span>':'<span class="ring">'+IC.ring+'refreshes in 8s</span>')+'</div>';
+      if(p)body+='<div class="shield">'+IC.shield+'<span>'+(s.setup?'Private swaps run through Umbra. Create your private account once, then deposit to start.':'Runs through Umbra. The amount and both addresses stay hidden onchain.')+'</span></div>';
+      body+='<div class="cta"><span>'+(p?(s.setup?'Create private account':'Swap privately'):'connect wallet')+'</span>'+IC.out+'</div>';
+    } else if(s.mode==='send'){
+      body+='<div class="pane"><div class="top">you send<span class="rule"></span></div><div class="amt"><span class="v num">500</span>'+tok('G','#2f9e5a','USDG')+'</div>'+
+        '<div class="bot"><span class="num">≈ $500.00</span><span class="pb">'+IC.shield+'private balance · 2,480 USDG</span></div></div>';
+      body+='<div class="pane get"><div class="top">to<span class="rule"></span></div><div class="recv" style="padding:10px 0 0"><span class="seg"><span class="'+(s.recip!=='public'?'on':'')+'">Private account</span><span class="'+(s.recip==='public'?'on':'')+'">Public wallet</span></span></div>'+
+        '<div class="addr">'+(s.recip==='public'?'0x… wallet address':'private address')+'<span class="paste">Paste</span></div></div>';
+      body+='<div class="row"><span>Fee</span><b class="num">0.40 USDG</b></div>';
+      body+='<div class="shield">'+IC.shield+'<span>'+(s.recip==='public'?'Arrives in a normal wallet. Nobody can see it came from you.':'Arrives in their private balance. The amount and both sides stay hidden.')+'</span></div>';
+      body+='<div class="cta"><span>Send privately</span>'+IC.out+'</div>';
+    } else {
+      body+='<div class="pane"><div class="top">your private address<span class="rule"></span></div><div class="qr"></div><div class="paddr">7Hq3…eK9m<span style="color:var(--faint)"> · private</span></div></div>';
+      body+='<div class="shield">'+IC.shield+'<span>Share this to get paid privately. Money sent here lands in your private balance and can\'t be linked to your wallet.</span></div>';
+      body+='<div class="cta"><span>Copy address</span>'+IC.out+'</div>';
+    }
+    return '<div class="card'+(p?' priv':'')+'">'+head+body+'</div>';
+  }
+  // interactive card
+  var S={mode:'swap',live:false,priv:false,recip:'private',setup:false},liveT=null,base=240000;
+  var host=document.getElementById('live-card');
+  function draw(){host.innerHTML=card(S);
+    clearInterval(liveT);if(S.live&&S.mode==='swap')liveT=setInterval(function(){var el=host.querySelector('[data-live]');if(!el)return;base+=Math.round((Math.random()-.5)*900);el.textContent=base.toLocaleString('en-US');el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')},700)}
+  host.addEventListener('click',function(e){
+    var t=e.target.closest('[data-t]'),m=e.target.closest('[data-m]'),sg=e.target.closest('.recv .seg span');
+    if(t){S[t.dataset.t]=!S[t.dataset.t];if(!S.priv)S.mode='swap';draw();return}
+    if(m){S.mode=m.dataset.m;draw();return}
+    if(sg){S.recip=sg.textContent.indexOf('Public')>-1?'public':'private';draw()}
+  });
+  draw();
+  // every state, for the designer
+  var ST=[
+    ['01','Resting (as designed)',{mode:'swap',live:false,priv:false},'Two switches in the header: Live and Private. Off by default (to confirm). The refresh countdown shows quotes are polled.'],
+    ['02','Live on',{mode:'swap',live:true,priv:false},'Countdown replaced by "Live · every block". The you-get number ticks as new quotes stream in. That is the whole change.'],
+    ['03','Private on, first time',{mode:'swap',live:false,priv:true,setup:true},'No private account yet: the button becomes "Create private account". One-time step, then deposit (to confirm how Route handles this).'],
+    ['04','Private swap',{mode:'swap',live:false,priv:true,recip:'private'},'Card switches to the private treatment. Pays from the private balance, "Receive at" picks private account or public wallet, button reads "Swap privately".'],
+    ['05','Private send (transfer)',{mode:'send',live:false,priv:true,recip:'private'},'Send tab: amount, then "to" a private account (shielded address) or a public wallet. Paste the address, send privately.'],
+    ['06','Receive (shielded address)',{mode:'receive',live:false,priv:true},'Your private address with a QR and copy button. Anyone can pay you here without linking it to your wallet.']
+  ];
+  document.getElementById('states').innerHTML=ST.map(function(s){return '<div class="state"><div class="cap"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>'+card(s[2])+'<p class="note">'+s[3]+'</p></div>'}).join('');
+</script>
+</body>
+</html>

@@ -17,6 +17,10 @@ The button at the bottom right toggles the wireframe notes on and off. Animation
 | 05 | Coverage by chain | Three columns by how much of Route runs there: everything (Robinhood Chain), swaps (Arc), screener data (nine more chains). |
 | 06 | Close | Big wordmark, tagline, Launch app, footer. Not in the brief. |
 
+## Swap card: live quotes and private mode
+
+`swap-card.html` explains and wireframes two client asks for the hero swap card: a **Live** switch (quotes stream every block instead of polling) and a **Private** switch (swaps through Umbra, plus private Send and Receive with a shielded address). Interactive card plus all six states and open questions.
+
 ## Sources
 
 Stats, case study numbers, API shape and builder fee cap (50 bps) are from docs.route.fun and route.fun/analytics (Oct 2026). Stock prices are samples from route.fun/yield. Streaming quotes and the non-Robinhood chains are flagged in the page as "confirm".
